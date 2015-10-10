@@ -2,11 +2,20 @@ from django.conf.urls 			import include, url
 from django.contrib 			import admin
 
 from tastypie.api 				import Api
-from app_eq_1.api 				import EntryResource
-
+from app_eq_1.api 				import CourseResource
+from app_eq_1.api 				import LessonResource
+from app_eq_1.api 				import ArticleResource
+from app_eq_1.api 				import UserCourseResource
+from app_eq_1.api 				import ActionResource
+from app_eq_1.api 				import EmotionalStateResource
 
 v1_api = Api(api_name='v1')
-v1_api.register(EntryResource())
+v1_api.register(CourseResource())
+v1_api.register(LessonResource())
+v1_api.register(ArticleResource())
+v1_api.register(UserCourseResource())
+v1_api.register(ActionResource())
+v1_api.register(EmotionalStateResource())
 
 urlpatterns = [
     # Examples:

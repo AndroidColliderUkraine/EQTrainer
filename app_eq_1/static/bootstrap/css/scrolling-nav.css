@@ -43,6 +43,29 @@ of those sections to manage the look and feel of the site. */
     -o-filter: saturate(50%);
     -ms-filter: saturate(50%);
 }
+
+.relative {
+    position: relative;
+}
+.intro-background {
+    position: absolute;
+    /*background-image: url('/');*/
+    /*filter;*/
+    top: 0;
+    left:0;
+    /*height: 100%;*/
+    padding-top: 850px;
+    text-align: center;
+    background: #fff;
+    background-image: url("header.jpg");
+    /*background-position: center center;*/
+    /*background-repeat: none;*/
+    -webkit-filter: blur(3px); 
+    -moz-filter: blur(3px); 
+    -o-filter: blur(3px); 
+    -ms-filter: blur(3px);
+}
+
 .intro-section {
     height: 100%;
     padding-top: 150px;
