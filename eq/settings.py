@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'app_eq_1',
     #
     'tastypie',
-    'djsupervisor',
+    # 'djsupervisor',
 )
 
 MIDDLEWARE_CLASSES = (
