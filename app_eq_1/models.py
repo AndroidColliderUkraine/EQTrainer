@@ -8,9 +8,10 @@ class Course(models.Model):
 	name = models.CharField(max_length=500, blank=True, null=True)
 	tags = models.CharField(max_length=500, blank=True, null=True)
 	text = models.TextField(max_length=5000, blank=True, null=True)
-	photo = models.URLField(blank=True, null=True, verbose_name=('Photo'))
+	photo = models.URLField(blank=True, null=True)
 	state = models.CharField(choices=STATE, max_length=20, blank=False, null=True, default='not_active') 
 	price = models.IntegerField(default=0)
+	video = models.URLField(blank=True, null=True)
 	
 	date = models.DateTimeField(auto_now_add=True, auto_now=False)
 	updated = models.DateTimeField(auto_now_add=False, auto_now=True)
