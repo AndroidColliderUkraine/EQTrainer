@@ -52,10 +52,22 @@ def course(request):
 			course = Course.objects.filter(id=course_id).get()
 		except Exception, e:
 			print "e:", e
-	context = {
-		"course": course,
-	}
-	return render(request, "course.html",context)	
+		context = {
+			"course": course,
+		}
+		return render(request, "course.html",context)	
+	else:
+		course_list = None
+		try:
+			course_list = Course.objects.filter(state='active').order_by('-date')[:3]
+		except Exception, e:
+			print "e:", e
+		print "course_list: ", course_list
+
+		context = {
+			"course_list": course_list,
+		}
+		return render(request, "courses.html",context)	
 
 
 def article(request):
@@ -81,4 +93,4 @@ def article(request):
 		context = {
 			"article_list": article_list,
 		}
-		return render(request, "article.html",context)	
+		return render(request, "articles.html",context)	

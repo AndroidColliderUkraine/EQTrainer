@@ -115,3 +115,17 @@ of those sections to manage the look and feel of the site. */
     background: #fff;
 }
 
+.footer {
+    height: 50%;
+    padding-top: 10px;
+    text-align: center;
+    background: #333;
+}
+
+
+.navbar-fixed-top + .content-container {
+    margin-top: 70px;
+}
+.content-container {
+    margin: 0 130px;
+}

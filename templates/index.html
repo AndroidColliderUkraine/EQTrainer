@@ -3,7 +3,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -110,9 +109,9 @@
                 {% for course in course_list %}
                   <div class="col-sm-6 col-md-4">
                     <div class="thumbnail">
-                        <div class="panel-heading">
+                        <!-- <div class="panel-heading">
                             <h4><i class="fa fa-fw fa-gift">vfdcv</i> Free &amp; Open Source</h4>
-                        </div>
+                        </div> -->
                         <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
                             <div class="embed-responsive embed-responsive-16by9">
                                 <iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
@@ -221,35 +220,43 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1>Тренер</h1>
+                    <h1>Тренaжер</h1>
                         <!-- Project One -->
                         <div class="row">
                             <div class="col-md-3">
-                                <a href="#">
-                                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                                </a>
+                                <img class=" myimage img-responsive myimage" src="{% static 'img/phone.png' %}" alt="">
                             </div>
                             <div class="col-md-9">
                                 <h3>Project One</h3>
                                 <h4>Subheading</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-                                <a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
-                            </div>
-                        </div>
-                        <br>
-                        <hr>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <a href="#">
-                                    <img class="img-responsive" src="http://placehold.it/700x400" alt="">
-                                </a>
-                            </div>
-                            <div class="col-md-9">
-                                <h3>Project One</h3>
-                                <h4>Subheading</h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium veniam exercitationem expedita laborum at voluptate. Labore, voluptates totam at aut nemo deserunt rem magni pariatur quos perspiciatis atque eveniet unde.</p>
-                                <a class="btn btn-primary" href="#">View Project <span class="glyphicon glyphicon-chevron-right"></span></a>
+                                <p class="text-justify"> <b>Еліптичний тренажер</b> (альтернативна назва - орбітрек) - спортивний тренажер. Рухи на ньому нагадують ходьбу на лижах. Дає навантаження на ноги, руки і спину, тренує серце. При цьому не дає ударного навантаження на суглоби, що важливо людям з проблемами суглобів та хребта.
+
+                                Основні характеристики: довжина кроку, відстань між педалями, вага маховика, розташування маховика (задній/передній), система навантаження (механічна, магнітна, електромагнітна).
+
+                                Довжина кроку повинна підбиратися залежно від зросту людини.
+
+                                Занадто велика відстань між педалями робить рух незручним і занадто навантажує колінні суглоби.
+
+                                Заднє розташування маховика (як правило, в більш дорогих моделях) дозволяє скоротити відстань між педалями і трохи змінює траєкторію руху педалей.
+
+                                Механічна система навантаження - шумлива і призводить до зносу тренажера, зараз практично не застосовується. Магнітна система навантаження працює за рахунок постійних магнітів. Електромагнітна працює за рахунок електромагнітів і дозволяє найбільш точно регулювати рівень навантаження.
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-9">
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.androidcollider.vysotsky">
+                                            <img class=" myimage img-responsive myimage" src="{% static 'img/google_play.png' %}" alt="">
+                                        </a>
+                                    </div>
+
+
                             </div>
                         </div>
                 </div>
@@ -276,8 +283,50 @@
                     <h1>Детальніше</h1>
                 </div>
             </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- <h3>Project One</h3>
+                    <h4>Subheading</h4> -->
+                    <p class="text-justify"><b>Дэн Дубравин</b> — эксперт в области продаж и эмоционального интеллекта, который с помощью своих тренингов помог увеличить продажи и повысить качество сервиса многим компаниям в Украине.
+                    <br>
+                    Более 7 лет обучает руководителей ведущих компаний различных отраслей бизнеса. Участвует в формировании и обучении «Кадрового резерва». Проводит коучинг и психологическое консультирование. За 14 лет тренерской практики не было ни одного случая, когда бы Клиент остался разочарован проведенным обучением! Дэн не понаслышке знает о первоклассном сервисе и продажах, так как много лет проработал в торговых и сервисных компаниях, а первые продажи совершил еще в школе.
+                    <br>
+                    Автор книги  «Психология эмоций. Чувства под контролем»
+                    </p>
+                    <p class="text-justify"><b>Эмоциональный интеллект (EQ)</b>- это способность осознавать и управлять своими чувствами. А также способность осознавать и управлять чувствами других людей.
+
+                    Швейцарский ученый Жан Пиаже, доказал что интеллект IQ заканчивает свое формирование до 11 лет и всю оставшуюся жизнь остается неизменным.
+
+                    Хорошей новостью есть то, что уровень EQ, является подвижным и его можно развивать всю жизнь. Исследования  американского эксперта  и ученого Даниэла Гоулмана, описанные в книге «Эмоциональный интеллект» показывают, что люди, которые достигли вершин в бизнесе или имеют счастливые браки не обладают высоким уровнем IQ, тем не менее, общими для них всех есть наличие высокого уровня EQ.
+                    </p>
+                    <p class="text-justify"> <b> Школа Эмоционального Интеллекта </b>—  это уникальный обучающий курс, который за короткое время сможет повысить ваш уровень эмоционального интеллекта.
+
+                    Практика показывает, что наибольшего успеха в жизни добиваются те, кто в состоянии в критический момент взять себя в руки и не поддаться гневу, раздражению или унынию.
+                    </p>
+                </div>
+
+                <div class="col-md-4">
+                    <br>
+                    <img src="{% static 'img/denys.png' %}" class="img-circle" alt="Cinque Terre"> 
+                </div>
+            </div>
+
         </div>
     </section>
+
+    <footer class="footer" >
+      <div class="container" style="color:#333">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer>
+
+    <span id="top-link-block" class="hidden">
+        <a href="#top" class="well well-sm"  onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+            <i class="glyphicon glyphicon-chevron-up"></i> Back to Top
+        </a>
+    </span>
 
     <!-- jQuery -->
     <script src="{% static 'js/jquery.js' %}"></script>
@@ -293,6 +342,17 @@
 
     <script src="{% static 'bootstrap/js/scrolling-nav.js' %}"></script>
     <!-- // <script src="js/scrolling-nav.js"></script> -->
+
+    <script type="text/javascript">
+    if ( ($(window).height() + 100) < $(document).height() ) {
+        $('#top-link-block').removeClass('hidden').affix({
+            // how far to scroll down before link "slides" into view
+            offset: {top:100}
+        });
+    }
+    </script>
+
+
 
 </body>
 
