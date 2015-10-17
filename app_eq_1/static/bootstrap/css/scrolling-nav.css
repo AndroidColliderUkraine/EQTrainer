@@ -16,7 +16,7 @@ html {
 
 @media(min-width:767px) {
     .navbar {
-        padding: 20px 0;
+        padding: 0px 0;
         -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
         -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
         transition: background .5s ease-in-out,padding .5s ease-in-out;
@@ -57,7 +57,7 @@ of those sections to manage the look and feel of the site. */
     padding-top: 850px;
     text-align: center;
     background: #fff;
-    background-image: url("header.jpg");
+    background-image: url("header_20.jpg");
     /*background-position: center center;*/
     /*background-repeat: none;*/
     -webkit-filter: blur(3px); 
@@ -71,13 +71,13 @@ of those sections to manage the look and feel of the site. */
     padding-top: 150px;
     text-align: center;
     background: #fff;
-    background-image: url("header.jpg");
+    background-image: url("header_20.jpg");
     background-position: center center;
     background-repeat: none;
-    -webkit-filter: blur(3px); 
+ /*   -webkit-filter: blur(3px); 
     -moz-filter: blur(3px); 
     -o-filter: blur(3px); 
-    -ms-filter: blur(3px);
+    -ms-filter: blur(3px);*/
 }
 
 .course-section {
@@ -128,4 +128,10 @@ of those sections to manage the look and feel of the site. */
 }
 .content-container {
     margin: 0 130px;
+}
+
+.card {
+    background: #eee;
+    padding: 20px;
+    text-align: left;
 }

@@ -86,14 +86,36 @@
     
     <section id="intro" class="intro-section">
         <div class="container">
-            <div class="inner-wrapper">
+            <!-- <div class="inner-wrapper">
                 <h2>Welcome to our website!</h2>
-            </div>
+             --></div>
             <div class="row">
-                <div class="col-lg-12">
-                    <h1>Scrolling Nav</h1>
-                    <p><strong>Usage Instructions:</strong> Make sure to include the <code>scrolling-nav.js</code>, <code>jquery.easing.min.js</code>, and <code>scrolling-nav.css</code> files. To make a link smooth scroll to another section on the page, give the link the <code>.page-scroll</code> class and set the link target to a corresponding ID on the page.</p>
-                    <a class="btn btn-default page-scroll" href="#about">Click Me to Scroll Down!</a>
+                <div class="col-xs-4 col-xs-offset-4">
+                    <div class="card" >
+                        <form method="post" action="/accounts/login/?next=/">
+                            {% csrf_token %}
+                            <div id="div_id_username" class="form-group">
+                                <label for="id_username" class="control-label  requiredField">Пошта</label>
+                                <div class="controls ">
+                                    <input class="textinput textInput form-control" id="id_username" maxlength="254" name="username" type="text" /> 
+                                </div>
+                            </div>
+                            <div id="div_id_password" class="form-group">
+                                <label for="id_password" class="control-label  requiredField">Пароль</label>
+                                <div class="controls ">
+                                    <input class="textinput textInput form-control" id="id_password" name="password" type="password" /> 
+                                </div>
+                            </div>
+
+                <input type="submit" value="Увійти" class="btn-primary btn-sm btn-block" />
+                <input type="hidden" name="next" value="/profile" />
+            </form> 
+                <br>
+                    <center>
+                    <a href="">Реєстрація</a> |
+                    <a href="">Забули пароль</a>
+                    </center>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,7 +143,7 @@
                             <h3>
                             <a href="/course?id={{ course.id }}">{{ course.name }}</a>
                             </h3>
-                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                            <p class="text-justify">{{ course.text|truncatechars:250 }}</p>
                             <!-- <p>
                                 <a href="/course?id={{ course.id }}" class="btn btn-primary" role="button">Детальніше</a> 
                             </p> -->
@@ -131,60 +153,7 @@
                 {% endfor %}
                 </div>
                 <a class="btn btn-md btn-primary" href="/course">До всіх курсів<span class="glyphicon glyphicon-chevron-right"></span></a>
-              </div>
-
-
-
-            <!-- <div class="row">
-                <h1 class="page-header">Курси</h1>
-                <br>
-                <br>
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4><i class="fa fa-fw fa-check"></i> Bootstrap v3.2.0</h4>
-                        </div>
-                        <div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                            <a href="#" class="btn btn-default">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4><i class="fa fa-fw fa-gift"></i> Free &amp; Open Source</h4>
-                        </div>
-                        <div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                            <a href="#" class="btn btn-default">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4><i class="fa fa-fw fa-compass"></i> Easy to Use</h4>
-                        </div>
-                        <div class="panel-body">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                            <a href="#" class="btn btn-default">Learn More</a>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <a class="btn btn-lg btn-primary" href="#">До всіх курсів<span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div> -->
+              </div>           
         </div>
     </section>
 
@@ -205,7 +174,7 @@
                             <h3>
                                 <a href="/article?id={{ article.id }}">{{ article.name }}</a>
                             </h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+                            <p class="text-justify">{{ article.text|truncatechars:250 }}</p>
                         </div>
                     {% endfor %}
                     </div>

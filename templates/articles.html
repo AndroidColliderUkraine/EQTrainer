@@ -28,7 +28,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">EQ - тренер</a>
+                <a class="navbar-brand page-scroll" href="../#page-top">EQ - тренер</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -68,9 +68,9 @@
                 </a>
             </div>
             <div class="col-xs-8">
-                <h3>{{ article.name }}</h3>
-                <h4>Subheading</h4>
-                <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, odit velit cumque vero doloremque repellendus distinctio maiores rem expedita a nam vitae modi quidem similique ducimus! Velit, esse totam tempore.</p>
+                <a href="article/?id={{ article.id }}"><h3>{{ article.name }}</h3></a>
+                <h4>{{ article.tags }}</h4>
+                <p class="text-justify">{{ article.text|truncatechars:800 }}</p>
                 <a class="btn btn-primary" href="article/?id={{ article.id }}">Детальніше <span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>

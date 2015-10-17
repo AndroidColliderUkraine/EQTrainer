@@ -1,3 +1,94 @@
-<h1>{{ article.name }}</h1>
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
 
-<p>{{ article.text }}</p>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EQ - тренер</title>
+
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/scrolling-nav.css' %}" rel="stylesheet">
+
+</head>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-inverse navbar-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="../#page-top">EQ - тренер</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="../#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="../#course">Курси</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="../#article">Статті</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="../#trener">Тренажер</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="../#helper">Допомога</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="../#detailer">Детальніше</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container" style="padding-top: 0px">
+    	<h1>{{ article.name }}</h1>
+    	<h4>{{ article.tags }}</h4>
+        <img src="{{ article.photo }}" class="img-responsive">
+        <br>
+        <br>
+        <p class="text-justify">{{ article.text }}</p>
+    </div>
+
+    <footer class="footer" >
+      <div class="container" style="color:#333">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <!-- <script src="js/jquery.js"></script> -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <!-- // <script src="js/bootstrap.min.js"></script> -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="{% static 'bootstrap/js/jquery.easing.min.js' %}"></script>
+    <!-- // <script src="js/jquery.easing.min.js"></script> -->
+
+    <script src="{% static 'bootstrap/js/scrolling-nav.js' %}"></script>
+    <!-- // <script src="js/scrolling-nav.js"></script> -->
+
+</body>
+
+</html>

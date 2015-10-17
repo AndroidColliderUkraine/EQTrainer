@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^article/', 'app_eq_1.views.article', name='article'),
 
     url(r'^api/', include(v1_api.urls)),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 
 
 ]

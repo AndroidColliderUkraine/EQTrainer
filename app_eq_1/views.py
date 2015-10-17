@@ -16,7 +16,7 @@ def home(request):
 		course_list = Course.objects.filter(state='active').order_by('-date')[:3]
 	except Exception, e:
 		print "e:", e
-	print "course_list: ", course_list
+	# print "course_list: ", course_list
 
 
 	article_list = None
@@ -24,7 +24,7 @@ def home(request):
 		article_list = Article.objects.filter(state='active').order_by('-date')[:3]
 	except Exception, e:
 		print "e:", e
-	print "article_list: ", article_list
+	# print "article_list: ", article_list
 
 
 	context = {
@@ -62,7 +62,7 @@ def course(request):
 			course_list = Course.objects.filter(state='active').order_by('-date')[:3]
 		except Exception, e:
 			print "e:", e
-		print "course_list: ", course_list
+		# print "course_list: ", course_list
 
 		context = {
 			"course_list": course_list,
@@ -88,7 +88,7 @@ def article(request):
 			article_list = Article.objects.filter(state='active').order_by('-date')[:3]
 		except Exception, e:
 			print "e:", e
-		print "article_list: ", article_list
+		# print "article_list: ", article_list
 
 		context = {
 			"article_list": article_list,
