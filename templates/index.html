@@ -24,13 +24,34 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+    
+    function on_load(){
+        console.log('Loaded page')
+        // $('#id_country').attr('value', '');
+        // $('#reg_card').css("visibility", "hidden");
+        // $('#login_card').css("visibility", "visible");
+    }
+    window.onload = on_load;
+
+    function registration(){
+        console.log('Hi from registration()')
+        $('#reg_card').css("display", "inline");
+        $('#login_card').css("display", "none");
+    }
+    function login(){
+        console.log('Hi from registration()')
+        $('#reg_card').css("display", "none");
+        $('#login_card').css("display", "inline");
+    }
+    </script>
 
 </head>
 
 <!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
 
 <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
@@ -89,7 +110,7 @@
             <!-- <div class="inner-wrapper">
                 <h2>Welcome to our website!</h2>
              --></div>
-            <div class="row">
+            <div id="login_card" class="row" style="display: inline">
                 <div class="col-xs-4 col-xs-offset-4">
                     <div class="card" >
                         <form method="post" action="/accounts/login/?next=/">
@@ -112,7 +133,36 @@
             </form> 
                 <br>
                     <center>
-                    <a href="">Реєстрація</a> |
+                    <a onclick='registration();' >Реєстрація</a> |
+                    <a href="">Забули пароль</a>
+                    </center>
+                    </div>
+                </div>
+            </div>
+            <div id="reg_card" class="row" style="display: none">
+                <div class="col-xs-4 col-xs-offset-4">
+                    <div class="card" >
+                        <form method="post" action="/accounts/login/?next=/">
+                            {% csrf_token %}
+                            <div id="div_id_username" class="form-group">
+                                <label for="id_username" class="control-label  requiredField">Пошта</label>
+                                <div class="controls ">
+                                    <input class="textinput textInput form-control" id="id_username" maxlength="254" name="username" type="text" /> 
+                                </div>
+                            </div>
+                            <div id="div_id_password" class="form-group">
+                                <label for="id_password" class="control-label  requiredField">Пароль</label>
+                                <div class="controls ">
+                                    <input class="textinput textInput form-control" id="id_password" name="password" type="password" /> 
+                                </div>
+                            </div>
+
+                <input type="submit" value="Зареєструватись" class="btn-primary btn-sm btn-block" />
+                <input type="hidden" name="next" value="/profile" />
+            </form> 
+                <br>
+                    <center>
+                    <a onclick='login();' >Увійти</a> |
                     <a href="">Забули пароль</a>
                     </center>
                     </div>

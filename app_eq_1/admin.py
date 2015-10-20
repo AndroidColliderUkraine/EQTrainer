@@ -20,32 +20,32 @@ from django.contrib.auth.admin import UserAdmin
 
 
 class CourseAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "tags", "state", "price", "date", "updated",]	
+	list_display = ["__unicode__", "tags", "state", "price", "updated",]	
 	form = CourseForm
 
 
 class LessonAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "course", "state", "tags", "date", "updated",]	
+	list_display = ["__unicode__", "course", "state", "tags", "updated",]	
 	form = LessonForm
 
 
 class ArticleAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "state", "tags", "date", "updated",]	
+	list_display = ["__unicode__", "state", "tags", "updated",]	
 	form = ArticleForm
 
 
 class UserCourseAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "course", "paid", "date", "updated",]	
+	list_display = ["__unicode__", "user", "course", "paid", "updated",]	
 	form = UserCourseForm
 
 
 class ActionAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user_course", "lesson", "date", "updated",]	
+	list_display = ["__unicode__", "user_course", "lesson", "updated",]	
 	form = ActionForm
 
 
 class EmotionalStateAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "subjectivity", "date", "updated",]	
+	list_display = ["__unicode__", "user", "subjectivity", "updated",]	
 	form = EmotionalStateForm
 
 
