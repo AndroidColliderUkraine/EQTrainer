@@ -24,7 +24,11 @@ urlpatterns = [
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'app_eq_1.views.home', name='home'),
+    url(r'^profile/home$', 'app_eq_1.views.profile_home', name='profile_home'),
+    url(r'^profile/mycourse$', 'app_eq_1.views.profile_mycourse', name='profile_mycourse'),
     url(r'^profile$', 'app_eq_1.views.profile', name='profile'),
+
+
     url(r'^course/', 'app_eq_1.views.course', name='course'),
     url(r'^article/', 'app_eq_1.views.article', name='article'),
 

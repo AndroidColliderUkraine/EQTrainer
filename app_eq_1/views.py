@@ -122,3 +122,21 @@ def unsubscribe_course(request):
 	else:
 		return JsonResponse({'State':'ERROR: id == None or user is not authenticated'})	
 
+def profile_mycourse(request):
+	print "I'm in profile_mycourse"
+	if request.user.is_authenticated():
+		usercourse = None
+		try:
+			usercourses = UserCourse.objects.filter(user=request.user).order_by('-updated')
+		except Exception, e:
+			print "e:", e
+
+	context = {
+		'usercourses': usercourses,
+	}
+	return render(request, "profile_mycourse.html",context)	
+
+def profile_home(request):
+	print "I'm in profile_home"
+	context = {}
+	return render(request, "profile_home.html",context)	
