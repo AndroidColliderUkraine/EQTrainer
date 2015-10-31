@@ -33,4 +33,7 @@ urlpatterns = [
     url(r'^auth/', include('djoser.urls')),
 
 
+    url(r'^subscribe_course/', 'app_eq_1.views.subscribe_course', name='subscribe_course'),
+    url(r'^unsubscribe_course/', 'app_eq_1.views.unsubscribe_course', name='unsubscribe_course'),
+
 ]

@@ -20,6 +20,34 @@ class Course(models.Model):
 	def __unicode__(self):
 		return self.name
 
+	@staticmethod
+	def subscribe(course_id, user):
+		print "I'm in subscribe"
+		try: 
+			course = Course.objects.get(id=course_id)
+			if not UserCourse.objects.filter(course=course).filter(user=user).exclude(status='ended').exists():
+				if course.price == 0:
+					usercourse_new = UserCourse(course=course, user=user, status='active')
+				else:
+					usercourse_new = UserCourse(course=course, user=user, status='begin')
+				usercourse_new.save()
+				return True		
+		except Exception, e:
+			print e
+			return False
+
+	@staticmethod
+	def unsubscribe(course_id, user):
+		print "I'm in unsubscribe"
+		try: 
+			course = Course.objects.get(id=course_id)
+			user_courses = UserCourse.objects.filter(course=course).filter(user=user).exclude(status='ended')
+				
+			user_courses.update(status='ended')
+			return True		
+		except Exception, e:
+			return False
+
 
 class Lesson(models.Model):
 	name = models.CharField(max_length=500, blank=True, null=True)
@@ -53,7 +81,7 @@ class UserCourse(models.Model):
 	user = models.ForeignKey(User, blank=False, null=False)
 	course = models.ForeignKey(Course, blank=False, null=False)
 
-	# state = models.CharField(choices=STATE, max_length=20, blank=False, null=True, default='not_active') 
+	status = models.CharField(choices=USER_COURSE_STATUS, max_length=20, blank=False, null=True, default='begin') 
 	paid = models.BooleanField(default=True)
 
 	# date = models.DateTimeField(auto_now_add=True, auto_now=False)

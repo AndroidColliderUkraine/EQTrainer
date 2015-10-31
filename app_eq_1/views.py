@@ -1,7 +1,8 @@
 from django.shortcuts 			import render
 from .models 					import Course
 from .models 					import Article
-
+from .models 					import UserCourse
+from django.http import JsonResponse
 
 def home(request):
 	# locale_init(request)
@@ -52,8 +53,16 @@ def course(request):
 			course = Course.objects.filter(id=course_id).get()
 		except Exception, e:
 			print "e:", e
+		
+		try:
+			subscribe = UserCourse.objects.filter(course=course).filter(user=request.user).exclude(status='ended').exists()
+		except Exception, e:
+			print 'e', e
+			subscribe = False
+		print 'subscribe', subscribe
 		context = {
 			"course": course,
+			"subscribe": subscribe,
 		}
 		return render(request, "course.html",context)	
 	else:
@@ -94,3 +103,22 @@ def article(request):
 			"article_list": article_list,
 		}
 		return render(request, "articles.html",context)	
+
+
+def subscribe_course(request):
+	course_id = request.GET.get('id')
+
+	if course_id != None and request.user.is_authenticated():
+		return JsonResponse({'State':str(Course.subscribe(course_id, request.user)) })
+	else:
+		return JsonResponse({'State':'ERROR: id == None or user is not authenticated'})	
+
+
+def unsubscribe_course(request):
+	course_id = request.GET.get('id')
+
+	if course_id != None and request.user.is_authenticated():
+		return JsonResponse({'State':str(Course.unsubscribe(course_id, request.user)) })
+	else:
+		return JsonResponse({'State':'ERROR: id == None or user is not authenticated'})	
+
