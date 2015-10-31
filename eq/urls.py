@@ -30,6 +30,7 @@ urlpatterns = [
 
     url(r'^api/', include(v1_api.urls)),
     url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^auth/', include('djoser.urls')),
 
 
 ]

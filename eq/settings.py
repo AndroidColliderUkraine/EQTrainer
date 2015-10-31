@@ -42,6 +42,11 @@ INSTALLED_APPS = (
     #
     'tastypie',
     'djsupervisor',
+    'rest_framework',
+    'djoser',
+
+    # 'django.contrib.sites',
+    # 'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,3 +117,15 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "app_eq_1", "static"),
     # '/var/www/static/',
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+
+# ACCOUNT_ACTIVATION_DAYS = 2
+# EMAIL_HOST = 'localhost'
+# DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+# LOGIN_REDIRECT_URL = '/'
