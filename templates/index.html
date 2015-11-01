@@ -72,9 +72,12 @@
                     <li class="hidden">
                         <a class="page-scroll" href="#page-top"></a>
                     </li>
-                    <li>
-                        <a href="/profile">Кабінет</a>
-                    </li>
+                    {% if request.user.is_authenticated %}
+                        <li>
+                            <a href="/profile">Кабінет</a>
+                        </li>
+                    {% else %}
+                    {% endif %}
                     <li>
                         <a class="page-scroll" href="#course">Курси</a>
                     </li>

@@ -34,7 +34,8 @@
                 url : "/unsubscribe_course/",
                 type : "GET",
                 data : {
-                    id: '{{ course.id }}',
+                    course_id: '{{ course.id }}',
+                    user_id: '{{ user.id }}',
                 },
 
                 // handle a successful response
@@ -58,7 +59,8 @@
                 url : "/subscribe_course/",
                 type : "GET",
                 data : {
-                    id: '{{ course.id }}',
+                    course_id: '{{ course.id }}',
+                    user_id: '{{ user.id }}',
                 },
 
                 // handle a successful response

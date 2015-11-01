@@ -106,21 +106,22 @@ def article(request):
 
 
 def subscribe_course(request):
-	course_id = request.GET.get('id')
-
-	if course_id != None and request.user.is_authenticated():
-		return JsonResponse({'State':str(Course.subscribe(course_id, request.user)) })
+	course_id = request.GET.get('course_id')
+	user_id = request.GET.get('user_id')
+	if course_id != None and user_id != None:
+		return JsonResponse({'State':str(Course.subscribe(course_id, user_id)) })
 	else:
 		return JsonResponse({'State':'ERROR: id == None or user is not authenticated'})	
 
 
 def unsubscribe_course(request):
-	course_id = request.GET.get('id')
-
-	if course_id != None and request.user.is_authenticated():
-		return JsonResponse({'State':str(Course.unsubscribe(course_id, request.user)) })
+	course_id = request.GET.get('course_id')
+	user_id = request.GET.get('user_id')
+	if course_id != None and user_id != None:
+		return JsonResponse({'State':str(Course.unsubscribe(course_id, user_id)) })
 	else:
 		return JsonResponse({'State':'ERROR: id == None or user is not authenticated'})	
+
 
 def profile_mycourse(request):
 	print "I'm in profile_mycourse"

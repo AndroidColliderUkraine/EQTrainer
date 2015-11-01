@@ -21,10 +21,11 @@ class Course(models.Model):
 		return self.name
 
 	@staticmethod
-	def subscribe(course_id, user):
+	def subscribe(course_id, user_id):
 		print "I'm in subscribe"
 		try: 
 			course = Course.objects.get(id=course_id)
+			user = User.objects.get(id=user_id)
 			if not UserCourse.objects.filter(course=course).filter(user=user).exclude(status='ended').exists():
 				if course.price == 0:
 					usercourse_new = UserCourse(course=course, user=user, status='active')
@@ -34,13 +35,15 @@ class Course(models.Model):
 				return True		
 		except Exception, e:
 			print e
-			return False
+		
+		return False
 
 	@staticmethod
-	def unsubscribe(course_id, user):
+	def unsubscribe(course_id, user_id):
 		print "I'm in unsubscribe"
 		try: 
 			course = Course.objects.get(id=course_id)
+			user = User.objects.get(id=user_id)
 			user_courses = UserCourse.objects.filter(course=course).filter(user=user).exclude(status='ended')
 				
 			user_courses.update(status='ended')
