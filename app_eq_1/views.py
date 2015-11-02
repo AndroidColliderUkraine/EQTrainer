@@ -10,6 +10,9 @@ def home(request):
     # title_user = "%s" %(request.user)
     # user_type = request.user.profile.type_user
     # text = _("Main page  :)")
+    if request.user.is_authenticated():
+        return render(request, "profile.html", {})
+
     text = "Main page  :)"
 
     course_list = None
@@ -19,14 +22,12 @@ def home(request):
         print "e:", e
     # print "course_list: ", course_list
 
-
     article_list = None
     try:
         article_list = Article.objects.filter(state='active').order_by('-updated')[:3]
     except Exception, e:
         print "e:", e
     # print "article_list: ", article_list
-
 
     context = {
         # "title_user": title_user,
@@ -42,7 +43,7 @@ def profile(request):
     context = {
         "text": text,
     }
-    return render(request, "profile_new.html",context)
+    return render(request, "profile.html", context)
 
 
 def course(request):
@@ -125,8 +126,9 @@ def unsubscribe_course(request):
 
 def profile_mycourse(request):
     print "I'm in profile_mycourse"
+    usercourse = None
+
     if request.user.is_authenticated():
-        usercourse = None
         try:
             usercourses = UserCourse.objects.filter(user=request.user).order_by('-updated')
         except Exception, e:
@@ -136,6 +138,7 @@ def profile_mycourse(request):
         'usercourses': usercourses,
     }
     return render(request, "profile_mycourse.html",context)
+
 
 def profile_home(request):
     print "I'm in profile_home"

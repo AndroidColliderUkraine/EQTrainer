@@ -1,22 +1,22 @@
 {% extends "profile.html" %}
 {% load i18n %}
 {% block title %}
-Мої курси
+My course
 {{ block.super }}
 {% endblock %}
 
 
 {% block content%}
-<b>Список моїх курсів</b>
-<table style="width:100%">
-	{% for usercourse in usercourses%}
-		<tr>
-		    <td>{{ usercourse.course }}</td>
-		    <td>{{ usercourse.status }}</td> 
-		    <td>{{ usercourse.updated }}</td>
-		</tr>
-	{% endfor %}
-</table>
 
+    <b>List of my course</b>
+    <table style="width:100%">
+        {% for usercourse in usercourses%}
+            <tr>
+                <td>{{ usercourse.course }}</td>
+                <td>{{ usercourse.status }}</td>
+                <td>{{ usercourse.updated }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}
