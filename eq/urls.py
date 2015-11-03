@@ -26,6 +26,9 @@ urlpatterns = [
     url(r'^$', 'app_eq_1.views.home', name='home'),
     url(r'^profile/home$', 'app_eq_1.views.profile_home', name='profile_home'),
     url(r'^profile/mycourse$', 'app_eq_1.views.profile_mycourse', name='profile_mycourse'),
+    url(r'^profile/courses$', 'app_eq_1.views.profile_courses', name='profile_courses'),
+    url(r'^profile/articles', 'app_eq_1.views.profile_articles', name='profile_articles'),
+    url(r'^profile/trener', 'app_eq_1.views.profile_trener', name='profile_trener'),
     url(r'^profile$', 'app_eq_1.views.profile', name='profile'),
 
 

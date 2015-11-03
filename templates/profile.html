@@ -33,11 +33,11 @@
                     <div id="navbar" class="collapse navbar-collapse navbar-right">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="/">Home</a></li>
-                            <li><a href="/course">Courses</a></li>
-                            <li><a href="/article">Articles</a></li>
-                            <li><a href="#about">Trener</a></li>
+                            <li><a href="/profile/courses">Courses</a></li>
+                            <li><a href="/profile/articles">Articles</a></li>
+                            <li><a href="/profile/trener">Trener</a></li>
                             <li><a href="#about">About</a></li>
-                            <li><a href="#about">About</a></li>
+                            <li><a href="/accounts/logout/?next=/">LogOut</a></li>
                         </ul>
                     </div><!--/.nav-collapse -->
                 </div>
@@ -77,28 +77,28 @@
                 <div class="page-content">
                     <div class="container-fluid">
                         {% block content%}
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="panel panel-danger">
-                                    <div class="panel-heading">
-                                            Panel 1
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="panel panel-danger">
+                                        <div class="panel-heading">
+                                                Panel 1
+                                        </div>
+                                        <div class="panel-body">
+                                            content body
+                                        </div>
                                     </div>
-                                    <div class="panel-body">
-                                        content body
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="panel panel-success">
+                                        <div class="panel-heading">
+                                                Panel 1
+                                        </div>
+                                        <div class="panel-body">
+                                            content body
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="panel panel-success">
-                                    <div class="panel-heading">
-                                            Panel 1
-                                    </div>
-                                    <div class="panel-body">
-                                        content body
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         {% endblock %}
                     </div>
                 </div>

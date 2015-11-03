@@ -60,6 +60,7 @@
     </nav>
 
     <div class="container" style="padding-top: 150px">
+    {% block courses %}
         {% for course in course_list%}
         <div class="row" >
             <div class="col-xs-4">
@@ -79,10 +80,13 @@
                 <a class="btn btn-primary" href="course/?id={{ course.id }}">Детальніше <span class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
         </div>
+
             <!-- /.row -->
 
         <hr>
         {% endfor %}
+    {% endblock %}
+
         <div class="row text-center">
             <div class="col-lg-12">
                 <ul class="pagination">
