@@ -1,0 +1,10 @@
+{% block arcticle %}
+    <div>
+    	<h1>{{ article.name }}</h1>
+    	<h4>{{ article.tags }}</h4>
+        <img src="{{ article.photo }}" class="img-responsive">
+        <br>
+        <br>
+        <p class="text-justify">{{ article.text }}</p>
+    </div>
+{% endblock %}

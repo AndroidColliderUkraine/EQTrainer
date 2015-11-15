@@ -7,16 +7,19 @@ My course
 
 
 {% block content%}
-
-    <b>List of my course</b>
-    <table style="width:100%">
-        {% for usercourse in usercourses%}
-            <tr>
-                <td>{{ usercourse.course }}</td>
-                <td>{{ usercourse.status }}</td>
-                <td>{{ usercourse.updated }}</td>
-            </tr>
-        {% endfor %}
-    </table>
+    <p>Mu course</p>
+    {{ course.name }}
+<div class="panel panel-success">
+    <div class="panel-heading">My lessons</div>
+{#        <div class="panel-body">12345789</div>#}
+        <ul class="list-group">
+            {% for lesson in 'xxxxxxxxxxxxxxxxxxx'%}
+                <a type="button" href="/" class="list-group-item">
+                    {{ forloop.counter }}. {{ lesson }}
+                    <span class="pull-right">Date: 777</span>
+                </a>
+            {% endfor %}
+        </ul>
+</div>
 
 {% endblock %}

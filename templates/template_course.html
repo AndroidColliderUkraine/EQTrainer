@@ -1,0 +1,113 @@
+{% block course %}
+    <script type="text/javascript">
+        $(function() {
+            $("#btn_unsubscribe").click(function(){
+                console.log('Clicked')
+                $(document).ready(function(){
+                    $("#myModalBox").modal('show');
+                });
+            });
+        });
+
+        $(function() {
+            $("#btn_unsubscribe_2").click(function(){
+                console.log('Clicked btn_unsubscribe_2')
+                $("#myModalBox").modal('hide');
+                $.ajax({
+                    url : "/unsubscribe_course/",
+                    type : "GET",
+                    data : {
+                        course_id: '{{ course.id }}',
+                        user_id: '{{ user.id }}',
+                    },
+
+                    // handle a successful response
+                    success : function(json) {
+                        console.log(json); // log the returned json to the console
+                        console.log("Success"); // another sanity check
+                    },
+
+                    // handle a non-successful response
+                    error : function(xhr,errmsg,err) {
+                        console.log("Unsuccess"); // another sanity check
+                    }
+                });
+                location.reload();
+            });
+        });
+        $(function() {
+            $("#btn_subscribe").click(function(){
+                console.log('Clicked btn_subscribe')
+                $.ajax({
+                    url : "/subscribe_course/",
+                    type : "GET",
+                    data : {
+                        course_id: '{{ course.id }}',
+                        user_id: '{{ user.id }}',
+                    },
+
+                    // handle a successful response
+                    success : function(json) {
+                        console.log(json); // log the returned json to the console
+                        console.log("Success"); // another sanity check
+                    },
+
+                    // handle a non-successful response
+                    error : function(xhr,errmsg,err) {
+                        console.log("Unsuccess"); // another sanity check
+                    }
+                });
+                location.reload();
+            });
+        });
+    </script>
+    <br>
+    <div class="row" >
+        <div class="col-xs-7">
+            <h1 class="text-center">{{ course.name }}</h1>
+            <h4 class="text-center">{{ course.tags }}</h4>
+            {% if subscribe %}
+            <a class="btn btn-primary center-block" id='btn_unsubscribe'>Відписатись від курсу</a>
+            <!--  href="/unsubscribe_course/?id={{ course.id }}" -->
+            {% else %}
+            <a class="btn btn-primary center-block" id='btn_subscribe'>Пройти курс</a>
+            {% endif %}
+        </div>
+        <div class="col-xs-5">
+            <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+
+    <p class="text-justify">{{ course.text }}</p>
+
+
+{#    --------------------------------------------------------------------------------------------------------------#}
+    <div id="myModalBox" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Заголовок модального окна -->
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Подтверждение</h4>
+          </div>
+          <!-- Основной текст сообщения -->
+          <div class="modal-body">
+            <p>Вы действительно хотите отказаться от дальнейшего прохождения данного курса?</p>
+            <p class="text-warning"><small>Для восстановления прохождения обратитесь в техподдержку.</small></p>
+          </div>
+          <!-- Нижняя часть модального окна -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            <button type="button" class="btn btn-primary" id='btn_unsubscribe_2' href="/unsubscribe_course/?id={{ course.id }}">Завершить прохождение</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock %}

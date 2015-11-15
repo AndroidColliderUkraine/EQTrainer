@@ -1,0 +1,34 @@
+{% extends "profile.html" %}
+{% load i18n %}
+{% block title %}
+Мої курси
+{{ block.super }}
+{% endblock %}
+
+
+{% block content%}
+
+<div class="panel panel-success">
+    <div class="panel-heading">My active courses</div>
+{#        <div class="panel-body">12345789</div>#}
+        <ul class="list-group">
+            {% for usercourse in usercourses_not_ended%}
+                <a type="button" href="/profile/mycourse/?id={{ usercourse.course.id }}" class="list-group-item">{{ usercourse.course }}</a>
+            {% endfor %}
+        </ul>
+</div>
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">My ended courses</div>
+{#        <div class="panel-body">12345789</div>#}
+        <ul class="list-group">
+            {% for usercourse in usercourses_ended%}
+                <a type="button" href="/profile/mycourse/?id={{ course.id }}" class="list-group-item">{{ usercourse.course }}</a>
+            {% endfor %}
+        </ul>
+</div>
+
+
+{% endblock %}
