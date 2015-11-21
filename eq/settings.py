@@ -1,3 +1,6 @@
+import djcelery
+djcelery.setup_loader()
+
 """
 Django settings for eq project.
 
@@ -12,6 +15,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from celery.schedules import crontab
+from datetime import timedelta
+# from app_eq_1.tasks import example
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -44,6 +50,7 @@ INSTALLED_APPS = (
     'djsupervisor',
     'rest_framework',
     'djoser',
+    'djcelery',
 
     # 'django.contrib.sites',
     # 'registration',
@@ -118,16 +125,34 @@ STATICFILES_DIRS = (
     # '/var/www/static/',
 )
 
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
 
+CELERYBEAT_SCHEDULE = {
+    # Executes every 30 second
+    'add-every-30-seconds': {
+        'task': 'app_eq_1.tasks.example',
+        'schedule': timedelta(seconds=30),
+        'args': (16, ),
+    },
+}
 
 # ACCOUNT_ACTIVATION_DAYS = 2
 # EMAIL_HOST = 'localhost'
 # DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 REGISTRATION_AUTO_LOGIN = True
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = os.getenv('EQ_SMTP_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EQ_SMTP_PASS', '')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 

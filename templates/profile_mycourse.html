@@ -8,15 +8,15 @@ My course
 
 {% block content%}
     <p>Mu course</p>
-    {{ course.name }}
+    {{ user_course.course.name }}
 <div class="panel panel-success">
     <div class="panel-heading">My lessons</div>
 {#        <div class="panel-body">12345789</div>#}
         <ul class="list-group">
-            {% for lesson in 'xxxxxxxxxxxxxxxxxxx'%}
+            {% for lesson in lessons%}
                 <a type="button" href="/" class="list-group-item">
                     {{ forloop.counter }}. {{ lesson }}
-                    <span class="pull-right">Date: 777</span>
+                    <span class="pull-right">Date: {{ lesson.updated }}</span>
                 </a>
             {% endfor %}
         </ul>

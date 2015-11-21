@@ -26,7 +26,7 @@ urlpatterns = [
     url(r'^$', 'app_eq_1.views.home', name='home'),
     # url(r'^profile/home$', 'app_eq_1.views.profile_home', name='profile_home'),
     url(r'^profile/mycourses$', 'app_eq_1.views.profile_mycourses', name='profile_mycourses'),
-    url(r'^profile/mycourse', 'app_eq_1.views.profile_mycourse', name='profile_mycourse'),
+    url(r'^profile/myusercourse', 'app_eq_1.views.profile_myusercourse', name='profile_myusercourse'),
 
     # url(r'^profile/courses$', 'app_eq_1.views.profile_courses', name='profile_courses'),
     # url(r'^profile/articles$', 'app_eq_1.views.profile_articles', name='profile_articles'),

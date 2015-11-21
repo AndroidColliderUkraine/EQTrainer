@@ -13,7 +13,7 @@
 {#        <div class="panel-body">12345789</div>#}
         <ul class="list-group">
             {% for usercourse in usercourses_not_ended%}
-                <a type="button" href="/profile/mycourse/?id={{ usercourse.course.id }}" class="list-group-item">{{ usercourse.course }}</a>
+                <a type="button" href="/profile/myusercourse/?id={{ usercourse.course.id }}" class="list-group-item">{{ usercourse.course }}</a>
             {% endfor %}
         </ul>
 </div>
@@ -25,7 +25,7 @@
 {#        <div class="panel-body">12345789</div>#}
         <ul class="list-group">
             {% for usercourse in usercourses_ended%}
-                <a type="button" href="/profile/mycourse/?id={{ course.id }}" class="list-group-item">{{ usercourse.course }}</a>
+                <a type="button" href="/profile/myusercourse/?id={{ usercourse.course.id }}" class="list-group-item">{{ usercourse.course }}</a>
             {% endfor %}
         </ul>
 </div>

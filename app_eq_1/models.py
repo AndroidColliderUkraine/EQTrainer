@@ -17,8 +17,9 @@ class Course(models.Model):
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
     def __unicode__(self):
-        return self.name
+        return unicode(self.name)
 
     @staticmethod
     def subscribe(course_id, user_id):
@@ -66,8 +67,9 @@ class Lesson(models.Model):
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
     def __unicode__(self):
-        return (str(self.number) + ' | ' + str(self.name))
+        return str(self.number) + ' | ' + str(self.name)
 
 
 class Article(models.Model):
@@ -90,11 +92,13 @@ class UserCourse(models.Model):
 
     status = models.CharField(choices=USER_COURSE_STATUS, max_length=20, blank=False, null=True, default='begin')
     paid = models.BooleanField(default=True)
-
+    last_lesson = models.IntegerField(default=0)
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
     def __unicode__(self):
-        return self.id
+        return unicode(self.id)
+
 
 class Action(models.Model):
     user_course = models.ForeignKey(UserCourse, blank=False, null=False)
@@ -102,8 +106,9 @@ class Action(models.Model):
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
     def __unicode__(self):
-        return self.id
+        return unicode(self.id)
 
 
 class EmotionalState(models.Model):
@@ -116,6 +121,8 @@ class EmotionalState(models.Model):
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+
     def __unicode__(self):
-        return (str(self.user) + '|' + str(self.date))
+        return str(self.user) + '|' + str(self.date)
+
 

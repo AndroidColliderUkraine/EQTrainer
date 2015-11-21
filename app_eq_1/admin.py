@@ -16,7 +16,7 @@ from .models 				import EmotionalState
 
 from django.contrib.auth.admin import UserAdmin
 
-# UserAdmin.list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
+UserAdmin.list_display = ('username', 'id', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
 
 
 class CourseAdmin(admin.ModelAdmin):
