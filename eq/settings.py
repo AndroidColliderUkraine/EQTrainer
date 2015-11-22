@@ -139,7 +139,16 @@ CELERYBEAT_SCHEDULE = {
     'add-every-30-seconds': {
         'task': 'app_eq_1.tasks.example',
         'schedule': timedelta(seconds=30),
-        'args': (16, ),
+        # 'args': (16, ),
+    },
+}
+
+CELERYBEAT_SCHEDULE = {
+    # Executes everyday morning at 6:30 A.M
+    'add-every-day-morning': {
+        'task': 'app_eq_1.tasks.every_day',
+        'schedule': crontab(hour=6, minute=30),
+        # 'args': (16, 16),
     },
 }
 
