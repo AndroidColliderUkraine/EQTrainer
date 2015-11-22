@@ -7,19 +7,53 @@ My course
 
 
 {% block content%}
-    <p>Mu course</p>
+    <script>
+        function myFunction(name, number, tags, text) {
+{#            console.log("------------");#}
+{#            console.log(name);#}
+{#            console.log(number);#}
+{#            console.log(tags);#}
+{#            console.log(text);#}
+
+            $('#ModelLessonHeader').text(number + '. ' + name)
+            $('#ModelLessonText').text(text)
+            $('#ModalLesson').modal('show')
+        }
+    </script>
     {{ user_course.course.name }}
+    <br>
+    <br>
 <div class="panel panel-success">
     <div class="panel-heading">My lessons</div>
 {#        <div class="panel-body">12345789</div>#}
         <ul class="list-group">
             {% for lesson in lessons%}
-                <a type="button" href="/" class="list-group-item">
-                    {{ forloop.counter }}. {{ lesson }}
+                <a type="button" onclick="myFunction('{{ lesson.name }}', '{{ forloop.counter }}', '{{ lesson.tags }}', '{{ lesson.text }}')" class="list-group-item">
+                    {{ forloop.counter }}. {{ lesson.name }}
                     <span class="pull-right">Date: {{ lesson.updated }}</span>
                 </a>
             {% endfor %}
         </ul>
 </div>
+
+      <!-- Modal -->
+<div class="modal fade" id="ModalLesson" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="ModelLessonHeader" class="modal-title">Modal Header</h4>
+            </div>
+            <div id="ModelLessonText" class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}

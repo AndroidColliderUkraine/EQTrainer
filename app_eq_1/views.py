@@ -2,6 +2,7 @@ from django.shortcuts 			import render
 from .models 					import Course
 from .models 					import Article
 from .models 					import UserCourse
+from .models 					import Action
 from .models 					import Lesson
 from django.http import JsonResponse
 
@@ -216,11 +217,18 @@ def profile_mycourses(request):
 def profile_myusercourse(request):
     print "I'm in profile_myusercourse"
     user_course_id = request.GET.get('id')
+    print "id", user_course_id
     user_course = None
     lessons = None
     try:
-        user_course = UserCourse.objects.filter(id=user_course_id).get()
-        lessons = user_course.course.lesson_set.all()
+        user_course = UserCourse.objects.get(id=user_course_id)
+        # lessons = user_course.course.lesson_set.all()
+        actions = user_course.action_set.all()
+        lessons = set()
+        for action in actions:
+            lessons.add(action.lesson)
+        # lessons = user_course.action_set.select_related('lesson')
+        print 'lessons', lessons
     except Exception, e:
         print "e:", e
 
