@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     #
     'app_eq_1',
     #
-    'app_eq_1.authtoken',
+    # 'app_eq_1.authtoken',
     'tastypie',
     'djsupervisor',
     'rest_framework',
