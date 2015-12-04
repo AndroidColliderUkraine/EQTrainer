@@ -1,3 +1,56 @@
+{% block trainer %}
+
 <h1>
     This is page for trener.
 </h1>
+
+    <script type="text/javascript">
+        function myFunction(name, number, text) {
+            console.log("------------");
+            console.log(name);
+            console.log(number);
+{#            console.log(tags);#}
+            console.log(text);
+
+            $('#ModelLessonHeader').text(number + '. ' + name)
+            $('#ModelLessonText').text(text)
+            $('#ModalLesson').modal('show')
+        }
+    </script>
+    {{ user_course.course.name }}
+    <br>
+    <br>
+<div class="panel panel-success">
+    <div class="panel-heading">Trainings</div>
+{#        <div class="panel-body">12345789</div>#}
+        <ul class="list-group">
+            {% for training in trainings%}
+                <a type="button" onclick="myFunction('{{ training.name }}', '{{ forloop.counter }}', '{{ training.name }}')" class="list-group-item">
+                    {{ forloop.counter }}. {{ training.name }}
+{#                    <span class="pull-right">Date: {{ training.date }}</span>#}
+                </a>
+            {% endfor %}
+        </ul>
+</div>
+
+      <!-- Modal -->
+<div class="modal fade" id="ModalLesson" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="ModelLessonHeader" class="modal-title">Modal Header</h4>
+            </div>
+            <div id="ModelLessonText" class="modal-body">
+                <p>Some text in the modal.</p>
+            </div>
+{#            <div class="modal-footer">#}
+{#                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>#}
+{#            </div>#}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

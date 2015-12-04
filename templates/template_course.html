@@ -65,7 +65,8 @@
     <div class="row" >
         <div class="col-xs-7">
             <h1 class="text-center">{{ course.name }}</h1>
-            <h4 class="text-center">{{ course.tags }}</h4>
+            <h5 class="text-center">{{ course.tags }}</h5>
+            <br>
             {% if subscribe %}
             <a class="btn btn-primary center-block" id='btn_unsubscribe'>Відписатись від курсу</a>
             <!--  href="/unsubscribe_course/?id={{ course.id }}" -->

@@ -4,6 +4,10 @@ from .models 					import Article
 from .models 					import UserCourse
 from .models 					import Action
 from .models 					import Lesson
+from .models import WeeklyReport
+from .models import MonthlyReport
+from .models import Training
+from django.contrib.auth.models 	import User
 from django.http import JsonResponse
 
 
@@ -255,6 +259,23 @@ def profile_myusercourse(request):
 #     return render(request, "profile_mylesson.html", context)
 
 
+def profile_mydaybook(request):
+    print "I'm in profile_mydaybook"
+    # user_id = request.GET.get('user_id')
+    weekly_reports = None
+    monthly_reports = None
+    try:
+        weekly_reports = request.user.weeklyreport_set.all()
+        monthly_reports = request.user.monthlyreport_set.all()
+    except Exception, e:
+        print "e:", e
+
+    context = {
+        "weekly_reports": weekly_reports,
+        "monthly_reports": monthly_reports,
+    }
+    return render(request, "profile_mydaybook.html", context)
+
 
 def trener(request):
     if request.user.is_authenticated():
@@ -264,11 +285,31 @@ def trener(request):
 
 
 def trener_private(request):
-    return render(request, "profile_trener.html", {})
+    try:
+        trainings = Training.objects.all()
+    except Exception, e:
+        print "e:", e
+        trainings = None
+
+    context = {
+        "trainings": trainings,
+    }
+
+    return render(request, "profile_trener.html", context)
 
 
 def trener_public(request):
-    return render(request, "trener.html", {})
+    try:
+        trainings = Training.objects.all()
+    except Exception, e:
+        print "e:", e
+        trainings = None
+
+    context = {
+        "trainings": trainings,
+    }
+
+    return render(request, "trener.html", context)
 
 
 def about(request):

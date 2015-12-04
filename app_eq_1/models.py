@@ -112,17 +112,45 @@ class Action(models.Model):
 
 
 class EmotionalState(models.Model):
-    fear = models.IntegerField(default=20)# max=100, min=0
-    confidence = models.IntegerField(default=20)# max=100, min=0
-    #
-    #
+    emotion = models.CharField(choices=USER_EMOTIONS, max_length=50, blank=False, null=True)
+    activity = models.CharField(choices=USER_ACTIVITY, max_length=50, blank=False, null=True)
+
     user = models.ForeignKey(User, blank=False, null=False)
-    subjectivity = models.IntegerField(default=20)# max=100, min=0
+    subjectivity = models.IntegerField(default=20)  # max=100, min=0
+    confidence = models.IntegerField(default=20)  # max=100, min=0
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
-    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    updated = models.DateTimeField()
 
     def __unicode__(self):
-        return str(self.user) + '|' + str(self.date)
+        return unicode(unicode(self.user) + ' | ' + self.emotion + ' | ' + self.activity)
 
 
+class WeeklyReport(models.Model):
+    user = models.ForeignKey(User, blank=False, null=False)
+    text = models.TextField(max_length=5000, blank=False, null=True)
+
+    date = models.DateTimeField()
+
+    def __unicode__(self):
+        return unicode(unicode(self.user) + ' | ' + unicode(self.date))
+
+
+class MonthlyReport(models.Model):
+    user = models.ForeignKey(User, blank=False, null=False)
+    text = models.TextField(max_length=5000, blank=False, null=True)
+
+    date = models.DateTimeField()
+
+    def __unicode__(self):
+        return unicode(unicode(self.user) + ' | ' + unicode(self.date))
+
+
+class Training(models.Model):
+    name = models.CharField(max_length=100, blank=False, null=True)
+    text = models.TextField(max_length=5000, blank=False, null=True)
+
+    date = models.DateTimeField()
+
+    def __unicode__(self):
+        return unicode(self.name)

@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     #
     'app_eq_1',
     #
+    'app_eq_1.authtoken',
     'tastypie',
     'djsupervisor',
     'rest_framework',
@@ -128,11 +129,19 @@ STATICFILES_DIRS = (
 BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework.authentication.BasicAuthentication',
+#     ),
+# }
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
 }
+
 
 CELERYBEAT_SCHEDULE = {
     # Executes every 30 second

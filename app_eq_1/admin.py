@@ -6,6 +6,9 @@ from .forms 				import ArticleForm
 from .forms 				import UserCourseForm
 from .forms 				import ActionForm
 from .forms 				import EmotionalStateForm
+from .forms import WeeklyReportForm
+from .forms import MonthlyReportForm
+from  .forms import TrainingForm
 
 from .models 				import Course
 from .models 				import Lesson
@@ -13,6 +16,9 @@ from .models 				import Article
 from .models 				import UserCourse
 from .models 				import Action
 from .models 				import EmotionalState
+from .models import WeeklyReport
+from .models import MonthlyReport
+from  .models import Training
 
 from django.contrib.auth.admin import UserAdmin
 
@@ -20,7 +26,7 @@ UserAdmin.list_display = ('username', 'id', 'email', 'first_name', 'last_name', 
 
 
 class CourseAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "tags", "state", "price", "updated",]	
+	list_display = ["__unicode__", "tags", "state", "price", "updated",]
 	form = CourseForm
 
 
@@ -45,9 +51,23 @@ class ActionAdmin(admin.ModelAdmin):
 
 
 class EmotionalStateAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "subjectivity", "updated",]	
+	list_display = ["__unicode__", "user", "emotion", "activity", "subjectivity", "confidence", "updated",]
 	form = EmotionalStateForm
 
+
+class WeeklyReportAdmin(admin.ModelAdmin):
+	list_display = ["__unicode__", "user", "date",]
+	form = WeeklyReportForm
+
+
+class MonthlyReportAdmin(admin.ModelAdmin):
+	list_display = ["__unicode__", "user", "date",]
+	form = MonthlyReportForm
+
+
+class TrainingAdmin(admin.ModelAdmin):
+	list_display = ["id", "name", "date",]
+	form = TrainingForm
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
@@ -55,5 +75,6 @@ admin.site.register(Article, ArticleAdmin)
 admin.site.register(UserCourse, UserCourseAdmin)
 admin.site.register(Action, ActionAdmin)
 admin.site.register(EmotionalState, EmotionalStateAdmin)
-
-
+admin.site.register(WeeklyReport, WeeklyReportAdmin)
+admin.site.register(MonthlyReport, MonthlyReportAdmin)
+admin.site.register(Training, TrainingAdmin)

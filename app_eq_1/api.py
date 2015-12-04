@@ -96,7 +96,6 @@ class ActionResource(ModelResource):
         authorization = Authorization()
 
 
-
 class EmotionalStateResource(ModelResource):
     def dehydrate(self, bundle):
         bundle.data['updated'] = str(bundle.obj.updated.strftime("%s"))

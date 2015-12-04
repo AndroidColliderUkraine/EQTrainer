@@ -6,6 +6,9 @@ from .models 				import Article
 from .models 				import UserCourse
 from .models 				import Action
 from .models 				import EmotionalState
+from .models import WeeklyReport
+from .models import MonthlyReport
+from .models import Training
 
 
 class CourseForm(forms.ModelForm):
@@ -41,4 +44,22 @@ class ActionForm(forms.ModelForm):
 class EmotionalStateForm(forms.ModelForm):
     class Meta:
         model = EmotionalState
+        fields = '__all__'
+
+
+class WeeklyReportForm(forms.ModelForm):
+    class Meta:
+        model = WeeklyReport
+        fields = '__all__'
+
+
+class MonthlyReportForm(forms.ModelForm):
+    class Meta:
+        model = MonthlyReport
+        fields = '__all__'
+
+
+class TrainingForm(forms.ModelForm):
+    class Meta:
+        model = Training
         fields = '__all__'

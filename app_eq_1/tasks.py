@@ -40,7 +40,7 @@ def every_day():
 @task()
 def send_email(lesson_id, user_id):
     print '[ SEND EMAIL ] [ %s ]' % (str(datetime.datetime.now().time()))
-    
+
     try:
         lesson = Lesson.objects.get(id=lesson_id)
         user = User.objects.get(id=user_id)

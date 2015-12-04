@@ -27,6 +27,7 @@ urlpatterns = [
     # url(r'^profile/home$', 'app_eq_1.views.profile_home', name='profile_home'),
     url(r'^profile/mycourses$', 'app_eq_1.views.profile_mycourses', name='profile_mycourses'),
     url(r'^profile/myusercourse', 'app_eq_1.views.profile_myusercourse', name='profile_myusercourse'),
+    url(r'^profile/mydaybook', 'app_eq_1.views.profile_mydaybook', name='profile_mydaybook'),
 
     # url(r'^profile/courses$', 'app_eq_1.views.profile_courses', name='profile_courses'),
     # url(r'^profile/articles$', 'app_eq_1.views.profile_articles', name='profile_articles'),
@@ -44,7 +45,8 @@ urlpatterns = [
 
     url(r'^api/', include(v1_api.urls)),
     url(r'^accounts/', include('registration.backends.simple.urls')),
-    url(r'^auth/', include('djoser.urls')),
+    url(r'^auth/', include('djoser.urls.authtoken')),
+    # url(r'^auth/', include('djoser.urls')),
 
 
     url(r'^subscribe_course/', 'app_eq_1.views.subscribe_course', name='subscribe_course'),
