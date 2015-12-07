@@ -8,6 +8,10 @@ from app_eq_1.api 				import ArticleResource
 from app_eq_1.api 				import UserCourseResource
 from app_eq_1.api 				import ActionResource
 from app_eq_1.api 				import EmotionalStateResource
+from app_eq_1.api 				import UserResource
+from app_eq_1.api import WeeklyReportResource
+from app_eq_1.api import MonthlyReportResource
+from app_eq_1.api import TrainingResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(CourseResource())
@@ -16,6 +20,10 @@ v1_api.register(ArticleResource())
 v1_api.register(UserCourseResource())
 v1_api.register(ActionResource())
 v1_api.register(EmotionalStateResource())
+v1_api.register(UserResource())
+v1_api.register(WeeklyReportResource())
+v1_api.register(MonthlyReportResource())
+v1_api.register(TrainingResource())
 
 urlpatterns = [
     # Examples:
