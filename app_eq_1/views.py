@@ -9,6 +9,8 @@ from .models import MonthlyReport
 from .models import Training
 from django.contrib.auth.models 	import User
 from django.http import JsonResponse
+import datetime
+from django.db.models import Sum
 
 
 def home(request):
@@ -21,14 +23,14 @@ def home(request):
 def home_public(request):
     course_list = None
     try:
-        course_list = Course.objects.filter(state='active').order_by('-updated')[:3]
+        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
     except Exception, e:
         print "e:", e
     # print "course_list: ", course_list
 
     article_list = None
     try:
-        article_list = Article.objects.filter(state='active').order_by('-updated')[:3]
+        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
     except Exception, e:
         print "e:", e
     # print "article_list: ", article_list
@@ -58,21 +60,21 @@ def courses(request):
 def courses_public(request):
     course_list = None
     try:
-        course_list = Course.objects.filter(state='active').order_by('-updated')[:3]
+        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
     except Exception, e:
         print "e:", e
 
     context = {
         "course_list": course_list,
     }
-    return render(request, "courses.html",context)
+    return render(request, "courses.html", context)
 
 
 def courses_private(request):
     print "I'm in profile_courses"
     course_list = None
     try:
-        course_list = Course.objects.filter(state='active').order_by('-updated')[:3]
+        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
     except Exception, e:
         print "e:", e
     # print "course_list: ", course_list
@@ -94,12 +96,12 @@ def course_public(request):
     course_id = request.GET.get('id')
     course = None
     try:
-        course = Course.objects.filter(id=course_id).get()
+        course = Course.objects.filter(deleted=False).filter(id=course_id).get()
     except Exception, e:
         print "e:", e
 
     try:
-        subscribe = UserCourse.objects.filter(course=course).filter(user=request.user).exclude(status='ended').exists()
+        subscribe = UserCourse.objects.filter(deleted=False).filter(course=course).filter(user=request.user).exclude(status='ended').exists()
     except Exception, e:
         print 'e', e
         subscribe = False
@@ -116,12 +118,12 @@ def course_private(request):
     course_id = request.GET.get('id')
     course = None
     try:
-        course = Course.objects.filter(id=course_id).get()
+        course = Course.objects.filter(deleted=False).filter(id=course_id).get()
     except Exception, e:
         print "e:", e
 
     try:
-        subscribe = UserCourse.objects.filter(course=course).filter(user=request.user).exclude(status='ended').exists()
+        subscribe = UserCourse.objects.filter(deleted=False).filter(course=course).filter(user=request.user).exclude(status='ended').exists()
     except Exception, e:
         print 'e', e
         subscribe = False
@@ -143,7 +145,7 @@ def articles(request):
 def articles_public(request):
     article_list = None
     try:
-        article_list = Article.objects.filter(state='active').order_by('-updated')[:3]
+        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
     except Exception, e:
         print "e:", e
     # print "article_list: ", article_list
@@ -158,7 +160,7 @@ def articles_private(request):
     print "I'm in profile_articles"
     article_list = None
     try:
-        article_list = Article.objects.filter(state='active').order_by('-updated')[:3]
+        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
     except Exception, e:
         print "e:", e
     # print "article_list: ", article_list
@@ -173,7 +175,7 @@ def article(request):
     article_id = request.GET.get('id')
     article = None
     try:
-        article = Article.objects.filter(id=article_id).get()
+        article = Article.objects.filter(deleted=False).filter(id=article_id).get()
     except Exception, e:
         print "e:", e
     context = {
@@ -206,8 +208,8 @@ def profile_mycourses(request):
         usercourses_ended = None
         usercourses_not_ended = None
         try:
-            usercourses_ended = UserCourse.objects.filter(user=request.user).filter(status='ended').order_by('-updated')
-            usercourses_not_ended = UserCourse.objects.filter(user=request.user).exclude(status='ended').order_by('-updated')
+            usercourses_ended = UserCourse.objects.filter(deleted=False).filter(user=request.user).filter(status='ended').order_by('-updated')
+            usercourses_not_ended = UserCourse.objects.filter(deleted=False).filter(user=request.user).exclude(status='ended').order_by('-updated')
         except Exception, e:
             print "e:", e
 
@@ -225,9 +227,9 @@ def profile_myusercourse(request):
     user_course = None
     lessons = None
     try:
-        user_course = UserCourse.objects.get(id=user_course_id)
+        user_course = UserCourse.objects.filter(deleted=False).get(id=user_course_id)
         # lessons = user_course.course.lesson_set.all()
-        actions = user_course.action_set.all()
+        actions = user_course.action_set.filter(deleted=False).all()
         lessons = set()
         for action in actions:
             lessons.add(action.lesson)
@@ -264,15 +266,49 @@ def profile_mydaybook(request):
     # user_id = request.GET.get('user_id')
     weekly_reports = None
     monthly_reports = None
+
+    confidence_reports = 0
+    confidence_reports_total = 0
+    subjectivity_reports = 0
+    subjectivity_reports_total = 0
+
     try:
-        weekly_reports = request.user.weeklyreport_set.all()
-        monthly_reports = request.user.monthlyreport_set.all()
+        weekly_reports = request.user.weeklyreport_set.filter(deleted=False).all()
+        monthly_reports = request.user.monthlyreport_set.filter(deleted=False).all()
+
+        preview_week = datetime.datetime.now() - datetime.timedelta(weeks=3)
+
+        confidence_reports = request.user.emotionalstate_set.\
+            filter(deleted=False).\
+            filter(updated__gte=preview_week).\
+            aggregate(Sum('confidence'))['confidence__sum']
+        confidence_reports_total = request.user.emotionalstate_set.\
+            filter(deleted=False).\
+            filter(updated__gte=preview_week).\
+            count() * 100
+
+        print 'confidence_reports', confidence_reports
+        print 'confidence_reports_total', confidence_reports_total
+
+        subjectivity_reports = request.user.emotionalstate_set.\
+            filter(deleted=False).\
+            filter(updated__gte=preview_week).\
+            aggregate(Sum('subjectivity'))['subjectivity__sum']
+        subjectivity_reports_total = request.user.emotionalstate_set.\
+            filter(deleted=False).\
+            filter(updated__gte=preview_week).\
+            count() * 100
+
+        print 'subjectivity_reports', subjectivity_reports
+        print 'subjectivity_reports_total', subjectivity_reports_total
     except Exception, e:
         print "e:", e
 
     context = {
         "weekly_reports": weekly_reports,
         "monthly_reports": monthly_reports,
+        "confidence_reports": confidence_reports,
+        "confidence_reports_total": confidence_reports_total
     }
     return render(request, "profile_mydaybook.html", context)
 
@@ -286,7 +322,7 @@ def trener(request):
 
 def trener_private(request):
     try:
-        trainings = Training.objects.all()
+        trainings = Training.objects.filter(deleted=False).all()
     except Exception, e:
         print "e:", e
         trainings = None
@@ -300,7 +336,7 @@ def trener_private(request):
 
 def trener_public(request):
     try:
-        trainings = Training.objects.all()
+        trainings = Training.objects.filter(deleted=False).all()
     except Exception, e:
         print "e:", e
         trainings = None

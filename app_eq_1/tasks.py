@@ -19,7 +19,7 @@ def every_day():
     print '[ EVERY_DAY ] [ %s ]' % (str(datetime.datetime.now().time()), )
 
     try:
-        for item in UserCourse.objects.filter(status='active').distinct():
+        for item in UserCourse.objects.filter(deleted=False).filter(status='active').distinct():
             try:
                 if item.last_lesson < item.course.lesson_set.count():
                         action_new = Action(user_course=item, lesson=item.course.lesson_set.get(number=item.last_lesson + 1))

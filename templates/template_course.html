@@ -32,7 +32,8 @@
                         console.log("Unsuccess"); // another sanity check
                     }
                 });
-                location.reload();
+{#                location.loca='//courses/'#}
+                window.location = '/courses/'
             });
         });
         $(function() {
@@ -50,6 +51,7 @@
                     success : function(json) {
                         console.log(json); // log the returned json to the console
                         console.log("Success"); // another sanity check
+
                     },
 
                     // handle a non-successful response
@@ -57,7 +59,7 @@
                         console.log("Unsuccess"); // another sanity check
                     }
                 });
-                location.reload();
+                window.location = '/profile/mycourses'
             });
         });
     </script>

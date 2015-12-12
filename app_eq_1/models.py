@@ -28,11 +28,11 @@ class Course(models.Model):
         try:
             course = Course.objects.get(id=course_id)
             user = User.objects.get(id=user_id)
-            if not UserCourse.objects.filter(course=course).filter(user=user).exclude(status='ended').exists():
+            if not UserCourse.objects.filter(course=course).filter(user=user).filter(paid=True).exclude(status='ended').exists():
                 if course.price == 0:
                     usercourse_new = UserCourse(course=course, user=user, status='active')
                 else:
-                    usercourse_new = UserCourse(course=course, user=user, status='begin')
+                    usercourse_new = UserCourse(course=course, user=user, status='begin', paid=False)
                 usercourse_new.save()
                 return True
         except Exception, e:
@@ -46,12 +46,15 @@ class Course(models.Model):
         try:
             course = Course.objects.get(id=course_id)
             user = User.objects.get(id=user_id)
-            user_courses = UserCourse.objects.filter(course=course).filter(user=user).exclude(status='ended')
+            user_courses = UserCourse.objects.\
+                filter(deleted=False)\
+                .filter(course=course)\
+                .filter(user=user)\
+                .exclude(status='ended')[:1]
 
             for item in user_courses:
-                item.status = 'ended'
+                item.deleted = True
                 item.save()
-                # user_courses.update(status='ended')
             return True
         except Exception, e:
             print e
@@ -141,7 +144,7 @@ class WeeklyReport(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return unicode(unicode(self.user) + ' | ' + unicode(self.date))
+        return unicode(unicode(self.user) + ' | ' + unicode(self.updated))
 
 
 class MonthlyReport(models.Model):
@@ -152,7 +155,7 @@ class MonthlyReport(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return unicode(unicode(self.user) + ' | ' + unicode(self.date))
+        return unicode(unicode(self.user) + ' | ' + unicode(self.updated))
 
 
 class Training(models.Model):
