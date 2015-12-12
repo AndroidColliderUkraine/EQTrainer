@@ -287,9 +287,7 @@ def profile_mydaybook(request):
             filter(deleted=False).\
             filter(updated__gte=preview_week).\
             count() * 100
-
-        print 'confidence_reports', confidence_reports
-        print 'confidence_reports_total', confidence_reports_total
+        confidence_reports_total = 100 if confidence_reports_total == 0 else confidence_reports_total
 
         subjectivity_reports = request.user.emotionalstate_set.\
             filter(deleted=False).\
@@ -299,13 +297,11 @@ def profile_mydaybook(request):
             filter(deleted=False).\
             filter(updated__gte=preview_week).\
             count() * 100
+        subjectivity_reports_total = 100 if subjectivity_reports_total == 0 else subjectivity_reports_total
 
-        print 'subjectivity_reports', subjectivity_reports
-        print 'subjectivity_reports_total', subjectivity_reports_total
     except Exception, e:
         print "e:", e
 
-    print 'USER_EMOTIONS', USER_EMOTIONS
     context = {
         "weekly_reports": weekly_reports,
         "monthly_reports": monthly_reports,
