@@ -41,7 +41,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class UserCourseAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "course", "paid", "status",  "updated", "deleted"]
+	list_display = ["__unicode__", "user", "course", "status",  "updated", "deleted"]
 	form = UserCourseForm
 
 

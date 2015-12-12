@@ -28,11 +28,11 @@ class Course(models.Model):
         try:
             course = Course.objects.get(id=course_id)
             user = User.objects.get(id=user_id)
-            if not UserCourse.objects.filter(course=course).filter(user=user).filter(paid=True).exclude(status='ended').exists():
+            if not UserCourse.objects.filter(deleted=False).filter(course=course).filter(user=user).exclude(status='ended').exists():
                 if course.price == 0:
                     usercourse_new = UserCourse(course=course, user=user, status='active')
                 else:
-                    usercourse_new = UserCourse(course=course, user=user, status='begin', paid=False)
+                    usercourse_new = UserCourse(course=course, user=user, status='begin')
                 usercourse_new.save()
                 return True
         except Exception, e:
@@ -101,7 +101,7 @@ class UserCourse(models.Model):
     course = models.ForeignKey(Course, blank=False, null=False)
 
     status = models.CharField(choices=USER_COURSE_STATUS, max_length=20, blank=False, null=True, default='begin')
-    paid = models.BooleanField(default=True)
+    # paid = models.BooleanField(default=True)
     last_lesson = models.IntegerField(default=0)
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
