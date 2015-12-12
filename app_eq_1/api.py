@@ -35,27 +35,35 @@ class UserResource(ModelResource):
 
 
 class WeeklyReportResource(ModelResource):
+    def dehydrate(self, bundle):
+        deleted_objects = WeeklyReport.objects.filter(deleted=True).all().values('id')
+        bundle.data['deleted_objects'] = deleted_objects
+        return bundle
 
     user = fields.ForeignKey(UserResource, 'user')
 
     class Meta:
-        queryset = WeeklyReport.objects.all()
+        queryset = WeeklyReport.objects.filter(deleted=False).all()
         resource_name = 'WeeklyReport'
         filtering = {
             'user': ALL_WITH_RELATIONS,
-            'date': ['exact', 'lt', 'lte', 'gte', 'gt'],
+            'updated': ['exact', 'lt', 'lte', 'gte', 'gt'],
         }
         always_return_data = True
         authorization = Authorization()
 
 
 class MonthlyReportResource(ModelResource):
+    def dehydrate(self, bundle):
+        deleted_objects = MonthlyReport.objects.filter(deleted=True).all().values('id')
+        bundle.data['deleted_objects'] = deleted_objects
+        return bundle
 
     class Meta:
-        queryset = MonthlyReport.objects.all()
+        queryset = MonthlyReport.objects.filter(deleted=False).all()
         resource_name = 'MonthlyReport'
         filtering = {
-            'date': ['exact', 'lt', 'lte', 'gte', 'gt'],
+            'updated': ['exact', 'lt', 'lte', 'gte', 'gt'],
         }
         always_return_data = True
         authorization = Authorization()
@@ -63,30 +71,29 @@ class MonthlyReportResource(ModelResource):
 
 class TrainingResource(ModelResource):
 
+    def dehydrate(self, bundle):
+        deleted_objects = Training.objects.filter(deleted=True).all().values('id')
+        bundle.data['deleted_objects'] = deleted_objects
+        return bundle
+
     class Meta:
-        queryset = Training.objects.all()
+        queryset = Training.objects.filter(deleted=False).all()
         resource_name = 'Training'
         filtering = {
-            'date': ['exact', 'lt', 'lte', 'gte', 'gt'],
+            'updated': ['exact', 'lt', 'lte', 'gte', 'gt'],
         }
         always_return_data = True
         authorization = Authorization()
 
 
 class CourseResource(ModelResource):
-    # def dehydrate(self, bundle):
-    #     bundle.data['updated'] = str(bundle.obj.updated.strftime("%s"))
-    #     return bundle
-
-    # def hydrate(self, bundle):
-    #     # print "!!!!!!!!!!!!!!!!!!!!!!!!!!!1 date:", bundle.obj.updated
-    #     # print "!!!!!!!!!!!!!!!!!!!!!!!!!!!2 date:", str(datetime.fromtimestamp(int( str( bundle.obj.updated) )))
-    #     # bundle.data['updated'] = str(datetime.fromtimestamp(int( str( bundle.obj.updated) )))
-    #     # bundle.data['updated'] = '2015-10-21 12:23:25.167657'
-    #     return bundle
+    def dehydrate(self, bundle):
+        deleted_objects = Course.objects.filter(deleted=True).all().values('id')
+        bundle.data['deleted_objects'] = deleted_objects
+        return bundle
 
     class Meta:
-        queryset = Course.objects.all()
+        queryset = Course.objects.filter(deleted=False).all()
         resource_name = 'Course'
         # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         # fields = ['username', 'first_name', 'last_name', 'last_login']
@@ -99,12 +106,13 @@ class CourseResource(ModelResource):
 
 
 class LessonResource(ModelResource):
-    # def dehydrate(self, bundle):
-    #     bundle.data['updated'] = str(bundle.obj.updated.strftime("%s"))
-    #     return bundle
+    def dehydrate(self, bundle):
+        deleted_objects = Lesson.objects.filter(deleted=True).all().values('id')
+        bundle.data['deleted_objects'] = deleted_objects
+        return bundle
 
     class Meta:
-        queryset = Lesson.objects.all()
+        queryset = Lesson.objects.filter(deleted=False).all()
         resource_name = 'Lesson'
         # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         # fields = ['username', 'first_name', 'last_name', 'last_login']
@@ -119,12 +127,13 @@ class LessonResource(ModelResource):
 
 
 class ArticleResource(ModelResource):
-    # def dehydrate(self, bundle):
-    #     bundle.data['updated'] = str(bundle.obj.updated.strftime("%s"))
-    #     return bundle
+    def dehydrate(self, bundle):
+        deleted_objects = Article.objects.filter(deleted=True).all().values('id')
+        bundle.data['deleted_objects'] = deleted_objects
+        return bundle
 
     class Meta:
-        queryset = Article.objects.all()
+        queryset = Article.objects.filter(deleted=False).all()
         resource_name = 'Article'
         # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         # fields = ['username', 'first_name', 'last_name', 'last_login']
@@ -138,14 +147,15 @@ class ArticleResource(ModelResource):
 
 
 class UserCourseResource(ModelResource):
-    # def dehydrate(self, bundle):
-    #     bundle.data['updated'] = str(bundle.obj.updated.strftime("%s"))
-    #     return bundle
+    def dehydrate(self, bundle):
+        deleted_objects = UserCourse.objects.filter(deleted=True).all().values('id')
+        bundle.data['deleted_objects'] = deleted_objects
+        return bundle
 
     user = fields.ForeignKey(UserResource, 'user', full=True)
 
     class Meta:
-        queryset = UserCourse.objects.all()
+        queryset = UserCourse.objects.filter(deleted=False).all()
         resource_name = 'UserCourse'
         # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         # fields = ['username', 'first_name', 'last_name', 'last_login']
@@ -160,20 +170,16 @@ class UserCourseResource(ModelResource):
 
 
 class ActionResource(ModelResource):
-    # def dehydrate(self, bundle):
-    #     bundle.data['updated'] = str(bundle.obj.updated.strftime("%s"))
-    #     return bundle
+    def dehydrate(self, bundle):
+        deleted_objects = Action.objects.filter(deleted=True).all().values('id')
+        bundle.data['deleted_objects'] = deleted_objects
+        return bundle
 
-    # def hydrate(self, bundle):
-    #     print 'BEFORE: ', bundle.obj.updated
-    #     bundle.data['updated'] = datetime.fromtimestamp(int(bundle.obj.updated)).strftime('%Y-%m-%d %H:%M:%S')
-    #     print 'AFTER: ', bundle.obj.updated
-    #     return bundle
     lesson = fields.ForeignKey(LessonResource, 'lesson', full=True)
     user_course = fields.ForeignKey(UserCourseResource, 'user_course', full=True)
 
     class Meta:
-        queryset = Action.objects.all()
+        queryset = Action.objects.filter(deleted=False).all()
         resource_name = 'Action'
         # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         # fields = ['id', 'lesson']
@@ -190,12 +196,13 @@ class ActionResource(ModelResource):
 
 
 class EmotionalStateResource(ModelResource):
-    # def dehydrate(self, bundle):
-    #     bundle.data['updated'] = str(bundle.obj.updated.strftime("%s"))
-    #     return bundle
+    def dehydrate(self, bundle):
+        deleted_objects = EmotionalState.objects.filter(deleted=True).all().values('id')
+        bundle.data['deleted_objects'] = deleted_objects
+        return bundle
 
     class Meta:
-        queryset = EmotionalState.objects.all()
+        queryset = EmotionalState.objects.filter(deleted=False).all()
         resource_name = 'EmotionalState'
         # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         # fields = ['username', 'first_name', 'last_name', 'last_login']

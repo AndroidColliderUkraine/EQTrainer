@@ -17,6 +17,7 @@ class Course(models.Model):
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return unicode(self.name)
@@ -67,6 +68,7 @@ class Lesson(models.Model):
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return str(self.number) + ' | ' + str(self.name)
@@ -82,6 +84,7 @@ class Article(models.Model):
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.name
@@ -96,6 +99,7 @@ class UserCourse(models.Model):
     last_lesson = models.IntegerField(default=0)
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return unicode(self.id)
@@ -107,6 +111,7 @@ class Action(models.Model):
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return unicode(self.id)
@@ -121,7 +126,8 @@ class EmotionalState(models.Model):
     confidence = models.IntegerField(default=20)  # max=100, min=0
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
-    updated = models.DateTimeField()
+    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return unicode(unicode(self.user) + ' | ' + self.emotion + ' | ' + self.activity)
@@ -131,7 +137,8 @@ class WeeklyReport(models.Model):
     user = models.ForeignKey(User, blank=False, null=False)
     text = models.TextField(max_length=5000, blank=False, null=True)
 
-    date = models.DateTimeField()
+    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return unicode(unicode(self.user) + ' | ' + unicode(self.date))
@@ -141,7 +148,8 @@ class MonthlyReport(models.Model):
     user = models.ForeignKey(User, blank=False, null=False)
     text = models.TextField(max_length=5000, blank=False, null=True)
 
-    date = models.DateTimeField()
+    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return unicode(unicode(self.user) + ' | ' + unicode(self.date))
@@ -151,7 +159,8 @@ class Training(models.Model):
     name = models.CharField(max_length=100, blank=False, null=True)
     text = models.TextField(max_length=5000, blank=False, null=True)
 
-    date = models.DateTimeField()
+    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
         return unicode(self.name)

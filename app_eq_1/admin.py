@@ -26,47 +26,47 @@ UserAdmin.list_display = ('username', 'id', 'email', 'first_name', 'last_name', 
 
 
 class CourseAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "tags", "state", "price", "updated",]
+	list_display = ["__unicode__", "tags", "state", "price", "updated", "deleted"]
 	form = CourseForm
 
 
 class LessonAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "course", "state", "tags", "updated",]	
+	list_display = ["__unicode__", "course", "state", "tags", "updated", "deleted"]
 	form = LessonForm
 
 
 class ArticleAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "state", "tags", "updated",]	
+	list_display = ["__unicode__", "state", "tags", "updated", "deleted"]
 	form = ArticleForm
 
 
 class UserCourseAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "course", "paid", "status",  "updated",]	
+	list_display = ["__unicode__", "user", "course", "paid", "status",  "updated", "deleted"]
 	form = UserCourseForm
 
 
 class ActionAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user_course", "lesson", "updated",]	
+	list_display = ["__unicode__", "user_course", "lesson", "updated", "deleted"]
 	form = ActionForm
 
 
 class EmotionalStateAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "emotion", "activity", "subjectivity", "confidence", "updated",]
+	list_display = ["__unicode__", "user", "emotion", "activity", "subjectivity", "confidence", "updated", "deleted"]
 	form = EmotionalStateForm
 
 
 class WeeklyReportAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "date",]
+	list_display = ["__unicode__", "user", "updated", "deleted"]
 	form = WeeklyReportForm
 
 
 class MonthlyReportAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "date",]
+	list_display = ["__unicode__", "user", "updated", "deleted"]
 	form = MonthlyReportForm
 
 
 class TrainingAdmin(admin.ModelAdmin):
-	list_display = ["id", "name", "date",]
+	list_display = ["id", "name", "updated", "deleted"]
 	form = TrainingForm
 
 admin.site.register(Course, CourseAdmin)
