@@ -11,6 +11,7 @@ from django.contrib.auth.models 	import User
 from django.http import JsonResponse
 import datetime
 from django.db.models import Sum
+from constants import USER_EMOTIONS
 
 
 def home(request):
@@ -304,11 +305,15 @@ def profile_mydaybook(request):
     except Exception, e:
         print "e:", e
 
+    print 'USER_EMOTIONS', USER_EMOTIONS
     context = {
         "weekly_reports": weekly_reports,
         "monthly_reports": monthly_reports,
         "confidence_reports": confidence_reports,
-        "confidence_reports_total": confidence_reports_total
+        "confidence_reports_total": confidence_reports_total,
+        "subjectivity_reports": subjectivity_reports,
+        "subjectivity_reports_total": subjectivity_reports_total,
+        "user_emotions": USER_EMOTIONS,
     }
     return render(request, "profile_mydaybook.html", context)
 

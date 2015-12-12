@@ -31,7 +31,7 @@ class CourseAdmin(admin.ModelAdmin):
 
 
 class LessonAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "course", "state", "tags", "updated", "deleted"]
+	list_display = ['id', "__unicode__", "course", "state", "tags", "updated", "deleted"]
 	form = LessonForm
 
 

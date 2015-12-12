@@ -66,7 +66,7 @@ class Lesson(models.Model):
     tags = models.CharField(max_length=5000, blank=True, null=True)
     text = models.TextField(max_length=120, blank=True, null=True)
     course = models.ForeignKey(Course, blank=False, null=False)
-    number = models.IntegerField(unique=True)
+    number = models.IntegerField()
     state = models.CharField(choices=STATE, max_length=20, blank=False, null=True, default='not_active')
 
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
@@ -75,6 +75,9 @@ class Lesson(models.Model):
 
     def __unicode__(self):
         return str(self.number) + ' | ' + str(self.name)
+
+    class Meta:
+        unique_together = ('number', 'course',)
 
 
 class Article(models.Model):
