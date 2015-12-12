@@ -12,6 +12,8 @@ My daybook
     <script src="https://code.highcharts.com/modules/data.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script> {# For spider #}
+
 
 
     <script>
@@ -80,52 +82,172 @@ My daybook
                 }
             });
         });
-
+{# SECOND GRAPH #}
         $(function () {
-            $('#container_2_1').highcharts({
+
+            var gaugeOptions = {
+
                 chart: {
-                    type: 'pie',
-                    options3d: {
-                        enabled: true,
-                        alpha: 45,
-                        beta: 0
+                    type: 'solidgauge'
+                },
+
+                title: null,
+
+                pane: {
+                    center: ['50%', '85%'],
+                    size: '140%',
+                    startAngle: -90,
+                    endAngle: 90,
+                    background: {
+                        backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                        innerRadius: '60%',
+                        outerRadius: '100%',
+                        shape: 'arc'
                     }
                 },
-                title: {
-                    text: 'Confidence'
-                },
+
                 tooltip: {
-                    pointFormat: '<b>{point.percentage:.1f}%</b>'
+                    enabled: false
                 },
+
+                // the value axis
+                yAxis: {
+                    stops: [
+                        [0.1, '#66BB6A'], // green
+                        [0.5, '#388E3C'], // yellow
+                        [0.9, '#1B5E20'] // red
+                    ],
+                    lineWidth: 0,
+                    minorTickInterval: null,
+                    tickPixelInterval: 400,
+                    tickWidth: 0,
+                    title: {
+                        y: -70
+                    },
+                    labels: {
+                        y: 16
+                    }
+                },
+
                 plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        depth: 25,
+                    solidgauge: {
                         dataLabels: {
-                            enabled: true,
-                            format: '{point.name}'
+                            y: 5,
+                            borderWidth: 0,
+                            useHTML: true
                         }
                     }
+                }
+            };
+
+            // The speed gauge
+            $('#container_2_1').highcharts(Highcharts.merge(gaugeOptions, {
+                yAxis: {
+                    min: 0,
+                    max: 100,
+                    title: {
+                        text: 'Confidence'
+                    }
                 },
+
+                credits: {
+                    enabled: false
+                },
+
                 series: [{
-                    type: 'pie',
-                    name: 'Happiness',
-                    data: [
-                        ['Unconfidence', {{ confidence_reports_total }} - {{ confidence_reports }}],
-                        {
-                            name: 'Confidence',
-                            y: {{ confidence_reports }},
-                            sliced: true,
-                            selected: true
-                        },
-                    ]
+                    name: 'Speed',
+                    data: [{{ confidence_reports }} * 100 / {{ confidence_reports_total }}],
+                    dataLabels: {
+                        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                            ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                               '<span style="font-size:12px;color:silver">%</span></div>'
+                    },
+                    tooltip: {
+                        valueSuffix: ' mk/h'
+                    }
                 }]
-            });
+
+            }));
+            // The speed gauge
+            $('#container_2_2').highcharts(Highcharts.merge(gaugeOptions, {
+                yAxis: {
+                    stops: [
+                        [0.1, '#5C6BC0'], // green
+                        [0.5, '#3949AB'], // yellow
+                        [0.9, '#1A237E'] // red
+                    ],
+                    min: 0,
+                    max: 100,
+                    title: {
+                        text: 'Subjective'
+                    }
+                },
+
+                credits: {
+                    enabled: false
+                },
+
+                series: [{
+                    name: 'Speed',
+                    data: [{{ subjectivity_reports }} * 100 / {{ subjectivity_reports_total}}],
+                    dataLabels: {
+                        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                            ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                               '<span style="font-size:12px;color:silver">%</span></div>'
+                    },
+                    tooltip: {
+                        valueSuffix: ' mk/h'
+                    }
+                }]
+
+            }));
         });
 
+{#        $(function () {#}
+{#            $('#container_2_1').highcharts({#}
+{#                chart: {#}
+{#                    type: 'pie',#}
+{#                    options3d: {#}
+{#                        enabled: true,#}
+{#                        alpha: 45,#}
+{#                        beta: 0#}
+{#                    }#}
+{#                },#}
+{#                title: {#}
+{#                    text: 'Confidence'#}
+{#                },#}
+{#                tooltip: {#}
+{#                    pointFormat: '<b>{point.percentage:.1f}%</b>'#}
+{#                },#}
+{#                plotOptions: {#}
+{#                    pie: {#}
+{#                        allowPointSelect: true,#}
+{#                        cursor: 'pointer',#}
+{#                        depth: 25,#}
+{#                        dataLabels: {#}
+{#                            enabled: true,#}
+{#                            format: '{point.name}'#}
+{#                        }#}
+{#                    }#}
+{#                },#}
+{#                series: [{#}
+{#                    type: 'pie',#}
+{#                    name: 'Happiness',#}
+{#                    data: [#}
+{#                        ['Unconfidence', {{ confidence_reports_total }} - {{ confidence_reports }}],#}
+{#                        {#}
+{#                            name: 'Confidence',#}
+{#                            y: {{ confidence_reports }},#}
+{#                            sliced: true,#}
+{#                            selected: true#}
+{#                        },#}
+{#                    ]#}
+{#                }]#}
+{#            });#}
+{#        });#}
+
         $(function () {
-            $('#container_2_2').highcharts({
+            $('#container_2_3').highcharts({
                 chart: {
                     type: 'pie',
                     options3d: {
