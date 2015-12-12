@@ -147,12 +147,18 @@ class ArticleResource(ModelResource):
 
 
 class UserCourseResource(ModelResource):
+
     def dehydrate(self, bundle):
         deleted_objects = UserCourse.objects.filter(deleted=True).all().values('id')
         bundle.data['deleted_objects'] = deleted_objects
+        # bundle.data['course_id'] = bundle.obj.course_id.id
+        # print '////////', bundle.obj.course_id
+        bundle.data['courseid'] = bundle.obj.course_id
         return bundle
 
     user = fields.ForeignKey(UserResource, 'user', full=True)
+    courseid = fields.ForeignKey(CourseResource, 'course', full=True)
+    # course_id = fields.IntegerField(attribute='Course_id', null=True)
 
     class Meta:
         queryset = UserCourse.objects.filter(deleted=False).all()
@@ -162,6 +168,7 @@ class UserCourseResource(ModelResource):
         # allowed_methods = ['get']
         filtering = {
             'user': ALL_WITH_RELATIONS,
+            'courseid': ALL,
             'id': ALL,
             'updated': ['exact', 'lt', 'lte', 'gte', 'gt'],
         }

@@ -26,7 +26,7 @@ UserAdmin.list_display = ('username', 'id', 'email', 'first_name', 'last_name', 
 
 
 class CourseAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "tags", "state", "price", "updated", "deleted"]
+	list_display = ['id', "__unicode__", "tags", "state", "price", "updated", "deleted"]
 	form = CourseForm
 
 
