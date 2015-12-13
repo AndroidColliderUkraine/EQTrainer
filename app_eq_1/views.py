@@ -11,7 +11,7 @@ from django.contrib.auth.models 	import User
 from django.http import JsonResponse
 import datetime
 from django.db.models import Sum
-from constants import USER_EMOTIONS
+from constants import USER_EMOTIONS, USER_ACTIVITY
 
 
 def home(request):
@@ -272,6 +272,7 @@ def profile_mydaybook(request):
     confidence_reports_total = 0
     subjectivity_reports = 0
     subjectivity_reports_total = 0
+    emotion_activity = []
 
     try:
         weekly_reports = request.user.weeklyreport_set.filter(deleted=False).all()
@@ -301,6 +302,18 @@ def profile_mydaybook(request):
         subjectivity_reports_total = 100 if subjectivity_reports_total == 0 else subjectivity_reports_total
         subjectivity_reports = 0 if subjectivity_reports is None else subjectivity_reports
 
+        for emotion, name_e in USER_EMOTIONS:
+            print '---', emotion, name_e
+            temp = []
+            for activity, name_a in USER_ACTIVITY:
+                a = request.user.emotionalstate_set.filter(deleted=False).filter(emotion=emotion).filter(activity=activity).count()
+                print 'EM:', name_a,
+                temp.append(a)
+            emotion_activity.append([name_e, temp])
+
+        # for a, b in emotion_activity:
+        #     print 'AAA', a, '|||', b
+
     except Exception, e:
         print "e:", e
 
@@ -312,6 +325,8 @@ def profile_mydaybook(request):
         "subjectivity_reports": subjectivity_reports,
         "subjectivity_reports_total": subjectivity_reports_total,
         "user_emotions": USER_EMOTIONS,
+        "user_activity": USER_ACTIVITY,
+        "emotion_activity": emotion_activity,
     }
     return render(request, "profile_mydaybook.html", context)
 

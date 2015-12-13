@@ -156,7 +156,7 @@ My daybook
 
                 series: [{
                     name: 'Speed',
-                    data: [{{ confidence_reports }} * 100 / {{ confidence_reports_total }}],
+                    data: [Math.round({{ confidence_reports }} * 100 / {{ confidence_reports_total }})],
                     dataLabels: {
                         format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                             ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
@@ -189,7 +189,7 @@ My daybook
 
                 series: [{
                     name: 'Speed',
-                    data: [{{ subjectivity_reports }} * 100 / {{ subjectivity_reports_total}}],
+                    data: [Math.round({{ subjectivity_reports }} * 100 / {{ subjectivity_reports_total}})],
                     dataLabels: {
                         format: '<div style="text-align:center"><span style="font-size:25px;color:' +
                             ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
@@ -316,11 +316,14 @@ My daybook
     <!-- Source: http://or.water.usgs.gov/cgi-bin/grapher/graph_windrose.pl -->
     <table id="freq" border="0" cellspacing="0" cellpadding="0">
         <tr nowrap bgcolor="#CCCCFF">
-            <th colspan="{{ user_emotions|length }}" class="hdr">Table of Frequencies (percent)</th>
+            <th colspan="{{ emotion_activity|length }}" class="hdr">Table of Frequencies (percent)</th>
         </tr>
 
         <tr nowrap bgcolor="#CCCCFF">
             <th class="freq">Direction</th>
+            {% for key, name in user_activity %}
+                <th class="freq">{{ name }}</th>
+            {% endfor %}
 {#            <th class="freq">&lt; 0.5 m/s</th>#}
 {#            <th class="freq">0.5-2 m/s</th>#}
 {#            <th class="freq">2-4 m/s</th>#}
@@ -328,19 +331,23 @@ My daybook
 {#            <th class="freq">6-8 m/s</th>#}
 {#            <th class="freq">8-10 m/s</th>#}
 {#            <th class="freq">&gt; 10 m/s</th>#}
-{#            <th class="freq">Total</th>#}
+            <th class="freq">Total</th>
         </tr>
-        {% for key, value in user_emotions %}
+        {% for name, value in emotion_activity %}
             <tr nowrap>
-                <td class="dir">{{ value }}</td>
-                <td class="data">1.81</td>
-                <td class="data">1.78</td>
-                <td class="data">0.16</td>
-                <td class="data">0.50</td>
-                <td class="data">0.40</td>
-                <td class="data">0.30</td>
-                <td class="data">1.20</td>
-{#                <td class="data">3.75</td>#}
+                <td class="dir">{{ name }}</td>
+                {% for i in value reversed %}
+                    <td class="data">{{ i }}</td>
+                {% endfor %}
+
+{#                <td class="data"></td>#}
+{#                <td class="data">1.78</td>#}
+{#                <td class="data">0.16</td>#}
+{#                <td class="data">0.50</td>#}
+{#                <td class="data">0.40</td>#}
+{#                <td class="data">0.30</td>#}
+{#                <td class="data">1.20</td>#}
+                <td class="data">1</td>
             </tr>
         {% endfor %}
 {#        #}
