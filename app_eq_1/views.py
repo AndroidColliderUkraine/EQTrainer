@@ -303,13 +303,13 @@ def profile_mydaybook(request):
         subjectivity_reports = 0 if subjectivity_reports is None else subjectivity_reports
 
         print 'Test_ print'
-        print 'USER_EMOTIONS', USER_EMOTIONS
+        # print 'USER_EMOTIONS', USER_EMOTIONS
         for emotion, name_e in USER_EMOTIONS:
-            print '---', emotion, name_e
+            # print '---', emotion, name_e
             temp = []
             for activity, name_a in USER_ACTIVITY:
                 a = request.user.emotionalstate_set.filter(deleted=False).filter(emotion=emotion).filter(activity=activity).count()
-                print 'EM:', name_a,
+                # print 'EM:', name_a,
                 temp.append(a)
             emotion_activity.append([name_e, temp])
 
