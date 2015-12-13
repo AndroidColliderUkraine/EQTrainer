@@ -302,6 +302,8 @@ def profile_mydaybook(request):
         subjectivity_reports_total = 100 if subjectivity_reports_total == 0 else subjectivity_reports_total
         subjectivity_reports = 0 if subjectivity_reports is None else subjectivity_reports
 
+        print 'Test_ print'
+        print 'USER_EMOTIONS', USER_EMOTIONS
         for emotion, name_e in USER_EMOTIONS:
             print '---', emotion, name_e
             temp = []
