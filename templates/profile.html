@@ -77,30 +77,38 @@
             <div id="page-content-wrapper">
                 <div class="page-content">
                     <div class="container-fluid">
-                        {% block content%}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="panel panel-danger">
-                                        <div class="panel-heading">
-                                                Panel 1
-                                        </div>
-                                        <div class="panel-body">
-                                            content body
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="panel panel-success">
-                                        <div class="panel-heading">
-                                                Panel 1
-                                        </div>
-                                        <div class="panel-body">
-                                            content body
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="col-xs-1">
                             </div>
-                        {% endblock %}
+                            <div class="col-xs-10">
+                                {% block content%}
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="panel panel-danger">
+                                                <div class="panel-heading">
+                                                        Panel 1
+                                                </div>
+                                                <div class="panel-body">
+                                                    content body
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="panel panel-success">
+                                                <div class="panel-heading">
+                                                        Panel 1
+                                                </div>
+                                                <div class="panel-body">
+                                                    content body
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endblock %}
+                            </div>
+                            <div class="col-xs-1">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

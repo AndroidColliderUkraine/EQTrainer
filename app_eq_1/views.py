@@ -307,10 +307,18 @@ def profile_mydaybook(request):
         for emotion, name_e in USER_EMOTIONS:
             # print '---', emotion, name_e
             temp = []
+            sum = 0
             for activity, name_a in USER_ACTIVITY:
-                a = request.user.emotionalstate_set.filter(deleted=False).filter(emotion=emotion).filter(activity=activity).count()
+                a = request.user.emotionalstate_set.\
+                    filter(deleted=False).\
+                    filter(updated__gte=preview_week).\
+                    filter(emotion=emotion).\
+                    filter(activity=activity).\
+                    count()
                 # print 'EM:', name_a,
+                sum += int(a)
                 temp.append(a)
+            temp.append(sum)
             emotion_activity.append([name_e, temp])
 
         # for a, b in emotion_activity:

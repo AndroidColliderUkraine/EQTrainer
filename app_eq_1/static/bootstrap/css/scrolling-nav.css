@@ -116,10 +116,13 @@ of those sections to manage the look and feel of the site. */
 }
 
 .footer {
-    height: 50%;
+    /*Висота футера*/
+    /*height: 100%;*/
+    height: 40%;
     padding-top: 10px;
     text-align: center;
-    background: #333;
+    /*background: #333;*/
+    background: #222;
 }
 
 

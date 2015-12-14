@@ -1,6 +1,7 @@
 
 #wrapper {
-  padding-left: 250px;
+  /*ширина відступу*/
+  padding-left: 100px;
   transition: all 0.4s ease 0s;
 }
 
@@ -8,7 +9,8 @@
   margin-left: -250px;
   top: 51px;
   left: 250px;
-  width: 250px;
+  /*ширина лівого меню*/
+  width: 150px;
   /*background: #000;*/
   background: #fff;
   position: fixed;
