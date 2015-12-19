@@ -16,7 +16,8 @@ from constants import USER_EMOTIONS, USER_ACTIVITY
 
 def home(request):
     if request.user.is_authenticated():
-        return home_private(request)
+        # return home_private(request)
+        return profile_mydaybook(request)
     else:
         return home_public(request)
 
@@ -173,6 +174,26 @@ def articles_private(request):
 
 
 def article(request):
+    if request.user.is_authenticated():
+        return article_private(request)
+    else:
+        return article_public(request)
+
+
+def article_private(request):
+    article_id = request.GET.get('id')
+    article = None
+    try:
+        article = Article.objects.filter(deleted=False).filter(id=article_id).get()
+    except Exception, e:
+        print "e:", e
+    context = {
+        "article": article,
+    }
+    return render(request, "profile_arcticle.html", context)
+
+
+def article_public(request):
     article_id = request.GET.get('id')
     article = None
     try:

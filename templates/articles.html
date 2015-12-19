@@ -1,3 +1,16 @@
+{% extends "base_index.html" %}
+{% load i18n %}
+{% block title %}
+Articals
+{{ block.super }}
+{% endblock %}
+
+
+{% block content%}
+    <br>
+    {% include "template_articles.html" %}
+{% endblock %}
+
 {% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +26,8 @@
 
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'bootstrap/css/scrolling-nav.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/footer_try.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 </head>
 
@@ -38,19 +53,19 @@
                         <a class="page-scroll" href="../#page-top"></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="../#course">Курси</a>
+                        <a class="page-scroll" href="/courses">Курси</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="../#article">Статті</a>
+                        <a class="page-scroll" href="/articles">Статті</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="../#trener">Тренажер</a>
+                        <a class="page-scroll" href="/trener">Тренажер</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="../#helper">Допомога</a>
+                        <a class="page-scroll" href="/helper">Допомога</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="../#detailer">Детальніше</a>
+                        <a class="page-scroll" href="/detailer">Детальніше</a>
                     </li>
                 </ul>
             </div>
@@ -107,11 +122,14 @@
         </div>
     </div>
 
-    <footer class="footer" >
-      <div class="container" style="color:#333">
-        <p class="text-muted">Place sticky footer content here.</p>
-      </div>
-    </footer>
+{#    <footer class="footer" >#}
+{#      <div class="container" style="color:#333">#}
+{#        <p class="text-muted">Place sticky footer content here.</p>#}
+{#      </div>#}
+{#    </footer>#}
+    {% block footer%}
+    {% include "template_footer_public.html" %}
+    {% endblock %}
 
     <!-- jQuery -->
     <script src="{% static 'js/jquery.js' %}"></script>

@@ -20,20 +20,29 @@ My course
             $('#ModalLesson').modal('show')
         }
     </script>
-    {{ user_course.course.name }}
+    <h4>There are list of your lessons for course: '{{ user_course.course.name }}':</h4>
     <br>
     <br>
 <div class="panel panel-success">
     <div class="panel-heading">My lessons</div>
 {#        <div class="panel-body">12345789</div>#}
-        <ul class="list-group">
-            {% for lesson in lessons%}
-                <a type="button" onclick="myFunction('{{ lesson.name }}', '{{ forloop.counter }}', '{{ lesson.tags }}', '{{ lesson.text }}')" class="list-group-item">
-                    {{ forloop.counter }}. {{ lesson.name }}
-                    <span class="pull-right">Date: {{ lesson.updated }}</span>
+        {% if lessons|length %}
+            <ul class="list-group">
+                {% for lesson in lessons%}
+                    <a type="button" onclick="myFunction('{{ lesson.name }}', '{{ forloop.counter }}', '{{ lesson.tags }}', '{{ lesson.text }}')" class="list-group-item">
+                        {{ forloop.counter }}. {{ lesson.name }}
+                        <span class="pull-right">Date: {{ lesson.updated }}</span>
+                    </a>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <ul class="list-group">
+                <a type="button" onclick="myFunction('Introduction', '0', '', 'There will be your lessons, please, come later.')" class="list-group-item">
+                    There will be your lessons, please, come later.
+                    <span class="pull-right">Date: {% now 'jS F Y H:i'%} </span>
                 </a>
-            {% endfor %}
-        </ul>
+            </ul>
+        {% endif %}
 </div>
 
       <!-- Modal -->

@@ -1,72 +1,86 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
     <title>{% block title %}{% endblock %}</title>
 
-    <link href="{% static 'css/my_profile.css' %}" rel="stylesheet">
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="{% static 'js/my_profile.js' %}"></script>
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <link href="{% static 'bootstrap/css/scrolling-nav.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/footer_try.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
 </head>
-    <body>
-        <div id="wrapper1">
-            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <div  class="navbar-brand">
-                            <a href="/">EQ</a>
-                        </div>
-                    </div>
-                    <div id="navbar" class="collapse navbar-collapse navbar-right">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="/">Home</a></li>
-                            <li><a href="/courses">Courses</a></li>
-                            <li><a href="/articles">Articles</a></li>
-                            <li><a href="/trener">Trener</a></li>
-                            <li><a href="#about">About</a></li>
-                            {% if request.user.is_authenticated %}
-                            {% else %}
-                                <li><a href="/">LogIn</a></li>
-                            {% endif %}
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
-            </nav>
-            <!-- Page content -->
-            <div id="page-content-wrapper">
-                <div class="page-content">
-                    <div class="container-fluid">
-                        {% block content%}
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="panel panel-danger">
-                                        <div class="panel-heading">
-                                                Panel 1
-                                        </div>
-                                        <div class="panel-body">
-                                            content body
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="panel panel-success">
-                                        <div class="panel-heading">
-                                                Panel 1
-                                        </div>
-                                        <div class="panel-body">
-                                            content body
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endblock %}
-                    </div>
-                </div>
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #333;">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="../#page-top">EQ - тренер</a>
             </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="../#page-top"></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/courses">Курси</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/articles">Статті</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/trener">Тренажер</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="/about">Детальніше</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-    </body>
+        <!-- /.container -->
+    </nav>
+
+    <div class="container" style="padding-top: 100px">
+        {% block content%}
+        {% endblock %}
+    </div>
+    {% block footer%}
+    {% include "template_footer_public.html" %}
+    {% endblock %}
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <!-- <script src="js/jquery.js"></script> -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <!-- // <script src="js/bootstrap.min.js"></script> -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="{% static 'bootstrap/js/jquery.easing.min.js' %}"></script>
+    <!-- // <script src="js/jquery.easing.min.js"></script> -->
+
+    <script src="{% static 'bootstrap/js/scrolling-nav.js' %}"></script>
+    <!-- // <script src="js/scrolling-nav.js"></script> -->
+
+</body>
+
 </html>

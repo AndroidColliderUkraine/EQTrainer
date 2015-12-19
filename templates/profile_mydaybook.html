@@ -353,35 +353,43 @@ My daybook
     </table>
 </div>
 
-    <br>
-    <br>
 
-    {{ user_course.course.name }} My history
     <br>
     <br>
 <div class="panel panel-info">
     <div class="panel-heading">Weekly reports</div>
 {#        <div class="panel-body">12345789</div>#}
         <ul class="list-group">
-            {% for weekly_report in weekly_reports%}
-                <a type="button" onclick="myFunction('{{ weekly_report }}', '{{ forloop.counter }}', '{{ weekly_report.text }}')" class="list-group-item">
-                    {{ forloop.counter }}. {{ weekly_report }}
-                    <span class="pull-right">Date: {{ weekly_report.updated }}</span>
+            {% if weekly_reports|length %}
+                {% for weekly_report in weekly_reports%}
+                    <a type="button" onclick="myFunction('{{ weekly_report }}', '{{ forloop.counter }}', '{{ weekly_report.text }}')" class="list-group-item">
+                        {{ forloop.counter }}. {{ weekly_report }}
+                        <span class="pull-right">Date: {{ weekly_report.updated }}</span>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <a type="button" class="list-group-item">
+                    There will be your weekly reports, please, come later.
                 </a>
-            {% endfor %}
+            {% endif %}
         </ul>
 </div>
 
 <div class="panel panel-info">
     <div class="panel-heading">Monthly reports</div>
-{#        <div class="panel-body">12345789</div>#}
         <ul class="list-group">
-            {% for monthly_report in monthly_reports%}
-                <a type="button" onclick="myFunction('{{ monthly_report }}', '{{ forloop.counter }}', '{{ monthly_report.text }}')" class="list-group-item">
-                    {{ forloop.counter }}. {{ monthly_report }}
-                    <span class="pull-right">Date: {{ monthly_report.updated }}</span>
+            {% if monthly_reports|length %}
+                {% for monthly_report in monthly_reports%}
+                    <a type="button" onclick="myFunction('{{ monthly_report }}', '{{ forloop.counter }}', '{{ monthly_report.text }}')" class="list-group-item">
+                        {{ forloop.counter }}. {{ monthly_report }}
+                        <span class="pull-right">Date: {{ monthly_report.updated }}</span>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <a type="button" class="list-group-item">
+                    There will be your monthly reports, please, come later.
                 </a>
-            {% endfor %}
+            {% endif %}
         </ul>
 </div>
 
