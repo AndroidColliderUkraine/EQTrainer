@@ -5,6 +5,8 @@
         <img src="{{ article.photo }}" class="img-responsive">
         <br>
         <br>
-        <p class="text-justify">{{ article.text }}</p>
+{#        <p class="text-justify">{{ article.text }}</p>#}
+        {{ article.text|safe }}
+    <hr>
     </div>
 {% endblock %}

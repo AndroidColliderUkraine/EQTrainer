@@ -53,6 +53,8 @@ INSTALLED_APPS = (
     'rest_framework.authtoken',
     'djoser',
     'djcelery',
+    # 'tinymce',
+     'redactor',
 
     # 'django.contrib.sites',
     # 'registration',
@@ -119,6 +121,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media/'
 
 STATIC_ROOT = os.path.join("static/")
 STATICFILES_DIRS = (
@@ -167,4 +171,8 @@ EMAIL_HOST_USER = os.getenv('EQ_SMTP_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EQ_SMTP_PASS', '')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+REDACTOR_OPTIONS = {'lang': 'en'}
+REDACTOR_UPLOAD = 'uploads/'
 

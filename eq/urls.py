@@ -12,6 +12,7 @@ from app_eq_1.api 				import UserResource
 from app_eq_1.api import WeeklyReportResource
 from app_eq_1.api import MonthlyReportResource
 from app_eq_1.api import TrainingResource
+import settings
 
 v1_api = Api(api_name='v1')
 v1_api.register(CourseResource())
@@ -30,6 +31,8 @@ urlpatterns = [
     # url(r'^$', 'eq.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    # url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^redactor/', include('redactor.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'app_eq_1.views.home', name='home'),
     # url(r'^profile/home$', 'app_eq_1.views.profile_home', name='profile_home'),
@@ -59,5 +62,5 @@ urlpatterns = [
 
     url(r'^subscribe_course/', 'app_eq_1.views.subscribe_course', name='subscribe_course'),
     url(r'^unsubscribe_course/', 'app_eq_1.views.unsubscribe_course', name='unsubscribe_course'),
-
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 ]

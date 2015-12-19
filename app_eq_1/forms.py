@@ -9,6 +9,8 @@ from .models 				import EmotionalState
 from .models import WeeklyReport
 from .models import MonthlyReport
 from .models import Training
+from redactor.widgets import RedactorEditor
+
 
 
 class CourseForm(forms.ModelForm):
@@ -27,6 +29,15 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = '__all__'
+
+
+class ArticleAdminForm(forms.ModelForm):
+    class Meta:
+        model = Article
+        fields = '__all__'
+        widgets = {
+           'text': RedactorEditor(),
+        }
 
 
 class UserCourseForm(forms.ModelForm):

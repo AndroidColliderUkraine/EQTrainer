@@ -2,7 +2,7 @@ from django.contrib 		import admin
 
 from .forms 				import CourseForm
 from .forms 				import LessonForm
-from .forms 				import ArticleForm
+from .forms 				import ArticleAdminForm
 from .forms 				import UserCourseForm
 from .forms 				import ActionForm
 from .forms 				import EmotionalStateForm
@@ -37,7 +37,7 @@ class LessonAdmin(admin.ModelAdmin):
 
 class ArticleAdmin(admin.ModelAdmin):
 	list_display = ["__unicode__", "state", "tags", "updated", "deleted"]
-	form = ArticleForm
+	form = ArticleAdminForm
 
 
 class UserCourseAdmin(admin.ModelAdmin):

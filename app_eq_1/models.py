@@ -2,6 +2,7 @@
 from django.db 						import models
 from django.contrib.auth.models 	import User
 from constants 						import *
+from redactor.fields                import RedactorField
 
 
 class Course(models.Model):
@@ -84,7 +85,9 @@ class Article(models.Model):
     name = models.CharField(max_length=500, blank=True, null=True)
     tags = models.CharField(max_length=500, blank=True, null=True)
     headline = models.TextField(max_length=120, blank=True, null=True)
-    text = models.TextField(max_length=5000, blank=True, null=True)
+    # text = models.TextField(max_length=5000, blank=True, null=True)
+    text = RedactorField(verbose_name=u'Text')
+
     photo = models.URLField(blank=True, null=True, verbose_name=('Photo'))
     state = models.CharField(choices=STATE, max_length=20, blank=False, null=True, default='not_active')
 
