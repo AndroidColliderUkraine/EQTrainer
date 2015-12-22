@@ -12,7 +12,6 @@ from .models import Training
 from redactor.widgets import RedactorEditor
 
 
-
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
