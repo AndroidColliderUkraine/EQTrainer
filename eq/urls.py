@@ -1,4 +1,4 @@
-from django.conf.urls 			import include, url
+from django.conf.urls 			import include, url, patterns
 from django.contrib 			import admin
 
 from tastypie.api 				import Api
@@ -63,4 +63,5 @@ urlpatterns = [
     url(r'^subscribe_course/', 'app_eq_1.views.subscribe_course', name='subscribe_course'),
     url(r'^unsubscribe_course/', 'app_eq_1.views.unsubscribe_course', name='unsubscribe_course'),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT})
 ]

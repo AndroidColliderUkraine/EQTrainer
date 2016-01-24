@@ -1,0 +1,15 @@
+django:
+  build: .
+  command: "sh deploy.sh"
+  environment:
+    RUN_ENV: "$RUN_ENV"
+    SCHEDUL_SENTRY_URL: "$SCHEDUL_SENTRY_URL"
+  ports:
+   - "80:8000"
+  volumes:
+   - .:/project
+  links:
+   - redis
+redis:
+  image: redis:latest
+  command: redis-server --appendonly yes

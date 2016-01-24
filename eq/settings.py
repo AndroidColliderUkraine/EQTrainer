@@ -131,8 +131,13 @@ STATICFILES_DIRS = (
     # '/var/www/static/',
 )
 
-BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+# BROKER_URL = 'redis://localhost:6379/0'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+BROKER_URL = "redis"
+BROKER_BACKEND = "redis"
+REDIS_PORT = 6379
+REDIS_HOST = "redis"
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
