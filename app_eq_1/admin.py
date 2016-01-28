@@ -8,7 +8,8 @@ from .forms 				import ActionForm
 from .forms 				import EmotionalStateForm
 from .forms import WeeklyReportForm
 from .forms import MonthlyReportForm
-from  .forms import TrainingForm
+from .forms import TrainingForm
+from .forms import ConclusionsForm
 
 from .models 				import Course
 from .models 				import Lesson
@@ -18,7 +19,8 @@ from .models 				import Action
 from .models 				import EmotionalState
 from .models import WeeklyReport
 from .models import MonthlyReport
-from  .models import Training
+from .models import Training
+from .models import Conclusions
 
 from django.contrib.auth.admin import UserAdmin
 
@@ -69,6 +71,11 @@ class TrainingAdmin(admin.ModelAdmin):
 	list_display = ["id", "name", "updated", "deleted"]
 	form = TrainingForm
 
+
+class ConclusionsAdmin(admin.ModelAdmin):
+	list_display = ["id", "text", "emotion", "activity", "updated", "deleted"]
+	form = ConclusionsForm
+
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Article, ArticleAdmin)
@@ -78,3 +85,4 @@ admin.site.register(EmotionalState, EmotionalStateAdmin)
 admin.site.register(WeeklyReport, WeeklyReportAdmin)
 admin.site.register(MonthlyReport, MonthlyReportAdmin)
 admin.site.register(Training, TrainingAdmin)
+admin.site.register(Conclusions, ConclusionsAdmin)

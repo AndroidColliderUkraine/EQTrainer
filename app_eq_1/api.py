@@ -208,6 +208,7 @@ class EmotionalStateResource(ModelResource):
         bundle.data['deleted_objects'] = deleted_objects
         return bundle
 
+    user = fields.ForeignKey(UserResource, 'user', full=True)
     class Meta:
         queryset = EmotionalState.objects.filter(deleted=False).all()
         resource_name = 'EmotionalState'

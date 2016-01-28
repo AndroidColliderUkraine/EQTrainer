@@ -139,7 +139,7 @@ class EmotionalState(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return unicode(unicode(self.user) + ' | ' + self.emotion + ' | ' + self.activity)
+        return unicode(self.id)
 
 
 class WeeklyReport(models.Model):
@@ -173,3 +173,17 @@ class Training(models.Model):
 
     def __unicode__(self):
         return unicode(self.name)
+
+
+class Conclusions(models.Model):
+    class Meta:
+        unique_together = ('emotion', 'activity')
+    emotion = models.CharField(choices=USER_EMOTIONS, max_length=50, blank=False, null=True)
+    activity = models.CharField(choices=USER_ACTIVITY, max_length=50, blank=False, null=True)
+    text = models.TextField(max_length=5000)
+
+    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    deleted = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return unicode(self.id)
