@@ -1,9 +1,9 @@
 *.pyc
 *.sqlite3
-/static/*
+static/*
 /logs/*
 *xml
 *.log
 *.pid
-
+celerybeat-schedule
 
