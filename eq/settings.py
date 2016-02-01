@@ -153,16 +153,25 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds=30),
         # 'args': (16, ),
     },
-}
-
-CELERYBEAT_SCHEDULE = {
     # Executes everyday morning at 6:30 A.M
     'add-every-day-morning': {
         'task': 'app_eq_1.tasks.every_day',
         'schedule': crontab(hour=6, minute=30),
         # 'args': (16, 16),
     },
+    # Executes every Tuesday morning at 1:30 A.M
+    'add-every-tuesday-morning': {
+        'task': 'app_eq_1.tasks.every_week',
+        'schedule': crontab(hour=1, minute=30, day_of_week=2),
+        # 'args': (16, 16),
+    },
+    # Executes every 2-th day of month morning at 3:30 A.M
+    'add-every-month': {
+        'task': 'app_eq_1.tasks.every_month',
+        'schedule': crontab(hour=3, minute=30, day_of_month=2),
+    },
 }
+
 
 # ACCOUNT_ACTIVATION_DAYS = 2
 # EMAIL_HOST = 'localhost'

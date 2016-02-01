@@ -4,6 +4,8 @@ django:
   environment:
     RUN_ENV: "$RUN_ENV"
     SCHEDUL_SENTRY_URL: "$SCHEDUL_SENTRY_URL"
+    EQ_SMTP_USER: "$EQ_SMTP_USER"
+    EQ_SMTP_PASS: "$EQ_SMTP_PASS"
   ports:
    - "80:8000"
    - "5555:5555"
