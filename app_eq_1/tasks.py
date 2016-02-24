@@ -14,11 +14,13 @@ from app_eq_1.constants import USER_EMOTIONS, USER_ACTIVITY
 from django.shortcuts 			import render
 from django.template import loader, Context
 from django.template.loader import render_to_string
+from django.db.models import Sum
 
 
 @task()
 def example():
     print '[ EVERY_30_SECONDS ] [ %s ]' % (str(datetime.now().time()),)
+    every_week()
 
 
 @task()
@@ -89,6 +91,13 @@ def every_week():
                         "user": user,
                         "text": conclusion.text,
                     }
+                    context.update(
+                        get_context_for_reports(
+                            user_id=user.id,
+                            date_start=monday_of_last_week,
+                            date_end=monday_of_this_week
+                        )
+                    )
 
                     report = WeeklyReport.objects.create(
                         user=user,
@@ -229,3 +238,79 @@ def send_email_report_month(month_report_id, user_id):
             html_message=EMAIL_MESSAGE)
     except Exception, e:
         print '[send_email_weekly_report]', e
+
+
+def get_context_for_reports(user_id, date_start, date_end):
+    print "I'm in get_context_for_reports"
+
+    confidence_reports = 0
+    confidence_reports_total = 0
+    subjectivity_reports = 0
+    subjectivity_reports_total = 0
+    emotion_activity = []
+
+    try:
+        user = User.objects.get(id=user_id)
+
+        confidence_reports = user.emotionalstate_set.\
+            filter(deleted=False).\
+            filter(updated__gte=date_start).\
+            filter(updated__lt=date_end).\
+            aggregate(Sum('confidence'))['confidence__sum']
+        confidence_reports_total = user.emotionalstate_set.\
+            filter(deleted=False).\
+            filter(updated__gte=date_start).\
+            filter(updated__lt=date_end).\
+            count() * 100
+        confidence_reports_total = 100 if confidence_reports_total == 0 else confidence_reports_total
+        confidence_reports = 0 if confidence_reports is None else confidence_reports
+
+        subjectivity_reports = user.emotionalstate_set.\
+            filter(deleted=False).\
+            filter(updated__gte=date_start).\
+            filter(updated__lt=date_end).\
+            aggregate(Sum('subjectivity'))['subjectivity__sum']
+        subjectivity_reports_total = user.emotionalstate_set.\
+            filter(deleted=False).\
+            filter(updated__gte=date_start).\
+            filter(updated__lt=date_end).\
+            count() * 100
+        subjectivity_reports_total = 100 if subjectivity_reports_total == 0 else subjectivity_reports_total
+        subjectivity_reports = 0 if subjectivity_reports is None else subjectivity_reports
+
+        print 'Test_ print'
+        # print 'USER_EMOTIONS', USER_EMOTIONS
+        for emotion, name_e in USER_EMOTIONS:
+            # print '---', emotion, name_e
+            temp = []
+            sum = 0
+            for activity, name_a in USER_ACTIVITY:
+                a = user.emotionalstate_set.\
+                    filter(deleted=False).\
+                    filter(updated__gte=date_start).\
+                    filter(updated__lt=date_end).\
+                    filter(emotion=emotion).\
+                    filter(activity=activity).\
+                    count()
+                # print 'EM:', name_a,
+                sum += int(a)
+                temp.append(a)
+            temp.append(sum)
+            emotion_activity.append([name_e, temp])
+
+        # for a, b in emotion_activity:
+        #     print 'AAA', a, '|||', b
+
+    except Exception, e:
+        print "e:", e
+
+    context = {
+        "confidence_reports": confidence_reports,
+        "confidence_reports_total": confidence_reports_total,
+        "subjectivity_reports": subjectivity_reports,
+        "subjectivity_reports_total": subjectivity_reports_total,
+        "user_emotions": USER_EMOTIONS,
+        "user_activity": USER_ACTIVITY,
+        "emotion_activity": emotion_activity,
+    }
+    return context
