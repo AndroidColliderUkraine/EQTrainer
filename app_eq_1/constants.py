@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import socket
 USER_COURSE_STATUS = (
     ('begin', ('Початковий')),  # Subscribed but not payed
     ('active', ('Активоний')),  # Subscribed and payed or it's free course
@@ -34,3 +34,22 @@ USER_ACTIVITY = (
     ('activity_7', (u'Активність_7')),
     ('activity_8', (u'Активність_8')),
 )
+
+TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+
+
+def current_site_url():
+    """Returns fully qualified URL (no trailing slash) for the current site."""
+    from django.contrib.sites.models import Site
+    from eq import settings
+    current_site = Site.objects.get_current()
+    protocol = getattr(settings, 'MY_SITE_PROTOCOL', 'http')
+    port     = getattr(settings, 'MY_SITE_PORT', '')
+    url = '%s://%s' % (protocol, current_site.domain)
+    if port:
+        url += ':%s' % port
+    return url
+try:
+    HOSTNAME = current_site_url()
+except Exception:
+    HOSTNAME = 'localhost'

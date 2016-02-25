@@ -10,8 +10,9 @@ from .models import Training
 from django.contrib.auth.models 	import User
 from django.http import JsonResponse
 import datetime
+import pytz
 from django.db.models import Sum
-from constants import USER_EMOTIONS, USER_ACTIVITY
+from constants import USER_EMOTIONS, USER_ACTIVITY, TIME_FORMAT
 
 
 def home(request):
@@ -411,3 +412,32 @@ def about_private(request):
 def about_public(request):
     return render(request, "about.html", {})
 
+
+def report_graph(request):
+    try:
+        from .tasks import get_context_for_reports
+        date_start = request.GET['date_start']
+        date_end = request.GET['date_end']
+        user_id = request.GET['user_id']
+        print 'date_start', date_start
+        print 'date_end', date_end
+        print 'user_id', user_id
+
+        date_start = datetime.datetime.strptime(date_start, TIME_FORMAT).replace(tzinfo=pytz.utc)
+        date_end = datetime.datetime.strptime(date_end, TIME_FORMAT).replace(tzinfo=pytz.utc)
+        user_id = int(user_id)
+
+        context = get_context_for_reports(
+            user_id=user_id,
+            date_start=date_start,
+            date_end=date_end
+        )
+
+        return render(request, "email/week_report_graph.html", context=context)
+    except Exception, e:
+        print "e:", e
+
+
+def lawyer_page(request):
+    context = {}
+    return render(request, "lawyer_page.html", context=context)

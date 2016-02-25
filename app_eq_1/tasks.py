@@ -10,7 +10,7 @@ from app_eq_1.models import WeeklyReport, MonthlyReport
 from django.contrib.auth.models import User
 from datetime import timedelta, datetime
 from django.utils import timezone
-from app_eq_1.constants import USER_EMOTIONS, USER_ACTIVITY
+from app_eq_1.constants import USER_EMOTIONS, USER_ACTIVITY, HOSTNAME, TIME_FORMAT
 from django.shortcuts 			import render
 from django.template import loader, Context
 from django.template.loader import render_to_string
@@ -20,7 +20,8 @@ from django.db.models import Sum
 @task()
 def example():
     print '[ EVERY_30_SECONDS ] [ %s ]' % (str(datetime.now().time()),)
-    every_week()
+    # every_week()
+    # every_month()
 
 
 @task()
@@ -90,14 +91,10 @@ def every_week():
                     context = {
                         "user": user,
                         "text": conclusion.text,
+                        "hostname": HOSTNAME,
+                        "date_start": monday_of_last_week.strftime(TIME_FORMAT),
+                        "date_end": monday_of_this_week.strftime(TIME_FORMAT)
                     }
-                    context.update(
-                        get_context_for_reports(
-                            user_id=user.id,
-                            date_start=monday_of_last_week,
-                            date_end=monday_of_this_week
-                        )
-                    )
 
                     report = WeeklyReport.objects.create(
                         user=user,
@@ -156,6 +153,9 @@ def every_month():
                     context = {
                         "user": user,
                         "text": conclusion.text,
+                        "hostname": HOSTNAME,
+                        "date_start": monday_of_last_month.strftime(TIME_FORMAT),
+                        "date_end": monday_of_this_month.strftime(TIME_FORMAT)
                     }
 
                     report = MonthlyReport.objects.create(

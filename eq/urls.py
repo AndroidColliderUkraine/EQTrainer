@@ -32,6 +32,8 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     # url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^lawyer_page$', 'app_eq_1.views.lawyer_page', name='lawyer_page'),
+    url(r'^report_graph$', 'app_eq_1.views.report_graph', name='report_graph'),
     url(r'^redactor/', include('redactor.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'app_eq_1.views.home', name='home'),
