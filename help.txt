@@ -1,0 +1,5 @@
+# Dump data from app_eq_1.conclusions to JSON file.
+python manage.py dumpdata app_eq_1.conclusions > app_eq_1/fixtures/conclusions.json
+
+# Load data from JSON file to /home/tarasinf/try/eq/eq/help.txt
+python manage.py loaddata conclusions.json
