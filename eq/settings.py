@@ -190,3 +190,7 @@ EMAIL_USE_TLS = True
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
 
+
+SERVER_ENVIRONMENT = os.getenv('RUN_ENV', '')
+if SERVER_ENVIRONMENT == 'PROD':
+    from settings_prod import *
