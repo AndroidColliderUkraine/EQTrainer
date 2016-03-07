@@ -42,11 +42,19 @@
         console.log('Hi from registration()')
         $('#reg_card').css("display", "inline");
         $('#login_card').css("display", "none");
+        $('#forgot_pass_card').css("display", "none");
     }
     function login(){
-        console.log('Hi from registration()')
+        console.log('Hi from login()')
         $('#reg_card').css("display", "none");
         $('#login_card').css("display", "inline");
+        $('#forgot_pass_card').css("display", "none");
+    }
+    function forgot_pass(){
+        console.log('Hi from forgot_pass()')
+        $('#reg_card').css("display", "none");
+        $('#login_card').css("display", "none");
+        $('#forgot_pass_card').css("display", "inline");
     }
     </script>
 
@@ -103,51 +111,40 @@
         <!-- /.container -->
     </nav>
 
-    <!-- Intro Section -->
-    <!-- <section class="relative">
-        <div class="intro-background"></div>
-            <div class="content">
-                <button>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
-                </button>
-            </div>
-    </section>
- -->
-
-    
     <section id="intro" class="intro-section">
         <div class="container">
-            <!-- <div class="inner-wrapper">
-                <h2>Welcome to our website!</h2>
-             --></div>
-            <div id="login_card" class="row" style="display: inline">
-                <div class="col-xs-4 col-xs-offset-4">
-                    <div class="card" >
-                        <form method="post" action="/accounts/login/?next=/">
-                            {% csrf_token %}
-                            <div id="div_id_username" class="form-group">
-                                <label for="id_username" class="control-label  requiredField">Пошта</label>
-                                <div class="controls ">
-                                    <input class="textinput textInput form-control" id="id_username" maxlength="254" name="username" type="text" /> 
-                                </div>
+        </div>
+<!-- ***LOGIN*********************************** -->
+        <div id="login_card" class="row" style="display: inline">
+            <div class="col-xs-4 col-xs-offset-4">
+                <div class="card" >
+                    <form method="post" action="/accounts/login/?next=/">
+                        {% csrf_token %}
+                        <div id="div_id_username" class="form-group">
+                            <label for="id_username" class="control-label  requiredField">Пошта</label>
+                            <div class="controls ">
+                                <input class="textinput textInput form-control" id="id_username" maxlength="254" name="username" type="text" />
                             </div>
-                            <div id="div_id_password" class="form-group">
-                                <label for="id_password" class="control-label  requiredField">Пароль</label>
-                                <div class="controls ">
-                                    <input class="textinput textInput form-control" id="id_password" name="password" type="password" /> 
-                                </div>
+                        </div>
+                        <div id="div_id_password" class="form-group">
+                            <label for="id_password" class="control-label  requiredField">Пароль</label>
+                            <div class="controls ">
+                                <input class="textinput textInput form-control" id="id_password" name="password" type="password" />
                             </div>
+                        </div>
 
-                <input type="submit" value="Увійти" class="btn-primary btn btn-block" />
-                <input type="hidden" name="next" value="/" />
-            </form> 
-                <br>
+                        <input type="submit" value="Увійти" class="btn-primary btn btn-block" />
+                        <input type="hidden" name="next" value="/" />
+                    </form>
+                    <br>
                     <center>
-                    <a onclick='registration();' >Реєстрація</a> |
-                    <a href="">Забули пароль</a>
+                        <a onclick='registration();'>Реєстрація</a> |
+                        <a onclick='forgot_pass();'>Забули пароль</a>
                     </center>
-                    </div>
                 </div>
             </div>
+        </div>
+<!-- ***REGISTRATION*********************************** -->
             <div id="reg_card" class="row" style="display: none">
                 <div class="col-xs-4 col-xs-offset-4">
                     <div class="card" >
@@ -178,40 +175,65 @@
             </form> -->
             <form method="post" action="/accounts/register/?next=/">
                 {% csrf_token %}
-                <p class="required">
-                    <label class="required" for="id_username">Username:</label> 
-                    <input id="id_username" maxlength="30" name="username" type="text" />
-                </p>
 
-                
-                <p class="required">
-                    <label class="required" for="id_email">E-mail:</label> 
-                    <input id="id_email" name="email" type="email" />
-                </p>
+            <div id="div_id_username" class="form-group">
+                <label for="id_username" class="control-label  requiredField">
+				Ім'я користувача<span class="asteriskField">*</span>
+                </label><div class="controls ">
+                <input class="textinput textInput form-control" id="id_username" maxlength="30" name="username" type="text" /> <p id="hint_id_username" class="help-block">Обов'язкове поле. 30 або менше символів . Тільки букви, цифри, а також символи: @/./+/-/_</p></div></div><div id="div_id_first_name" class="form-group">
+                <label for="id_first_name" class="control-label ">
+				Ім'я
+			</label><div class="controls "><input class="textinput textInput form-control" id="id_first_name" maxlength="30" name="first_name" type="text" /> </div></div><div id="div_id_last_name" class="form-group"><label for="id_last_name" class="control-label ">
+				Прізвище
+			</label><div class="controls "><input class="textinput textInput form-control" id="id_last_name" maxlength="30" name="last_name" type="text" /> </div></div><div id="div_id_email" class="form-group"><label for="id_email" class="control-label  requiredField">
+				E-mail<span class="asteriskField">*</span></label><div class="controls "><input class="emailinput form-control" id="id_email" name="email" type="email" /> </div></div><div id="div_id_password1" class="form-group"><label for="id_password1" class="control-label  requiredField">
+				Пароль<span class="asteriskField">*</span></label><div class="controls "><input class="textinput textInput form-control" id="id_password1" name="password1" type="password" /> </div></div><div id="div_id_password2" class="form-group"><label for="id_password2" class="control-label  requiredField">
+				Підтвердження пароля<span class="asteriskField">*</span></label><div class="controls "><input class="textinput textInput form-control" id="id_password2" name="password2" type="password" /> <p id="hint_id_password2" class="help-block">Повторіть пароль для перевірки.</p></div></div><div id="div_id_parent" class="form-group"><label for="id_parent" class="control-label  requiredField">
+				Manager<span class="asteriskField">*</span></label><div class="controls "><select class="select form-control" id="id_parent" name="parent"><option value="" selected="selected">---------</option><option value="2">wwww</option></select></div></div><div id="div_id_locale" class="form-group"><label for="id_locale" class="control-label  requiredField">
+				Working language<span class="asteriskField">*</span></label><div class="controls "><select class="select form-control" id="id_locale" name="locale"><option value="en">Англійська</option><option value="ru">Російська</option><option value="pl">Польська</option><option value="ua">Українська</option><option value="tu">Турецька</option></select></div></div>
 
-                
-                <p class="required"><label class="required" for="id_password1">Password:</label> 
-                    <input id="id_password1" name="password1" type="password" />
-                </p>
-
-                
-                <p class="required"><label class="required" for="id_password2">Password (again):</label> 
-                    <input id="id_password2" name="password2" type="password" />
-                </p>
-
-
-                <input type="submit" value="Зареєструватись" class="btn-primary btn-sm btn-block" />
-                <input type="hidden" name="next" value="/profile" />
+		    <input type="submit" value="Submit"  class="btn-primary btn-lg btn-block" />
             </form> 
                 <br>
                     <center>
                     <a onclick='login();' >Увійти</a> |
-                    <a href="">Забули пароль</a>
+                    <a onclick='forgot_pass();'>Забули пароль</a>
                     </center>
                     </div>
                 </div>
             </div>
+<!-- ***FORGOT_PASS*********************************** -->
+        <div id="forgot_pass_card" class="row" style="display: none">
+            <div class="col-xs-4 col-xs-offset-4">
+                <div class="card" >
+                    <center><b>ЗАБУЛИ ПАРОЛЬ</b></center>
+                    <form method="post" action="/accounts/login/?next=/">
+                        {% csrf_token %}
+                        <div id="div_id_username" class="form-group">
+                            <label for="id_username" class="control-label  requiredField">Пошта</label>
+                            <div class="controls ">
+                                <input class="textinput textInput form-control" id="id_username" maxlength="254" name="username" type="text" />
+                            </div>
+                        </div>
+                        <div id="div_id_password" class="form-group">
+                            <label for="id_password" class="control-label  requiredField">Пароль</label>
+                            <div class="controls ">
+                                <input class="textinput textInput form-control" id="id_password" name="password" type="password" />
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Увійти" class="btn-primary btn btn-block" />
+                        <input type="hidden" name="next" value="/" />
+                    </form>
+                    <br>
+                    <center>
+                        <a onclick='login();'>Увійти</a> |
+                        <a onclick='registration();'>Реєстрація</a>
+                    </center>
+                </div>
+            </div>
         </div>
+<!-- ************************************** -->
     </section>
 
     <!-- About Section -->

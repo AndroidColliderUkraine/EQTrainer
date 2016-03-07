@@ -297,8 +297,8 @@ def profile_mydaybook(request):
     emotion_activity = []
 
     try:
-        weekly_reports = request.user.weeklyreport_set.filter(deleted=False).all()
-        monthly_reports = request.user.monthlyreport_set.filter(deleted=False).all()
+        weekly_reports = request.user.weeklyreport_set.filter(deleted=False).order_by('-updated').all()[:10]
+        monthly_reports = request.user.monthlyreport_set.filter(deleted=False).order_by('-updated').all()[:5]
 
         preview_week = datetime.datetime.now() - datetime.timedelta(weeks=3)
 

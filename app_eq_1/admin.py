@@ -58,12 +58,12 @@ class EmotionalStateAdmin(admin.ModelAdmin):
 
 
 class WeeklyReportAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "updated", "deleted"]
+	list_display = ["__unicode__", "id", "user", "date_start", "date_end", "updated", "deleted"]
 	form = WeeklyReportForm
 
 
 class MonthlyReportAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "updated", "deleted"]
+	list_display = ["__unicode__", "id", "user", "updated", "deleted"]
 	form = MonthlyReportForm
 
 

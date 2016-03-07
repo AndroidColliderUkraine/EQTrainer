@@ -43,7 +43,7 @@ class WeeklyReportResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')
 
     class Meta:
-        queryset = WeeklyReport.objects.filter(deleted=False).all()
+        queryset = WeeklyReport.objects.filter(deleted=False).order_by('-updated').all()
         resource_name = 'WeeklyReport'
         filtering = {
             'user': ALL_WITH_RELATIONS,
@@ -60,7 +60,7 @@ class MonthlyReportResource(ModelResource):
         return bundle
 
     class Meta:
-        queryset = MonthlyReport.objects.filter(deleted=False).all()
+        queryset = MonthlyReport.objects.filter(deleted=False).order_by('-updated').all()
         resource_name = 'MonthlyReport'
         filtering = {
             'updated': ['exact', 'lt', 'lte', 'gte', 'gt'],

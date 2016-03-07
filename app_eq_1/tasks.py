@@ -98,7 +98,9 @@ def every_week():
 
                     report = WeeklyReport.objects.create(
                         user=user,
-                        text=render_to_string('email/week_report.html', context)
+                        text=render_to_string('email/week_report.html', context),
+                        date_start=monday_of_last_week,
+                        date_end=monday_of_this_week
                     )
 
                     # send email
