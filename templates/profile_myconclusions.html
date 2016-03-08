@@ -1,0 +1,208 @@
+{% extends "profile.html" %}
+{% load i18n %}
+{% block title %}
+My daybook
+{{ block.super }}
+{% endblock %}
+
+
+{% block content%}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.73/jsrender.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script> {# For spider #}
+
+
+
+    <script>
+        function myFunction(name, number, url, date_start, date_end) {
+            $('#week_frame').attr('src', "/report_graph?user_id={{ request.user.id }}&date_start=" + date_start + "%2000:00:00&date_end=" + date_end + "%2000:00:00");
+            $.get(url,
+                {},
+                function(data) {
+                    $('#ModelLessonText').html(data['text']);
+                }
+            );
+            $('#ModelLessonHeader').text(number + '. ' + name);
+            $('#ModalLesson').modal('show');
+        }
+        function weekly_reports_l(limit, offset){
+            console.log('weekly_reports_l', limit, offset);
+            render_template_week(limit, offset);
+        }
+        function weekly_reports_r(limit, offset){
+            console.log('weekly_reports_r', limit, offset);
+            render_template_week(limit, offset);
+        }
+        function monthly_reports_l(limit, offset){
+            console.log('monthly_reports_l', limit, offset);
+            render_template_month(limit, offset);
+        }
+        function monthly_reports_r(limit, offset){
+            console.log('monthly_reports_r', limit, offset);
+            render_template_month(limit, offset);
+        }
+
+        function on_load(){
+            render_template_week(5, 0);
+            render_template_month(5, 0);
+        }
+
+        window.onload = on_load;
+
+
+        function resizeIframe(obj) {
+            obj.style.height = obj.contentWindow.document.body.scrollWidth / 2.0 + 'px';
+        }
+
+    </script>
+
+{% verbatim %}
+    <script id="week_template" type="text/x-jsrender">
+    <a type="button" onclick="myFunction('{{:date_start}} ... {{:date_end}}', '{{:counter }}', '{{:url }}', '{{:date_start}}', '{{:date_end}}')" class="list-group-item">
+        {{:counter }}. <b>{{:date_start}} ... {{:date_end}}</b>
+        <span class="pull-right">Date: {{:updated }}</span>
+    </a>
+    </script>
+
+    <script>
+        function render_template_week(limit, offset){
+            $.get("/api/v1/WeeklyReport/",
+                {limit : limit, offset : offset},
+                function(data) {
+                    var tmpl = $.templates("#week_template");                   // Get compiled template
+                    var context = [];                                           // Define context
+                    var total_count = parseInt(data['meta']['total_count']);
+
+                    data['objects'].forEach(function(element, index, array) {
+                        context.push({
+                            counter: total_count - offset - index,
+                            url: element['resource_uri'],
+                            updated: element['updated'],
+                            date_start: element['date_start'],
+                            date_end: element['date_end']
+                            });
+                    });
+                    var html = tmpl.render(context);                            // Render template using context - as HTML string
+                    $("#weekly_report_content").html(html);                     // Insert HTML string into DOM
+                    $('#w_h').text('Weekly reports [' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');
+                    $('#w_b_l').attr('onclick', 'weekly_reports_l(' + limit + ',' + Math.max(0, offset - limit) +')');
+                    if (total_count <= offset + limit ) {
+                        offset -= limit;
+                    }
+                    $('#w_b_r').attr('onclick', 'weekly_reports_r(' + limit + ',' + Math.min(total_count, offset + limit) +')');
+                }
+            );
+        }
+    </script>
+{% endverbatim %}
+
+{% verbatim %}
+    <script id="month_template" type="text/x-jsrender">
+    <a type="button" onclick="myFunction('{{:date_start}} ... {{:date_end}}', '{{:counter }}', '{{:url }}', '{{:date_start}}', '{{:date_end}}')" class="list-group-item">
+        {{:counter }}. <b>{{:date_start}} ... {{:date_end}}</b>
+        <span class="pull-right">Date: {{:updated }}</span>
+    </a>
+    </script>
+
+    <script>
+        function render_template_month(limit, offset){
+            $.get("/api/v1/MonthlyReport/",
+                {limit : limit, offset : offset},
+                function(data) {
+                    var tmpl = $.templates("#month_template");                   // Get compiled template
+                    var context = [];                                           // Define context
+                    var total_count = parseInt(data['meta']['total_count']);
+                    data['objects'].forEach(function(element, index, array) {
+                        context.push({
+                            counter: total_count - offset - index,
+                            url: element['resource_uri'],
+                            updated: element['updated'],
+                            date_start: element['date_start'],
+                            date_end: element['date_end']
+                            });
+                    });
+                    var html = tmpl.render(context);                            // Render template using context - as HTML string
+                    $("#monthly_report_content").html(html);                     // Insert HTML string into DOM
+                    $('#m_h').text('Monthly reports [' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');
+                    $('#m_b_l').attr('onclick', 'monthly_reports_l(' + limit + ',' + Math.max(0, offset - limit) +')');
+                    if (total_count <= offset + limit ) {
+                        offset -= limit;
+                    }
+                    $('#m_b_r').attr('onclick', 'monthly_reports_r(' + limit + ',' + Math.min(total_count, offset + limit) +')');
+                }
+            );
+        }
+    </script>
+{% endverbatim %}
+
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <span id="w_h">Weekly reports []</span>
+        <span class="pull-right">
+            <button type="button" class="btn btn-default btn-xs" id="w_b_l" onclick="weekly_reports_l()">
+                <span aria-hidden="true">&laquo;</span>
+            </button>
+            <button type="button" class="btn btn-default btn-xs" id="w_b_r" onclick="weekly_reports_r()">
+                <span aria-hidden="true">&raquo;</span>
+            </button>
+        </span>
+    </div>
+    <ul class="list-group">
+        <div id="weekly_report_content">
+
+        </div>
+    </ul>
+</div>
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <span id="m_h">Monthly reports []</span>
+        <span class="pull-right">
+            <button type="button" class="btn btn-default btn-xs" id="m_b_l" onclick="monthly_reports_l()">
+                <span aria-hidden="true">&laquo;</span>
+            </button>
+            <button type="button" class="btn btn-default btn-xs" id="m_b_r" onclick="monthly_reports_r()">
+                <span aria-hidden="true">&raquo;</span>
+            </button>
+        </span>
+    </div>
+    <ul class="list-group">
+        <div id="monthly_report_content">
+
+        </div>
+    </ul>
+
+</div>
+
+
+
+
+      <!-- Modal -->
+<div class="modal fade" id="ModalLesson" role="dialog">
+    <div class="modal-dialog" style="width: 80%;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 id="ModelLessonHeader" class="modal-title">Modal Header</h4>
+            </div>
+            <iframe frameborder="0" id="week_frame"; scrolling="no"; src="";  height="100%"; width="99%"; onload="resizeIframe(this)";>
+            </iframe>
+
+            <div id="ModelLessonText" class="modal-body" style="margin-left: 20px; margin-right: 20px;">
+                <p>Some text in the modal.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

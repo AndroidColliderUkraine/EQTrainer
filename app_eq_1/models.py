@@ -145,6 +145,7 @@ class EmotionalState(models.Model):
 class WeeklyReport(models.Model):
     user = models.ForeignKey(User, blank=False, null=False)
     text = models.TextField(max_length=5000, blank=False, null=True)
+    html = models.TextField(max_length=5000, blank=False, null=True, help_text='Use in Email for Reports.')
     date_start = models.DateField(null=True, blank=True)
     date_end = models.DateField(null=True, blank=True)
 
@@ -158,6 +159,9 @@ class WeeklyReport(models.Model):
 class MonthlyReport(models.Model):
     user = models.ForeignKey(User, blank=False, null=False)
     text = models.TextField(max_length=5000, blank=False, null=True)
+    html = models.TextField(max_length=5000, blank=False, null=True, help_text='Use in Email for Reports.')
+    date_start = models.DateField(null=True, blank=True)
+    date_end = models.DateField(null=True, blank=True)
 
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     deleted = models.BooleanField(default=False)

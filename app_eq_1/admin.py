@@ -63,7 +63,7 @@ class WeeklyReportAdmin(admin.ModelAdmin):
 
 
 class MonthlyReportAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "id", "user", "updated", "deleted"]
+	list_display = ["__unicode__", "id", "user", "date_start", "date_end", "updated", "deleted"]
 	form = MonthlyReportForm
 
 

@@ -59,6 +59,8 @@ class MonthlyReportResource(ModelResource):
         bundle.data['deleted_objects'] = deleted_objects
         return bundle
 
+    user = fields.ForeignKey(UserResource, 'user')
+
     class Meta:
         queryset = MonthlyReport.objects.filter(deleted=False).order_by('-updated').all()
         resource_name = 'MonthlyReport'

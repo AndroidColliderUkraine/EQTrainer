@@ -441,3 +441,12 @@ def report_graph(request):
 def lawyer_page(request):
     context = {}
     return render(request, "lawyer_page.html", context=context)
+
+
+def profile_my_conclusions(request):
+    print "I'm my_conclusion"
+    context = {
+        "trainings": '',
+    }
+
+    return render(request, "profile_myconclusions.html", context)
