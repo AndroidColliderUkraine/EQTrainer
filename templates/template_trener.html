@@ -1,27 +1,26 @@
 {% block trainer %}
 
     <script type="text/javascript">
-        function myFunction(name, number, text) {
-            console.log("------------");
-            console.log(name);
-            console.log(number);
-{#            console.log(tags);#}
-            console.log(text);
+        function myFunction(name, number, id) {
+            $.get('http://127.0.0.1/api/v1/Training/' + id  +'/',
+                {},
+                function(data) {
+                    $('#ModelLessonText').html(data['text']);
+                }
+            );
 
             $('#ModelLessonHeader').text(number + '. ' + name)
-            $('#ModelLessonText').text(text)
             $('#ModalLesson').modal('show')
         }
     </script>
     {{ user_course.course.name }}
-    <br>
     <br>
 <div class="panel panel-success">
     <div class="panel-heading">Trainings</div>
 {#        <div class="panel-body">12345789</div>#}
         <ul class="list-group">
             {% for training in trainings%}
-                <a type="button" onclick="myFunction('{{ training.name }}', '{{ forloop.counter }}', '{{ training.name }}')" class="list-group-item">
+                <a type="button" onclick="myFunction('{{ training.name }}', '{{ forloop.counter }}', {{ training.id }})" class="list-group-item">
                     {{ forloop.counter }}. {{ training.name }}
 {#                    <span class="pull-right">Date: {{ training.date }}</span>#}
                 </a>
