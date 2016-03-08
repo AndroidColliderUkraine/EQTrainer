@@ -1,8 +1,16 @@
 <html>
-<h1>This is my month report</h1>
-<h1> {{ user.username }} </h1>
-<h2> {{ user.email }} </h2>
-<b>{{ text }}</b>
+Вітаю, {% if user.first_name != ''%} {{ user.first_name }} {% else %} {{ user.email }} {% endif %}:)
+Знову прийшов час підбити підсумки щодо твоєї праці протягом останнього місяця. Ось що ми зауважили стосовно тебе:
+<br>
+<br>
+<div id="id_text">
+{% verbatim %}
+{{ text }}
+{% endverbatim %}
+</div>
 
-<a href="{{ hostname }}/report_graph?user_id={{ user.id }}&date_start={{ date_start }}&date_end={{ date_end }}">Link</a>
+<br>
+А тут, нажавши на
+<a href="{{ hostname }}/report_graph?user_id={{ user.id }}&date_start={{ date_start }}&date_end={{ date_end }}">посилання</a>
+, ти можеш переглянути графік твого щоденника емоцій протягом останнього тижня.
 </html>

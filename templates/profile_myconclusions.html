@@ -32,24 +32,24 @@ My daybook
         }
         function weekly_reports_l(limit, offset){
             console.log('weekly_reports_l', limit, offset);
-            render_template_week(limit, offset);
+            render_template_week(limit, offset, {{ user.id }});
         }
         function weekly_reports_r(limit, offset){
             console.log('weekly_reports_r', limit, offset);
-            render_template_week(limit, offset);
+            render_template_week(limit, offset, {{ user.id }});
         }
         function monthly_reports_l(limit, offset){
             console.log('monthly_reports_l', limit, offset);
-            render_template_month(limit, offset);
+            render_template_month(limit, offset, {{ user.id }});
         }
         function monthly_reports_r(limit, offset){
             console.log('monthly_reports_r', limit, offset);
-            render_template_month(limit, offset);
+            render_template_month(limit, offset, {{ user.id }});
         }
 
         function on_load(){
-            render_template_week(5, 0);
-            render_template_month(5, 0);
+            render_template_week(5, 0, {{ user.id }});
+            render_template_month(5, 0, {{ user.id }});
         }
 
         window.onload = on_load;
@@ -70,31 +70,35 @@ My daybook
     </script>
 
     <script>
-        function render_template_week(limit, offset){
+        function render_template_week(limit, offset, user_id){
             $.get("/api/v1/WeeklyReport/",
-                {limit : limit, offset : offset},
+                {limit : limit, offset : offset, user__id: user_id },
                 function(data) {
                     var tmpl = $.templates("#week_template");                   // Get compiled template
                     var context = [];                                           // Define context
                     var total_count = parseInt(data['meta']['total_count']);
-
-                    data['objects'].forEach(function(element, index, array) {
-                        context.push({
-                            counter: total_count - offset - index,
-                            url: element['resource_uri'],
-                            updated: element['updated'],
-                            date_start: element['date_start'],
-                            date_end: element['date_end']
+                    if (data['objects'].length){
+                        data['objects'].forEach(function(element, index, array) {
+                            context.push({
+                                counter: total_count - offset - index,
+                                url: element['resource_uri'],
+                                updated: element['updated'],
+                                date_start: element['date_start'],
+                                date_end: element['date_end']
                             });
-                    });
-                    var html = tmpl.render(context);                            // Render template using context - as HTML string
-                    $("#weekly_report_content").html(html);                     // Insert HTML string into DOM
-                    $('#w_h').text('Weekly reports [' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');
-                    $('#w_b_l').attr('onclick', 'weekly_reports_l(' + limit + ',' + Math.max(0, offset - limit) +')');
-                    if (total_count <= offset + limit ) {
-                        offset -= limit;
+                        });
+                        var html = tmpl.render(context);                            // Render template using context - as HTML string
+                        $("#weekly_report_content").html(html);                     // Insert HTML string into DOM
+                        $('#w_h').text('Weekly reports [' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');
+                        $('#w_b_l').attr('onclick', 'weekly_reports_l(' + limit + ',' + Math.max(0, offset - limit) +')');
+                        if (total_count <= offset + limit ) {
+                            offset -= limit;
+                        }
+                        $('#w_b_r').attr('onclick', 'weekly_reports_r(' + limit + ',' + Math.min(total_count, offset + limit) +')');
+                    }else{
+                        $("#weekly_report_content").html('  Тут скоро появляться тижневі звіти.');                     // Insert HTML string into DOM
+                        $('#w_h').text('Weekly reports [0 .. 0]');
                     }
-                    $('#w_b_r').attr('onclick', 'weekly_reports_r(' + limit + ',' + Math.min(total_count, offset + limit) +')');
                 }
             );
         }
@@ -110,30 +114,35 @@ My daybook
     </script>
 
     <script>
-        function render_template_month(limit, offset){
+        function render_template_month(limit, offset, user_id){
             $.get("/api/v1/MonthlyReport/",
-                {limit : limit, offset : offset},
+                {limit : limit, offset : offset, user__id: user_id },
                 function(data) {
                     var tmpl = $.templates("#month_template");                   // Get compiled template
                     var context = [];                                           // Define context
                     var total_count = parseInt(data['meta']['total_count']);
-                    data['objects'].forEach(function(element, index, array) {
-                        context.push({
-                            counter: total_count - offset - index,
-                            url: element['resource_uri'],
-                            updated: element['updated'],
-                            date_start: element['date_start'],
-                            date_end: element['date_end']
-                            });
-                    });
-                    var html = tmpl.render(context);                            // Render template using context - as HTML string
-                    $("#monthly_report_content").html(html);                     // Insert HTML string into DOM
-                    $('#m_h').text('Monthly reports [' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');
-                    $('#m_b_l').attr('onclick', 'monthly_reports_l(' + limit + ',' + Math.max(0, offset - limit) +')');
-                    if (total_count <= offset + limit ) {
-                        offset -= limit;
+                    if (data['objects'].length){
+                        data['objects'].forEach(function(element, index, array) {
+                            context.push({
+                                counter: total_count - offset - index,
+                                url: element['resource_uri'],
+                                updated: element['updated'],
+                                date_start: element['date_start'],
+                                date_end: element['date_end']
+                                });
+                        });
+                        var html = tmpl.render(context);                            // Render template using context - as HTML string
+                        $("#monthly_report_content").html(html);                     // Insert HTML string into DOM
+                        $('#m_h').text('Monthly reports [' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');
+                        $('#m_b_l').attr('onclick', 'monthly_reports_l(' + limit + ',' + Math.max(0, offset - limit) +')');
+                        if (total_count <= offset + limit ) {
+                            offset -= limit;
+                        }
+                        $('#m_b_r').attr('onclick', 'monthly_reports_r(' + limit + ',' + Math.min(total_count, offset + limit) +')');
+                    }else{
+                        $("#monthly_report_content").html('  Тут скоро появляться місячні звіти.');                     // Insert HTML string into DOM
+                        $('#m_h').text('Monthly reports [0 .. 0]');
                     }
-                    $('#m_b_r').attr('onclick', 'monthly_reports_r(' + limit + ',' + Math.min(total_count, offset + limit) +')');
                 }
             );
         }

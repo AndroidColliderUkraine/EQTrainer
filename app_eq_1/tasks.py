@@ -12,7 +12,7 @@ from datetime import timedelta, datetime
 from django.utils import timezone
 from app_eq_1.constants import USER_EMOTIONS, USER_ACTIVITY, HOSTNAME, TIME_FORMAT
 from django.shortcuts 			import render
-from django.template import loader, Context
+from django.template import loader, Context, Engine
 from django.template.loader import render_to_string
 from django.db.models import Sum
 
@@ -90,7 +90,6 @@ def every_week():
                     # create report
                     context = {
                         "user": user,
-                        "text": conclusion.text,
                         "hostname": HOSTNAME,
                         "date_start": monday_of_last_week.strftime(TIME_FORMAT),
                         "date_end": monday_of_this_week.strftime(TIME_FORMAT)
@@ -98,7 +97,8 @@ def every_week():
 
                     report = WeeklyReport.objects.create(
                         user=user,
-                        text=render_to_string('email/week_report.html', context),
+                        html=render_to_string('email/week_report.html', context),
+                        text=conclusion.text,
                         date_start=monday_of_last_week,
                         date_end=monday_of_this_week
                     )
@@ -154,7 +154,6 @@ def every_month():
                     # create report
                     context = {
                         "user": user,
-                        "text": conclusion.text,
                         "hostname": HOSTNAME,
                         "date_start": monday_of_last_month.strftime(TIME_FORMAT),
                         "date_end": monday_of_this_month.strftime(TIME_FORMAT)
@@ -162,7 +161,10 @@ def every_month():
 
                     report = MonthlyReport.objects.create(
                         user=user,
-                        text=render_to_string('email/month_report.html', context)
+                        html=render_to_string('email/month_report.html', context),
+                        text=conclusion.text,
+                        date_start=monday_of_last_month,
+                        date_end=monday_of_this_month
                     )
                     # send email
                     send_email_report_month(
@@ -201,8 +203,8 @@ def send_email_report_week(week_report_id, user_id):
     try:
         report = WeeklyReport.objects.get(id=week_report_id)
         user = User.objects.get(id=user_id)
-        EMAIL_SUBJECT = 'Week report [%s - %s]' % (str(report.updated), str(report.updated - timedelta(days=7)))
-        EMAIL_MESSAGE = report.text
+        EMAIL_SUBJECT = 'Week report [%s   %s]' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
+        EMAIL_MESSAGE = Engine().from_string(report.html).render(Context({"text": report.text}))
         EMAIL_EMAIL_FROM = 'eq@eq.com'
         EMAIL_EMAIL_TO = user.email
 
@@ -220,13 +222,13 @@ def send_email_report_week(week_report_id, user_id):
 
 @task()
 def send_email_report_month(month_report_id, user_id):
-    print '[ SEND EMAIL WEEKLY REPORT ] [ %s ]' % (str(datetime.now().time()))
+    print '[ SEND EMAIL MONTHLY REPORT ] [ %s ]' % (str(datetime.now().time()))
 
     try:
         report = MonthlyReport.objects.get(id=month_report_id)
         user = User.objects.get(id=user_id)
-        EMAIL_SUBJECT = 'Month report [%s - %s]' % (str(report.updated), str(report.updated - timedelta(days=28)))
-        EMAIL_MESSAGE = report.text
+        EMAIL_SUBJECT = 'Month report [%s   %s]' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
+        EMAIL_MESSAGE = Engine().from_string(report.html).render(Context({"text": report.text}))
         EMAIL_EMAIL_FROM = 'eq@eq.com'
         EMAIL_EMAIL_TO = user.email
 

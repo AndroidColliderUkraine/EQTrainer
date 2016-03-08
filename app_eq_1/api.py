@@ -65,6 +65,7 @@ class MonthlyReportResource(ModelResource):
         queryset = MonthlyReport.objects.filter(deleted=False).order_by('-updated').all()
         resource_name = 'MonthlyReport'
         filtering = {
+            'user': ALL_WITH_RELATIONS,
             'updated': ['exact', 'lt', 'lte', 'gte', 'gt'],
         }
         always_return_data = True
