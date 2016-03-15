@@ -61,29 +61,52 @@ def courses(request):
 
 
 def courses_public(request):
-    course_list = None
+    from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     try:
-        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')
+        paginator = Paginator(course_list, 2)
+        page = request.GET.get('page')
+        try:
+            courses = paginator.page(page)
+        except PageNotAnInteger:
+            print 'OOOOOOOOOOOOo 1'
+            courses = paginator.page(1)
+        except EmptyPage:
+            print 'OOOOOOOOOOOOo 2'
+            courses = paginator.page(paginator.num_pages)
     except Exception, e:
         print "e:", e
 
+    # print "article_list: ", article_list
+    print 'ARTICLES', courses
     context = {
-        "course_list": course_list,
+        "course_list": courses,
     }
     return render(request, "courses.html", context)
 
 
 def courses_private(request):
     print "I'm in profile_courses"
-    course_list = None
+    from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     try:
-        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')
+        paginator = Paginator(course_list, 2)
+        page = request.GET.get('page')
+        try:
+            courses = paginator.page(page)
+        except PageNotAnInteger:
+            print 'OOOOOOOOOOOOo 1'
+            courses = paginator.page(1)
+        except EmptyPage:
+            print 'OOOOOOOOOOOOo 2'
+            courses = paginator.page(paginator.num_pages)
     except Exception, e:
         print "e:", e
-    # print "course_list: ", course_list
 
+    # print "article_list: ", article_list
+    print 'ARTICLES', courses
     context = {
-        "course_list": course_list,
+        "course_list": courses,
     }
     return render(request, "profile_courses.html", context)
 
@@ -146,30 +169,53 @@ def articles(request):
 
 
 def articles_public(request):
-    article_list = None
+    from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     try:
-        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')
+        paginator = Paginator(article_list, 2)
+        page = request.GET.get('page')
+        try:
+            articles = paginator.page(page)
+        except PageNotAnInteger:
+            print 'OOOOOOOOOOOOo 1'
+            articles = paginator.page(1)
+        except EmptyPage:
+            print 'OOOOOOOOOOOOo 2'
+            articles = paginator.page(paginator.num_pages)
     except Exception, e:
         print "e:", e
-    # print "article_list: ", article_list
 
+    # print "article_list: ", article_list
+    print 'ARTICLES', articles
     context = {
-        "article_list": article_list,
+        "article_list": articles,
     }
     return render(request, "articles.html", context)
 
 
 def articles_private(request):
+    from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     print "I'm in profile_articles"
-    article_list = None
     try:
-        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')
+        paginator = Paginator(article_list, 2)
+        page = request.GET.get('page')
+        try:
+            articles = paginator.page(page)
+        except PageNotAnInteger:
+            print 'OOOOOOOOOOOOo 1'
+            articles = paginator.page(1)
+        except EmptyPage:
+            print 'OOOOOOOOOOOOo 2'
+            articles = paginator.page(paginator.num_pages)
+
     except Exception, e:
         print "e:", e
-    # print "article_list: ", article_list
 
+    # print "article_list: ", article_list
+    print 'ARTICLES', articles
     context = {
-        "article_list": article_list,
+        "article_list": articles,
     }
     return render(request, "profile_articles.html", context)
 

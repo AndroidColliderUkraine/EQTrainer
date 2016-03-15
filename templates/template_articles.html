@@ -1,3 +1,11 @@
+<!--<script>-->
+<!--function on_load(){-->
+    <!--render_template_week(5, 0, {{ user.id }});-->
+    <!--render_template_month(5, 0, {{ user.id }});-->
+<!--}-->
+<!--window.onload = on_load;-->
+<!--</script>-->
+
 <br>
 {% for article in article_list%}
 <div class="row" >
@@ -19,27 +27,29 @@
 <div class="row text-center">
     <div class="col-lg-12">
         <ul class="pagination">
+            {% if article_list.has_previous %}
             <li>
-                <a href="#">&laquo;</a>
+                <a href="?page={{ article_list.previous_page_number }}">&laquo;</a>
             </li>
+            {% else %}
+            <li class="disabled">
+                <a href="" style="pointer-events: none; cursor: default;" >&laquo;</a>
+            </li>
+            {% endif %}
+
             <li class="active">
-                <a href="#">1</a>
+                 <a href="?page={{ article_list.number }}">{{ article_list.number }}</a>
             </li>
+
+            {% if article_list.has_next %}
             <li>
-                <a href="#">2</a>
+                <a href="?page={{ article_list.next_page_number }}">&raquo;</a>
             </li>
-            <li>
-                <a href="#">3</a>
+            {% else %}
+            <li class="disabled">
+                <a href="" style="pointer-events: none; cursor: default;">&raquo;</a>
             </li>
-            <li>
-                <a href="#">4</a>
-            </li>
-            <li>
-                <a href="#">5</a>
-            </li>
-            <li>
-                <a href="#">&raquo;</a>
-            </li>
+            {% endif %}
         </ul>
     </div>
 </div>

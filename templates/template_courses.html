@@ -21,31 +21,33 @@
     <hr>
     {% endfor %}
     <div class="row text-center">
-            <div class="col-lg-12">
-                <ul class="pagination">
-                    <li>
-                        <a href="#">&laquo;</a>
-                    </li>
-                    <li class="active">
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">&raquo;</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="col-lg-12">
+            <ul class="pagination">
+                {% if course_list.has_previous %}
+                <li>
+                    <a href="?page={{ course_list.previous_page_number }}">&laquo;</a>
+                </li>
+                {% else %}
+                <li class="disabled">
+                    <a href="" style="pointer-events: none; cursor: default;" >&laquo;</a>
+                </li>
+                {% endif %}
+
+                <li class="active">
+                     <a href="?page={{ course_list.number }}">{{ course_list.number }}</a>
+                </li>
+
+                {% if course_list.has_next %}
+                <li>
+                    <a href="?page={{ course_list.next_page_number }}">&raquo;</a>
+                </li>
+                {% else %}
+                <li class="disabled">
+                    <a href="" style="pointer-events: none; cursor: default;">&raquo;</a>
+                </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
+
 {% endblock %}

@@ -96,7 +96,7 @@ class CourseResource(ModelResource):
         return bundle
 
     class Meta:
-        queryset = Course.objects.filter(deleted=False).all()
+        queryset = Course.objects.filter(deleted=False).order_by('-updated').all()
         resource_name = 'Course'
         # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         # fields = ['username', 'first_name', 'last_name', 'last_login']
@@ -136,7 +136,7 @@ class ArticleResource(ModelResource):
         return bundle
 
     class Meta:
-        queryset = Article.objects.filter(deleted=False).all()
+        queryset = Article.objects.filter(deleted=False).order_by('-updated').all()
         resource_name = 'Article'
         # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         # fields = ['username', 'first_name', 'last_name', 'last_login']
