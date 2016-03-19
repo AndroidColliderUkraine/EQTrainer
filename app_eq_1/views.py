@@ -332,9 +332,6 @@ def profile_myusercourse(request):
 
 def profile_mydaybook(request):
     print "I'm in profile_mydaybook"
-    # user_id = request.GET.get('user_id')
-    weekly_reports = None
-    monthly_reports = None
 
     confidence_reports = 0
     confidence_reports_total = 0
@@ -343,9 +340,6 @@ def profile_mydaybook(request):
     emotion_activity = []
 
     try:
-        print 'QQQ'
-        weekly_reports = request.user.weeklyreport_set.filter(deleted=False).order_by('-updated').all()[:10]
-        monthly_reports = request.user.monthlyreport_set.filter(deleted=False).order_by('-updated').all()[:5]
         from datetime import timedelta
         some_day_this_week = datetime.datetime.now().date()
         monday_of_this_week = some_day_this_week - timedelta(days=(some_day_this_week.isocalendar()[2] - 1))
@@ -399,8 +393,6 @@ def profile_mydaybook(request):
         print "e:", e
 
     context = {
-        "weekly_reports": weekly_reports,
-        "monthly_reports": monthly_reports,
         "confidence_reports": confidence_reports,
         "confidence_reports_total": confidence_reports_total,
         "subjectivity_reports": subjectivity_reports,

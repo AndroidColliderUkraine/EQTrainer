@@ -205,49 +205,6 @@ My daybook
             }));
         });
 
-{#        $(function () {#}
-{#            $('#container_2_1').highcharts({#}
-{#                chart: {#}
-{#                    type: 'pie',#}
-{#                    options3d: {#}
-{#                        enabled: true,#}
-{#                        alpha: 45,#}
-{#                        beta: 0#}
-{#                    }#}
-{#                },#}
-{#                title: {#}
-{#                    text: 'Confidence'#}
-{#                },#}
-{#                tooltip: {#}
-{#                    pointFormat: '<b>{point.percentage:.1f}%</b>'#}
-{#                },#}
-{#                plotOptions: {#}
-{#                    pie: {#}
-{#                        allowPointSelect: true,#}
-{#                        cursor: 'pointer',#}
-{#                        depth: 25,#}
-{#                        dataLabels: {#}
-{#                            enabled: true,#}
-{#                            format: '{point.name}'#}
-{#                        }#}
-{#                    }#}
-{#                },#}
-{#                series: [{#}
-{#                    type: 'pie',#}
-{#                    name: 'Happiness',#}
-{#                    data: [#}
-{#                        ['Unconfidence', {{ confidence_reports_total }} - {{ confidence_reports }}],#}
-{#                        {#}
-{#                            name: 'Confidence',#}
-{#                            y: {{ confidence_reports }},#}
-{#                            sliced: true,#}
-{#                            selected: true#}
-{#                        },#}
-{#                    ]#}
-{#                }]#}
-{#            });#}
-{#        });#}
-
         $(function () {
             $('#container_2_3').highcharts({
                 chart: {
@@ -315,13 +272,6 @@ My daybook
             {% for key, name in user_activity %}
                 <th class="freq">{{ name }}</th>
             {% endfor %}
-{#            <th class="freq">&lt; 0.5 m/s</th>#}
-{#            <th class="freq">0.5-2 m/s</th>#}
-{#            <th class="freq">2-4 m/s</th>#}
-{#            <th class="freq">4-6 m/s</th>#}
-{#            <th class="freq">6-8 m/s</th>#}
-{#            <th class="freq">8-10 m/s</th>#}
-{#            <th class="freq">&gt; 10 m/s</th>#}
             <th class="freq">Total</th>
         </tr>
         {% for name, value in emotion_activity %}
@@ -330,15 +280,6 @@ My daybook
                 {% for i in value %}
                     <td class="data">{{ i }}</td>
                 {% endfor %}
-
-{#                <td class="data"></td>#}
-{#                <td class="data">1.78</td>#}
-{#                <td class="data">0.16</td>#}
-{#                <td class="data">0.50</td>#}
-{#                <td class="data">0.40</td>#}
-{#                <td class="data">0.30</td>#}
-{#                <td class="data">1.20</td>#}
-{#                <td class="data">1</td>#}
             </tr>
         {% endfor %}
     </table>
