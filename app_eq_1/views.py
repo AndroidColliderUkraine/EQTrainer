@@ -343,29 +343,32 @@ def profile_mydaybook(request):
     emotion_activity = []
 
     try:
+        print 'QQQ'
         weekly_reports = request.user.weeklyreport_set.filter(deleted=False).order_by('-updated').all()[:10]
         monthly_reports = request.user.monthlyreport_set.filter(deleted=False).order_by('-updated').all()[:5]
-
-        preview_week = datetime.datetime.now() - datetime.timedelta(weeks=3)
+        from datetime import timedelta
+        some_day_this_week = datetime.datetime.now().date()
+        monday_of_this_week = some_day_this_week - timedelta(days=(some_day_this_week.isocalendar()[2] - 1))
+        print 'monday_of_this_week', monday_of_this_week, type(monday_of_this_week)
 
         confidence_reports = request.user.emotionalstate_set.\
             filter(deleted=False).\
-            filter(updated__gte=preview_week).\
+            filter(updated__gte=monday_of_this_week).\
             aggregate(Sum('confidence'))['confidence__sum']
         confidence_reports_total = request.user.emotionalstate_set.\
             filter(deleted=False).\
-            filter(updated__gte=preview_week).\
+            filter(updated__gte=monday_of_this_week).\
             count() * 100
         confidence_reports_total = 100 if confidence_reports_total == 0 else confidence_reports_total
         confidence_reports = 0 if confidence_reports is None else confidence_reports
 
         subjectivity_reports = request.user.emotionalstate_set.\
             filter(deleted=False).\
-            filter(updated__gte=preview_week).\
+            filter(updated__gte=monday_of_this_week).\
             aggregate(Sum('subjectivity'))['subjectivity__sum']
         subjectivity_reports_total = request.user.emotionalstate_set.\
             filter(deleted=False).\
-            filter(updated__gte=preview_week).\
+            filter(updated__gte=monday_of_this_week).\
             count() * 100
         subjectivity_reports_total = 100 if subjectivity_reports_total == 0 else subjectivity_reports_total
         subjectivity_reports = 0 if subjectivity_reports is None else subjectivity_reports
@@ -379,7 +382,7 @@ def profile_mydaybook(request):
             for activity, name_a in USER_ACTIVITY:
                 a = request.user.emotionalstate_set.\
                     filter(deleted=False).\
-                    filter(updated__gte=preview_week).\
+                    filter(updated__gte=monday_of_this_week).\
                     filter(emotion=emotion).\
                     filter(activity=activity).\
                     count()
