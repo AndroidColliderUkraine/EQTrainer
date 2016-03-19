@@ -369,11 +369,11 @@ def profile_mydaybook(request):
 
         print 'Test_ print'
         # print 'USER_EMOTIONS', USER_EMOTIONS
-        for emotion, name_e in USER_EMOTIONS:
+        for activity, name_a in USER_ACTIVITY:
             # print '---', emotion, name_e
             temp = []
             sum = 0
-            for activity, name_a in USER_ACTIVITY:
+            for emotion, name_e in USER_EMOTIONS:
                 a = request.user.emotionalstate_set.\
                     filter(deleted=False).\
                     filter(updated__gte=monday_of_this_week).\
@@ -384,7 +384,7 @@ def profile_mydaybook(request):
                 sum += int(a)
                 temp.append(a)
             temp.append(sum)
-            emotion_activity.append([name_e, temp])
+            emotion_activity.append([name_a, temp])
 
         # for a, b in emotion_activity:
         #     print 'AAA', a, '|||', b
