@@ -491,3 +491,33 @@ def profile_my_conclusions(request):
     }
 
     return render(request, "profile_myconclusions.html", context)
+
+
+def profile_my_setting(request):
+    from .forms import UserForm, UserProfileForm
+    from .models import UserProfile
+    if request.method == "POST":
+        uform = UserForm(data=request.POST, instance=request.user)
+        pform = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user.profile)
+        if uform.is_valid() and pform.is_valid():
+            print '|||||||||||', 'valid'
+            uform.save()
+            # print 'USER', user
+            # profile = pform.save(commit=False)
+            # profile.user = user
+            # profile.save()
+            pform.save()
+        else:
+            print '|||||||||||', 'failed'
+    print "I'm my_conclusion"
+    uform = UserForm(instance=request.user)
+
+    # userProfile, created = UserProfile.objects.get_or_create(user=request.user, avatar=None)
+    pform = UserProfileForm(instance=request.user.profile)
+    context = {
+        "trainings": '',
+        "uform": uform,
+        "pform": pform,
+    }
+
+    return render(request, "profile_mysettings.html", context)

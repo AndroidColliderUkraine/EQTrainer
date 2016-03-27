@@ -3,6 +3,14 @@ from django.db 						import models
 from django.contrib.auth.models 	import User
 from constants 						import *
 from redactor.fields                import RedactorField
+import os
+from django.conf import settings
+
+
+class UserProfile(models.Model):
+    # user = models.OneToOneField(User, related_name='profile', default='avatars/default.png')
+    user = models.OneToOneField(User, related_name='profile')
+    avatar = models.ImageField(upload_to='avatars', default=None, blank=True, null=True)
 
 
 class Course(models.Model):

@@ -10,7 +10,52 @@ from .models import WeeklyReport
 from .models import MonthlyReport
 from .models import Training
 from .models import Conclusions
+from .models import UserProfile
 from redactor.widgets import RedactorEditor
+from django.contrib.auth.models 	import User
+from django.core.files.images import get_image_dimensions
+
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['user', 'avatar']
+
+    def clean_avatar(self):
+        avatar = self.cleaned_data['avatar']
+        # validate default image
+        print 'AVATAR', type(avatar), avatar
+        if not avatar or len(avatar) == 0:
+            return 'avatars/default.png'
+        try:
+            w, h = get_image_dimensions(avatar)
+
+            #validate dimensions
+            max_width = max_height = 128
+            if w > max_width or h > max_height:
+                raise forms.ValidationError(
+                    u'Please use an image that is '
+                     '%s x %s pixels or smaller.' % (max_width, max_height))
+
+            #validate content type
+            main, sub = avatar.content_type.split('/')
+            if not (main == 'image' and sub in ['jpeg', 'pjpeg', 'gif', 'png']):
+                raise forms.ValidationError(u'Please use a JPEG, '
+                    'GIF or PNG image.')
+
+            #validate file size
+            if len(avatar) > (20 * 1024):
+                raise forms.ValidationError(
+                    u'Avatar file size may not exceed 20k.')
+
+        except AttributeError:
+            """
+            Handles case when we are updating the user profile
+            and do not supply a new avatar
+            """
+            pass
+
+        return avatar
 
 
 class CourseForm(forms.ModelForm):
@@ -80,4 +125,11 @@ class ConclusionsForm(forms.ModelForm):
     class Meta:
         model = Conclusions
         fields = '__all__'
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ["email", "first_name", "last_name"]
+
 

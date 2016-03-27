@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     #
     'app_eq_1',
     #
-
+    'crispy_forms',
     'tastypie',
     'djsupervisor',
     'rest_framework',
@@ -122,7 +122,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+# ENV_PATH = os.path.abspath(os.path.dirname(__file__))
+# MEDIA_ROOT = os.path.join(ENV_PATH, 'media/')
 MEDIA_ROOT = 'media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_ROOT = os.path.join("static/")
 STATICFILES_DIRS = (
@@ -189,6 +192,7 @@ EMAIL_USE_TLS = True
 
 REDACTOR_OPTIONS = {'lang': 'en'}
 REDACTOR_UPLOAD = 'uploads/'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 SERVER_ENVIRONMENT = os.getenv('RUN_ENV', '')
