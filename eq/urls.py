@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^redactor/', include('redactor.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'app_eq_1.views.home', name='home'),
-    url(r'^index_new$', 'app_eq_1.views.home_new', name='home_new'),
+    url(r'^index_old$', 'app_eq_1.views.home_old', name='home_old'),
     # url(r'^profile/home$', 'app_eq_1.views.profile_home', name='profile_home'),
     url(r'^profile/mycourses$', 'app_eq_1.views.profile_mycourses', name='profile_mycourses'),
     url(r'^profile/myusercourse', 'app_eq_1.views.profile_myusercourse', name='profile_myusercourse'),

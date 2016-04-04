@@ -1,0 +1,453 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>EQ - тренер</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{% static 'bootstrap/css/scrolling-nav.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/css/footer_try.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- <link href="css/scrolling-nav.css" rel="stylesheet"> -->
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript">
+    
+    function on_load(){
+        console.log('Loaded page')
+        // $('#id_country').attr('value', '');
+        // $('#reg_card').css("visibility", "hidden");
+        // $('#login_card').css("visibility", "visible");
+    }
+    window.onload = on_load;
+
+    function registration(){
+        console.log('Hi from registration()')
+        $('#reg_card').css("display", "inline");
+        $('#login_card').css("display", "none");
+        $('#forgot_pass_card').css("display", "none");
+    }
+    function login(){
+        console.log('Hi from login()')
+        $('#reg_card').css("display", "none");
+        $('#login_card').css("display", "inline");
+        $('#forgot_pass_card').css("display", "none");
+    }
+    function forgot_pass(){
+        console.log('Hi from forgot_pass()')
+        $('#reg_card').css("display", "none");
+        $('#login_card').css("display", "none");
+        $('#forgot_pass_card').css("display", "inline");
+    }
+    </script>
+
+</head>
+
+<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #333;">
+        <div class="container" >
+            <div class="navbar-header page-scroll" >
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" href="#page-top">EQ - тренер</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                        <li>
+                            <a href="/">Кабінет</a>
+                        </li>
+                    {% else %}
+                    {% endif %}
+                    <li>
+                        <a class="page-scroll" href="#courses">Курси</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#articles">Статті</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#trener">Щоденник</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#helper">Помічник</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#detailer">Детальніше</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <section id="intro" class="intro-section">
+        <div class="container">
+        </div>
+<!-- ***LOGIN*********************************** -->
+        <div id="login_card" class="row" style="display: inline">
+            <div class="col-xs-4 col-xs-offset-4">
+                <div class="card" >
+                    <form method="post" action="/accounts/login/?next=/">
+                        {% csrf_token %}
+                        <div id="div_id_username" class="form-group">
+                            <label for="id_username" class="control-label  requiredField">Пошта</label>
+                            <div class="controls ">
+                                <input class="textinput textInput form-control" id="id_username" maxlength="254" name="username" type="text" />
+                            </div>
+                        </div>
+                        <div id="div_id_password" class="form-group">
+                            <label for="id_password" class="control-label  requiredField">Пароль</label>
+                            <div class="controls ">
+                                <input class="textinput textInput form-control" id="id_password" name="password" type="password" />
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Увійти" class="btn-primary btn btn-block" />
+                        <input type="hidden" name="next" value="/" />
+                    </form>
+                    <br>
+                    <center>
+                        <a onclick='registration();'>Реєстрація</a> |
+                        <a onclick='forgot_pass();'>Забули пароль</a>
+                    </center>
+                </div>
+            </div>
+        </div>
+<!-- ***REGISTRATION*********************************** -->
+            <div id="reg_card" class="row" style="display: none">
+                <div class="col-xs-4 col-xs-offset-4">
+                    <div class="card" >
+
+            <!-- <form method="post" action=".">
+                <p class="required">
+                    <label class="required" for="id_username">Username:</label> 
+                    <input id="id_username" maxlength="30" name="username" type="text" />
+                </p>
+
+                
+                <p class="required">
+                    <label class="required" for="id_email">E-mail:</label> 
+                    <input id="id_email" name="email" type="email" />
+                </p>
+
+                
+                <p class="required"><label class="required" for="id_password1">Password:</label> 
+                    <input id="id_password1" name="password1" type="password" />
+                </p>
+
+                
+                <p class="required"><label class="required" for="id_password2">Password (again):</label> 
+                    <input id="id_password2" name="password2" type="password" />
+                </p>
+
+              <input type="submit" value="Submit" />
+            </form> -->
+            <form method="post" action="/accounts/register/?next=/">
+                {% csrf_token %}
+
+            <div id="div_id_username" class="form-group">
+                <label for="id_username" class="control-label  requiredField">
+				Ім'я користувача<span class="asteriskField">*</span>
+                </label><div class="controls ">
+                <input class="textinput textInput form-control" id="id_username" maxlength="30" name="username" type="text" /> <p id="hint_id_username" class="help-block">Обов'язкове поле. 30 або менше символів . Тільки букви, цифри, а також символи: @/./+/-/_</p></div></div><div id="div_id_first_name" class="form-group">
+                <label for="id_first_name" class="control-label ">
+				Ім'я
+			</label><div class="controls "><input class="textinput textInput form-control" id="id_first_name" maxlength="30" name="first_name" type="text" /> </div></div><div id="div_id_last_name" class="form-group"><label for="id_last_name" class="control-label ">
+				Прізвище
+			</label><div class="controls "><input class="textinput textInput form-control" id="id_last_name" maxlength="30" name="last_name" type="text" /> </div></div><div id="div_id_email" class="form-group"><label for="id_email" class="control-label  requiredField">
+				E-mail<span class="asteriskField">*</span></label><div class="controls "><input class="emailinput form-control" id="id_email" name="email" type="email" /> </div></div><div id="div_id_password1" class="form-group"><label for="id_password1" class="control-label  requiredField">
+				Пароль<span class="asteriskField">*</span></label><div class="controls "><input class="textinput textInput form-control" id="id_password1" name="password1" type="password" /> </div></div><div id="div_id_password2" class="form-group"><label for="id_password2" class="control-label  requiredField">
+				Підтвердження пароля<span class="asteriskField">*</span></label><div class="controls "><input class="textinput textInput form-control" id="id_password2" name="password2" type="password" /> <p id="hint_id_password2" class="help-block">Повторіть пароль для перевірки.</p></div></div><div id="div_id_parent" class="form-group"><label for="id_parent" class="control-label  requiredField">
+				Manager<span class="asteriskField">*</span></label><div class="controls "><select class="select form-control" id="id_parent" name="parent"><option value="" selected="selected">---------</option><option value="2">wwww</option></select></div></div><div id="div_id_locale" class="form-group"><label for="id_locale" class="control-label  requiredField">
+				Working language<span class="asteriskField">*</span></label><div class="controls "><select class="select form-control" id="id_locale" name="locale"><option value="en">Англійська</option><option value="ru">Російська</option><option value="pl">Польська</option><option value="ua">Українська</option><option value="tu">Турецька</option></select></div></div>
+
+		    <input type="submit" value="Submit"  class="btn-primary btn-lg btn-block" />
+            </form> 
+                <br>
+                    <center>
+                    <a onclick='login();' >Увійти</a> |
+                    <a onclick='forgot_pass();'>Забули пароль</a>
+                    </center>
+                    </div>
+                </div>
+            </div>
+<!-- ***FORGOT_PASS*********************************** -->
+        <div id="forgot_pass_card" class="row" style="display: none">
+            <div class="col-xs-4 col-xs-offset-4">
+                <div class="card" >
+                    <center><b>ЗАБУЛИ ПАРОЛЬ</b></center>
+                    <form method="post" action="/accounts/login/?next=/">
+                        {% csrf_token %}
+                        <div id="div_id_username" class="form-group">
+                            <label for="id_username" class="control-label  requiredField">Пошта</label>
+                            <div class="controls ">
+                                <input class="textinput textInput form-control" id="id_username" maxlength="254" name="username" type="text" />
+                            </div>
+                        </div>
+                        <div id="div_id_password" class="form-group">
+                            <label for="id_password" class="control-label  requiredField">Пароль</label>
+                            <div class="controls ">
+                                <input class="textinput textInput form-control" id="id_password" name="password" type="password" />
+                            </div>
+                        </div>
+
+                        <input type="submit" value="Увійти" class="btn-primary btn btn-block" />
+                        <input type="hidden" name="next" value="/" />
+                    </form>
+                    <br>
+                    <center>
+                        <a onclick='login();'>Увійти</a> |
+                        <a onclick='registration();'>Реєстрація</a>
+                    </center>
+                </div>
+            </div>
+        </div>
+<!-- ************************************** -->
+    </section>
+
+    <!-- About Section -->
+    <section id="courses" class="course-section">
+        <div class="container">
+            <div class="bs-example" data-example-id="thumbnails-with-custom-content">
+                <div class="row">
+                <h1 class="page-header">Курси</h1>
+
+                {% for course in course_list %}
+                  <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        <!-- <div class="panel-heading">
+                            <h4><i class="fa fa-fw fa-gift">vfdcv</i> Free &amp; Open Source</h4>
+                        </div> -->
+                        <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div class="caption">
+                            <h3>
+                            <a href="/course?id={{ course.id }}">{{ course.name }}</a>
+                            </h3>
+                            <p class="text-justify">{{ course.text|truncatechars:250 }}</p>
+                            <!-- <p>
+                                <a href="/course?id={{ course.id }}" class="btn btn-primary" role="button">Детальніше</a> 
+                            </p> -->
+                        </div>
+                    </div>  
+                  </div>
+                {% endfor %}
+                </div>
+                <a class="btn btn-md btn-primary" href="/courses">До всіх курсів<span class="glyphicon glyphicon-chevron-right"></span></a>
+              </div>           
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="articles" class="article-section">
+        <div class="container">
+             <div class="row">
+                <div class="col-lg-12">
+                    <h1>Статті</h1>
+                    <br>
+
+                    <div class="row">
+                    {% for article in article_list %}
+                        <div class="col-xs-6 col-sm-4 portfolio-item">
+                            <a href="/article?id={{ article.id }}">
+                                <img class=" myimage img-responsive myimage" src="{{ article.photo }}" alt="">
+                            </a>
+                            <h3>
+                                <a href="/article?id={{ article.id }}">{{ article.name }}</a>
+                            </h3>
+                            <p class="text-justify">{{ article.text|truncatechars:250 }}</p>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <a class="btn btn-md btn-primary" href="/articles">До всіх статтей<span class="glyphicon glyphicon-chevron-right"></span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="trener" class="trener-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Щоденник</h1>
+                        <!-- Project One -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <img class=" myimage img-responsive myimage" src="{% static 'img/phone.png' %}" alt="">
+                            </div>
+                            <div class="col-md-9">
+                                <h3>Project One</h3>
+                                <h4>Subheading</h4>
+                                <p class="text-justify"> <b>Еліптичний тренажер</b> (альтернативна назва - орбітрек) - спортивний тренажер. Рухи на ньому нагадують ходьбу на лижах. Дає навантаження на ноги, руки і спину, тренує серце. При цьому не дає ударного навантаження на суглоби, що важливо людям з проблемами суглобів та хребта.
+
+                                Основні характеристики: довжина кроку, відстань між педалями, вага маховика, розташування маховика (задній/передній), система навантаження (механічна, магнітна, електромагнітна).
+
+                                Довжина кроку повинна підбиратися залежно від зросту людини.
+
+                                Занадто велика відстань між педалями робить рух незручним і занадто навантажує колінні суглоби.
+
+                                Заднє розташування маховика (як правило, в більш дорогих моделях) дозволяє скоротити відстань між педалями і трохи змінює траєкторію руху педалей.
+
+                                Механічна система навантаження - шумлива і призводить до зносу тренажера, зараз практично не застосовується. Магнітна система навантаження працює за рахунок постійних магнітів. Електромагнітна працює за рахунок електромагнітів і дозволяє найбільш точно регулювати рівень навантаження.
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-9">
+
+                                    </div>
+                                    <div class="col-md-3">
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.androidcollider.vysotsky">
+                                            <img class=" myimage img-responsive myimage" src="{% static 'img/google_play.png' %}" alt="">
+                                        </a>
+                                    </div>
+
+
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="helper" class="helper-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Помічник</h1>
+                </div>
+            </div>
+            <h2 style="color: #a1a1a1">Дана сторінка в розробці...</h2>
+            {% for i in 'xxxxxxxxxxxxxxxxxxx' %}
+                <br>
+            {% endfor %}
+
+            <div class="row">
+                    <a class="btn btn btn-primary" href="/trener">До помічника <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="detailer" class="detailer-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Детальніше</h1>
+                </div>
+            </div>
+            <br>
+            <br>
+            <div class="row">
+                <div class="col-md-8">
+                    <!-- <h3>Project One</h3>
+                    <h4>Subheading</h4> -->
+                    <p class="text-justify"><b>Дэн Дубравин</b> — эксперт в области продаж и эмоционального интеллекта, который с помощью своих тренингов помог увеличить продажи и повысить качество сервиса многим компаниям в Украине.
+                    <br>
+                    Более 7 лет обучает руководителей ведущих компаний различных отраслей бизнеса. Участвует в формировании и обучении «Кадрового резерва». Проводит коучинг и психологическое консультирование. За 14 лет тренерской практики не было ни одного случая, когда бы Клиент остался разочарован проведенным обучением! Дэн не понаслышке знает о первоклассном сервисе и продажах, так как много лет проработал в торговых и сервисных компаниях, а первые продажи совершил еще в школе.
+                    <br>
+                    Автор книги  «Психология эмоций. Чувства под контролем»
+                    </p>
+                    <p class="text-justify"><b>Эмоциональный интеллект (EQ)</b>- это способность осознавать и управлять своими чувствами. А также способность осознавать и управлять чувствами других людей.
+
+                    Швейцарский ученый Жан Пиаже, доказал что интеллект IQ заканчивает свое формирование до 11 лет и всю оставшуюся жизнь остается неизменным.
+
+                    Хорошей новостью есть то, что уровень EQ, является подвижным и его можно развивать всю жизнь. Исследования  американского эксперта  и ученого Даниэла Гоулмана, описанные в книге «Эмоциональный интеллект» показывают, что люди, которые достигли вершин в бизнесе или имеют счастливые браки не обладают высоким уровнем IQ, тем не менее, общими для них всех есть наличие высокого уровня EQ.
+                    </p>
+                    <p class="text-justify"> <b> Школа Эмоционального Интеллекта </b>—  это уникальный обучающий курс, который за короткое время сможет повысить ваш уровень эмоционального интеллекта.
+
+                    Практика показывает, что наибольшего успеха в жизни добиваются те, кто в состоянии в критический момент взять себя в руки и не поддаться гневу, раздражению или унынию.
+                    </p>
+                </div>
+
+                <div class="col-md-4">
+                    <br>
+                    <img src="{% static 'img/denys.png' %}" class="img-circle" alt="Cinque Terre"> 
+                </div>
+            </div>
+            <div class="row">
+                    <a class="btn btn btn-primary" href="/about">Детальніше про проект <span class="glyphicon glyphicon-chevron-right"></span></a>
+            </div>
+
+        </div>
+    </section>
+    {% block footer%}
+    {% include "template_footer_public.html" %}
+    {% endblock %}
+
+
+    <span id="top-link-block" class="hidden">
+        <a href="#top" class="well well-sm"  onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+            <i class="glyphicon glyphicon-chevron-up"></i> Back to Top
+        </a>
+    </span>
+
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <!-- <script src="js/jquery.js"></script> -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <!-- // <script src="js/bootstrap.min.js"></script> -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="{% static 'bootstrap/js/jquery.easing.min.js' %}"></script>
+    <!-- // <script src="js/jquery.easing.min.js"></script> -->
+
+    <script src="{% static 'bootstrap/js/scrolling-nav.js' %}"></script>
+    <!-- // <script src="js/scrolling-nav.js"></script> -->
+
+
+    <script type="text/javascript">
+    if ( ($(window).height() + 100) < $(document).height() ) {
+        $('#top-link-block').removeClass('hidden').affix({
+            // how far to scroll down before link "slides" into view
+            offset: {top:100}
+        });
+    }
+    </script>
+
+
+
+</body>
+
+</html>

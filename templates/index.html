@@ -1,453 +1,390 @@
 {% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Emotion Control. Мобильный тренажер управления эмоциями.</title>
 
-    <title>EQ - тренер</title>
+	<!-- favicon.png -->
+	<link rel="icon" type="image/png" href="{% static 'img/index_new/favicon.png' %}">
 
-    <!-- Bootstrap Core CSS -->
-    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+	<!-- slicker.css -->
+	<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
+	<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
 
-    <!-- Custom CSS -->
-    <link href="{% static 'bootstrap/css/scrolling-nav.css' %}" rel="stylesheet">
-    <link href="{% static 'bootstrap/css/footer_try.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<!-- style.css -->
+	<link rel="stylesheet" href="{% static 'css/index_new_style.css' %}">
 
-    <!-- <link href="css/scrolling-nav.css" rel="stylesheet"> -->
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript">
-    
-    function on_load(){
-        console.log('Loaded page')
-        // $('#id_country').attr('value', '');
-        // $('#reg_card').css("visibility", "hidden");
-        // $('#login_card').css("visibility", "visible");
-    }
-    window.onload = on_load;
-
-    function registration(){
-        console.log('Hi from registration()')
-        $('#reg_card').css("display", "inline");
-        $('#login_card').css("display", "none");
-        $('#forgot_pass_card').css("display", "none");
-    }
-    function login(){
-        console.log('Hi from login()')
-        $('#reg_card').css("display", "none");
-        $('#login_card').css("display", "inline");
-        $('#forgot_pass_card').css("display", "none");
-    }
-    function forgot_pass(){
-        console.log('Hi from forgot_pass()')
-        $('#reg_card').css("display", "none");
-        $('#login_card').css("display", "none");
-        $('#forgot_pass_card').css("display", "inline");
-    }
-    </script>
-
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<!-- main.js -->
+	<script src="{% static 'js/index_new.js' %}"></script>
 </head>
+<body>
 
-<!-- The #page-top ID is part of the scrolling feature - the data-spy and data-target are part of the built-in Bootstrap scrollspy function -->
+	<!-- BEGIN header -->
+	<header>
+		<div class="overlay"></div>
+		<div class="container">
+			<div class="row">
+				<div class="top-bar">
+					<div class="logo">
+						<p class="logo-desc">технология развития эмоционального интелекта</p>
+						<a href=""><img src="{% static 'img/index_new/logo.png' %}" alt="Emotion Control"></a>
+					</div>
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation" style="background-color: #333;">
-        <div class="container" >
-            <div class="navbar-header page-scroll" >
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand page-scroll" href="#page-top">EQ - тренер</a>
-            </div>
+					<div class="app-desc">
+						<div class="hand-phone"></div>
+						<div class="app-desc-text">
+							<div class="app-desc-subtitle">мобильный тренажер</div>
+							<div class="app-desc-title">Управления эмоциями</div>
+							<a href="#" class="googleplay"><img src="{% static 'img/index_new/googleplay.png' %}" alt="Çàãðóçèòå íà Google Play"></a>
+						</div>
+					</div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a class="page-scroll" href="#page-top"></a>
-                    </li>
-                    {% if request.user.is_authenticated %}
-                        <li>
-                            <a href="/">Кабінет</a>
-                        </li>
-                    {% else %}
-                    {% endif %}
-                    <li>
-                        <a class="page-scroll" href="#courses">Курси</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#articles">Статті</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#trener">Щоденник</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#helper">Помічник</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#detailer">Детальніше</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
+					<div class="login-form">
+						<p class="form-title">Войти в <br><strong>личный кабинет</strong></p>
+						<form action="" id="login">
+							<input type="text" name="email" id="email" placeholder="Email">
+							<input type="password" name="psw" id="psw" placeholder="Пароль">
+							<input type="submit" name="submit" value="Войти">
+							<div class="form-links">
+								<a href="#" class="forget-psw">Забыли пароль?</a>
+								<a href="#" class="registration modal-open" data-modal="#modal-registration">Регистрация</a>
+							</div>
 
-    <section id="intro" class="intro-section">
-        <div class="container">
-        </div>
-<!-- ***LOGIN*********************************** -->
-        <div id="login_card" class="row" style="display: inline">
-            <div class="col-xs-4 col-xs-offset-4">
-                <div class="card" >
-                    <form method="post" action="/accounts/login/?next=/">
-                        {% csrf_token %}
-                        <div id="div_id_username" class="form-group">
-                            <label for="id_username" class="control-label  requiredField">Пошта</label>
-                            <div class="controls ">
-                                <input class="textinput textInput form-control" id="id_username" maxlength="254" name="username" type="text" />
-                            </div>
-                        </div>
-                        <div id="div_id_password" class="form-group">
-                            <label for="id_password" class="control-label  requiredField">Пароль</label>
-                            <div class="controls ">
-                                <input class="textinput textInput form-control" id="id_password" name="password" type="password" />
-                            </div>
-                        </div>
+						</form>
+					</div>
+				</div>
+				<div class="more-link">
+					<a href="#" class="scroll-to" data-scroll=".second-screen">Подробнее</a>
+					<div class="more-icon">
+						<svg><use xlink:href="{% static 'img/index_new/sprite.svg#more-icon' %}" /></svg>
 
-                        <input type="submit" value="Увійти" class="btn-primary btn btn-block" />
-                        <input type="hidden" name="next" value="/" />
-                    </form>
-                    <br>
-                    <center>
-                        <a onclick='registration();'>Реєстрація</a> |
-                        <a onclick='forgot_pass();'>Забули пароль</a>
-                    </center>
-                </div>
-            </div>
-        </div>
-<!-- ***REGISTRATION*********************************** -->
-            <div id="reg_card" class="row" style="display: none">
-                <div class="col-xs-4 col-xs-offset-4">
-                    <div class="card" >
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- END header -->
 
-            <!-- <form method="post" action=".">
-                <p class="required">
-                    <label class="required" for="id_username">Username:</label> 
-                    <input id="id_username" maxlength="30" name="username" type="text" />
-                </p>
+	<!-- BEGIN second screen -->
+	<section class="second-screen">
+		<div class="container">
+			<div class="row">
+				<p class="title">Полезные инструменты для вашего <strong>эмоционального благополучия</strong> </p>
+				<div class="advantages">
+					<div class="three-in-one"></div>
+					<div class="vertical-line"></div>
+					<div class="horizontal-line"></div>
+					<div class="adv-item diary">
+						<div class="icon diary-icon">
+							<svg><use xlink:href="{% static 'img/index_new/sprite.svg#diary-icon' %}" /></svg>
+						</div>
+						<p>Дневник <strong>эмоций</strong></p>
+					</div>
+					<div class="adv-item-big trainer">
+						<div class="icon trainer-icon">
+							<svg><use xlink:href="{% static 'img/index_new/sprite.svg#gym-icon' %}" /></svg>
+						</div>
+						<p>Тренажор <strong>эмоционального интелекта</strong></p>
+					</div>
+					<div class="adv-item psychologist">
+						<div class="icon psychologist-icon">
+							<svg><use xlink:href="{% static 'img/index_new/sprite.svg#psychologist-icon' %}" /></svg>
+						</div>
+						<p>Карманный <strong>психолог</strong></p>
+					</div>
+				</div>
+			</div>
 
-                
-                <p class="required">
-                    <label class="required" for="id_email">E-mail:</label> 
-                    <input id="id_email" name="email" type="email" />
-                </p>
+		</div>
+	</section>
+	<!-- END second screen -->
 
-                
-                <p class="required"><label class="required" for="id_password1">Password:</label> 
-                    <input id="id_password1" name="password1" type="password" />
-                </p>
+	<!-- BEGIN third screen -->
+	<section class="third-screen">
+		<div class="container">
+			<div class="row">
+				<ul class="questions">
+					<li>Трудно справиться с <span class="text-brown">гневом</span></li>
+					<li>Частые перепады <span class="text-brown">настроения</span></li>
+					<li>Приступы <span class="text-brown">тревожности</span></li>
+					<li>Постоянные <span class="text-brown">обиды</span></li>
+					<li>Неуверенность в <span class="text-brown">себе</span></li>
+				</ul>
+				<div class="question-icon"></div>
+				<div class="phone"></div>
+				<div class="download-desc">
+					<div class="text-desc">Установи<br>на свой смартфон<br><strong>мобильное приложение</strong></div>
+					<div class="logo"><img src="{% static 'img/index_new/logo.png' %}" alt="Emotion Control"></div>
+					<a href="#" class="googleplay"><img src="{% static 'img/index_new/googleplay.png' %}" alt="Çàãðóçèòå íà Google Play"></a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- END third screen -->
 
-                
-                <p class="required"><label class="required" for="id_password2">Password (again):</label> 
-                    <input id="id_password2" name="password2" type="password" />
-                </p>
+	<!-- BEGIN fourth screen -->
+	<section class="fourth-screen app-category">
+		<div class="container">
+			<div class="row">
+				<div class="title">Измеряйте и контролируйте свои эмоции <strong>на протяжении дня</strong></div>
+				<div class="app-category-desc diary-category">
+					<div class="desc-icon">
+						<div class="svg-icon">
+							<svg><use xlink:href="{% static 'img/index_new/sprite.svg#diary-icon' %}" /></svg>
+						</div>
+					</div>
+					<p class="desc-title">Дневник эмоций</p>
+					<ul class="desc-text">
+						<li>
+							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							Скачайте мобильное приложение и контролируйте свои эмоции на протяжении дня
+						</li>
+						<li>
+							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							Следите за эмоциональной динамикой и ведите статистику в личном кабинете на сайте
+						</li>
+						<li>
+							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							Каждую неделю получайте отчеты про свое эмоциональное состояние и рекомендации от психолога
+						</li>
+					</ul>
+				</div>
+				<div class="app-category-thumb">
+					<div class="screen first-phone-screen"></div>
+					<div class="screen second-phone-screen"></div>
+					<div class="screen third-phone-screen"></div>
+				</div>
+				<a href="#" class="button video modal-open" data-modal="#modal-video"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#play-icon' %}"/></svg>Видео</a>
+			</div>
+		</div>
+	</section>
+	<!-- END fourth screen -->
 
-              <input type="submit" value="Submit" />
-            </form> -->
-            <form method="post" action="/accounts/register/?next=/">
-                {% csrf_token %}
+	<!-- BEGIN fifth screen -->
+	<section class="fifth-screen">
+		<div class="container">
+			<div class="row">
+				<div class="blur-slider"></div>
+				<div id="slider">
+					<div class="slide1">
+						<div class="slide-infograph">
+							<img src="{% static 'img/index_new/infograph1.png' %}" alt="Ëþäè, êîòîðûå óïðàâëÿþò ñâîèìè ýìîöèÿìè íà 58% ïðîäóêòèâíåå">
+						</div>
+						<div class="slide-text">
+							<p>Люди, которые управляют <br> своими эмоциями <br> на</p>
+							<p class="big-blue">58%</p>
+							<p class="big">продуктивнее</p>
+						</div>
+					</div>
+					<div class="slide2">
+						<div class="slide-infograph">
+							<img src="{% static 'img/index_new/infograph2.png' %}" alt="90% óñïåøíûõ ëþäåé èìåþò âûñîêèé EQ">
+						</div>
+						<div class="slide-text">
+							<p class="big-blue">90%</p>
+							<p>успешных людей <br> имеют высокий EQ</p>
+							<p class="note">*EQ - эмоциональный интелект</p>
+						</div>
+					</div>
+					<div class="slide3">
+						<div class="slide-infograph">
+							<img src="{% static 'img/index_new/infograph3.png' %}" alt="Ëþäè ñ âûñîêèì EQ â ñðåäíåì íà 80% ÷àùå èñïûòûâàþò ñîñòîÿíèå ñ÷àñòüÿ è óäîâëåòâîðåííîñòè ñâîåé æèçíüþ.">
+						</div>
+						<div class="slide-text">
+							<p>Люди с высоким EQ <br> в среднем <br> на</p>
+							<p class="big-red">80%</p>
+							<p>чаще испытывают <br> состояние счастья <br> и удовлетворенности <br> своей жизнью.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- END fifth screen -->
 
-            <div id="div_id_username" class="form-group">
-                <label for="id_username" class="control-label  requiredField">
-				Ім'я користувача<span class="asteriskField">*</span>
-                </label><div class="controls ">
-                <input class="textinput textInput form-control" id="id_username" maxlength="30" name="username" type="text" /> <p id="hint_id_username" class="help-block">Обов'язкове поле. 30 або менше символів . Тільки букви, цифри, а також символи: @/./+/-/_</p></div></div><div id="div_id_first_name" class="form-group">
-                <label for="id_first_name" class="control-label ">
-				Ім'я
-			</label><div class="controls "><input class="textinput textInput form-control" id="id_first_name" maxlength="30" name="first_name" type="text" /> </div></div><div id="div_id_last_name" class="form-group"><label for="id_last_name" class="control-label ">
-				Прізвище
-			</label><div class="controls "><input class="textinput textInput form-control" id="id_last_name" maxlength="30" name="last_name" type="text" /> </div></div><div id="div_id_email" class="form-group"><label for="id_email" class="control-label  requiredField">
-				E-mail<span class="asteriskField">*</span></label><div class="controls "><input class="emailinput form-control" id="id_email" name="email" type="email" /> </div></div><div id="div_id_password1" class="form-group"><label for="id_password1" class="control-label  requiredField">
-				Пароль<span class="asteriskField">*</span></label><div class="controls "><input class="textinput textInput form-control" id="id_password1" name="password1" type="password" /> </div></div><div id="div_id_password2" class="form-group"><label for="id_password2" class="control-label  requiredField">
-				Підтвердження пароля<span class="asteriskField">*</span></label><div class="controls "><input class="textinput textInput form-control" id="id_password2" name="password2" type="password" /> <p id="hint_id_password2" class="help-block">Повторіть пароль для перевірки.</p></div></div><div id="div_id_parent" class="form-group"><label for="id_parent" class="control-label  requiredField">
-				Manager<span class="asteriskField">*</span></label><div class="controls "><select class="select form-control" id="id_parent" name="parent"><option value="" selected="selected">---------</option><option value="2">wwww</option></select></div></div><div id="div_id_locale" class="form-group"><label for="id_locale" class="control-label  requiredField">
-				Working language<span class="asteriskField">*</span></label><div class="controls "><select class="select form-control" id="id_locale" name="locale"><option value="en">Англійська</option><option value="ru">Російська</option><option value="pl">Польська</option><option value="ua">Українська</option><option value="tu">Турецька</option></select></div></div>
+	<!-- BEGIN sixth screen -->
+	<section class="sixth-screen app-category">
+		<div class="container">
+			<div class="row">
+				<div class="title">Тренируйте навыки <strong>управления эмоциями</strong></div>
+				<div class="app-category-desc trainer-category">
+					<div class="desc-icon">
+						<div class="svg-icon">
+							<svg><use xlink:href="{% static 'img/index_new/sprite.svg#gym-icon' %}" /></svg>
+						</div>
+					</div>
+					<p class="desc-title">Тренажер эмоционального интелекта</p>
+					<ul class="desc-text">
+						<li>
+							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							Каждый день получайте на свой смартфон задания и выполняйте их согласно инструкции.
+						</li>
+						<li>
+							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							Повышайте свой эмоциональный интеллект, ежедневно отмечая прогресс в выбранной теме.
+						</li>
+						<li>
+							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							Повышайте свой эмоциональный интеллект, ежедневно отмечая прогресс в выбранной теме.
+						</li>
+					</ul>
+				</div>
+				<div class="app-category-thumb">
+					<div class="trainer-thumb"></div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- END sixth screen -->
 
-		    <input type="submit" value="Submit"  class="btn-primary btn-lg btn-block" />
-            </form> 
-                <br>
-                    <center>
-                    <a onclick='login();' >Увійти</a> |
-                    <a onclick='forgot_pass();'>Забули пароль</a>
-                    </center>
-                    </div>
-                </div>
-            </div>
-<!-- ***FORGOT_PASS*********************************** -->
-        <div id="forgot_pass_card" class="row" style="display: none">
-            <div class="col-xs-4 col-xs-offset-4">
-                <div class="card" >
-                    <center><b>ЗАБУЛИ ПАРОЛЬ</b></center>
-                    <form method="post" action="/accounts/login/?next=/">
-                        {% csrf_token %}
-                        <div id="div_id_username" class="form-group">
-                            <label for="id_username" class="control-label  requiredField">Пошта</label>
-                            <div class="controls ">
-                                <input class="textinput textInput form-control" id="id_username" maxlength="254" name="username" type="text" />
-                            </div>
-                        </div>
-                        <div id="div_id_password" class="form-group">
-                            <label for="id_password" class="control-label  requiredField">Пароль</label>
-                            <div class="controls ">
-                                <input class="textinput textInput form-control" id="id_password" name="password" type="password" />
-                            </div>
-                        </div>
+	<!-- BEGIN seventh screen -->
+	<section class="seventh-screen">
+		<div class="container">
+			<div class="row">
+				<div class="title">Курсы</div>
+				<div class="courses">
+					{% for course in course_list %}
+						<div class="course-item ">
+							<div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
+								<div class="embed-responsive embed-responsive-16by9">
+									<iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
+								</div>
+                        	</div>
+							<!--<div class="course-thumb">-->
+								<!--<div class="img"></div>-->
+							<!--</div>-->
+							<a href="/course?id={{ course.id }}" class="course-title">{{ course.name }}</a>
+							<p class="course-desc ">
+								{{ course.text|truncatechars:250 }}
+							</p>
+						</div>
+					{% endfor %}
+				</div>
+				<a href="/courses" class="button all-courses">Ко всем курсам</a>
+			</div>
+		</div>
+	</section>
+	<!-- END seventh screen -->
 
-                        <input type="submit" value="Увійти" class="btn-primary btn btn-block" />
-                        <input type="hidden" name="next" value="/" />
-                    </form>
-                    <br>
-                    <center>
-                        <a onclick='login();'>Увійти</a> |
-                        <a onclick='registration();'>Реєстрація</a>
-                    </center>
-                </div>
-            </div>
-        </div>
-<!-- ************************************** -->
-    </section>
+	<!-- BEGIN eighth screen -->
+	<section class="eighth-screen">
+		<div class="wave-pattern"></div>
+		<div class="container">
+			<div class="row">
+				<div class="title">Получайте полезные советы <strong>от “Карманного психолога”</strong></div>
+				<div class="app-category-desc psych-category">
+					<div class="desc-icon">
+						<div class="svg-icon">
+							<svg><use xlink:href="{% static 'img/index_new/sprite.svg#psychologist-icon' %}" /></svg>
+						</div>
+					</div>
+					<p class="desc-title">Карманный психолог</p>
+					<ul class="desc-text">
+						<li>
+							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							Получайте полезные советы от своего “карманного психолога” в тот момент, когда Вам это действительно необходимо
+						</li>
+						<li>
+							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							Действуйте согласно рекомендациям и меняйте свое эмоциональное состояние на желаемое
+						</li>
+					</ul>
+				</div>
+				<div class="app-category-thumb">
+					<div class="psych-thumb"></div>
+				</div>
+				<a href="/trener" class="button all-advises">Ко всем советам</a>
+			</div>
+		</div>
+	</section>
+	<!-- END eighth screen -->
 
-    <!-- About Section -->
-    <section id="courses" class="course-section">
-        <div class="container">
-            <div class="bs-example" data-example-id="thumbnails-with-custom-content">
-                <div class="row">
-                <h1 class="page-header">Курси</h1>
+	<!-- BEGIN footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<p>Emotion Control. Все права защищены. 2016</p>
+					<ul>
+						<li>
+							<a href="#">Конфиденциальность</a>
+						</li>
+						<li>
+							<a href="/lawyer_page">Правила пользования</a>
+						</li>
+					</ul>
+					<p class="developer">Разработка сайта: <a href="//www.facebook.com/bohdangorovoy" target="_blank">Bohdan Gorovoy</a></p>
+				</div>
+				<div class="col">
+					<p>Установите приложение уже сегодня</p>
+					<a href="" class="googleplay"><img src="{% static 'img/index_new/googleplay.png' %}" alt="Загрузите на Google Play"></a>
+				</div>
+				<div class="col">
+					<a href="#" data-scroll="header" class="personal-cabinet scroll-to">Личный кабинет</a>
+					<a href="#" data-modal="#modal-registration" class="registration-footer modal-open">Регистрация</a>
 
-                {% for course in course_list %}
-                  <div class="col-sm-6 col-md-4">
-                    <div class="thumbnail">
-                        <!-- <div class="panel-heading">
-                            <h4><i class="fa fa-fw fa-gift">vfdcv</i> Free &amp; Open Source</h4>
-                        </div> -->
-                        <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
-                            <div class="embed-responsive embed-responsive-16by9">
-                                <iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                        <div class="caption">
-                            <h3>
-                            <a href="/course?id={{ course.id }}">{{ course.name }}</a>
-                            </h3>
-                            <p class="text-justify">{{ course.text|truncatechars:250 }}</p>
-                            <!-- <p>
-                                <a href="/course?id={{ course.id }}" class="btn btn-primary" role="button">Детальніше</a> 
-                            </p> -->
-                        </div>
-                    </div>  
-                  </div>
-                {% endfor %}
-                </div>
-                <a class="btn btn-md btn-primary" href="/courses">До всіх курсів<span class="glyphicon glyphicon-chevron-right"></span></a>
-              </div>           
-        </div>
-    </section>
+					<ul>
+						<li>
+							<a href="#" class="scroll-to" data-scroll=".fourth-screen">Дневник эмоций</a>
+						</li>
+						<li>
+							<a href="#" class="scroll-to" data-scroll=".sixth-screen">Тренажер эмоционального интелекта</a>
+						</li>
+						<li>
+							<a href="/trener" class="scroll-to" data-scroll=".eighth-screen">Карманный психолог</a>
+						</li>
+					</ul>
 
-    <!-- Services Section -->
-    <section id="articles" class="article-section">
-        <div class="container">
-             <div class="row">
-                <div class="col-lg-12">
-                    <h1>Статті</h1>
-                    <br>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- END footer -->
 
-                    <div class="row">
-                    {% for article in article_list %}
-                        <div class="col-xs-6 col-sm-4 portfolio-item">
-                            <a href="/article?id={{ article.id }}">
-                                <img class=" myimage img-responsive myimage" src="{{ article.photo }}" alt="">
-                            </a>
-                            <h3>
-                                <a href="/article?id={{ article.id }}">{{ article.name }}</a>
-                            </h3>
-                            <p class="text-justify">{{ article.text|truncatechars:250 }}</p>
-                        </div>
-                    {% endfor %}
-                    </div>
-                    <a class="btn btn-md btn-primary" href="/articles">До всіх статтей<span class="glyphicon glyphicon-chevron-right"></span></a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="trener" class="trener-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Щоденник</h1>
-                        <!-- Project One -->
-                        <div class="row">
-                            <div class="col-md-3">
-                                <img class=" myimage img-responsive myimage" src="{% static 'img/phone.png' %}" alt="">
-                            </div>
-                            <div class="col-md-9">
-                                <h3>Project One</h3>
-                                <h4>Subheading</h4>
-                                <p class="text-justify"> <b>Еліптичний тренажер</b> (альтернативна назва - орбітрек) - спортивний тренажер. Рухи на ньому нагадують ходьбу на лижах. Дає навантаження на ноги, руки і спину, тренує серце. При цьому не дає ударного навантаження на суглоби, що важливо людям з проблемами суглобів та хребта.
-
-                                Основні характеристики: довжина кроку, відстань між педалями, вага маховика, розташування маховика (задній/передній), система навантаження (механічна, магнітна, електромагнітна).
-
-                                Довжина кроку повинна підбиратися залежно від зросту людини.
-
-                                Занадто велика відстань між педалями робить рух незручним і занадто навантажує колінні суглоби.
-
-                                Заднє розташування маховика (як правило, в більш дорогих моделях) дозволяє скоротити відстань між педалями і трохи змінює траєкторію руху педалей.
-
-                                Механічна система навантаження - шумлива і призводить до зносу тренажера, зараз практично не застосовується. Магнітна система навантаження працює за рахунок постійних магнітів. Електромагнітна працює за рахунок електромагнітів і дозволяє найбільш точно регулювати рівень навантаження.
-                                </p>
-                                <div class="row">
-                                    <div class="col-md-9">
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <br>
-                                        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.androidcollider.vysotsky">
-                                            <img class=" myimage img-responsive myimage" src="{% static 'img/google_play.png' %}" alt="">
-                                        </a>
-                                    </div>
-
-
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="helper" class="helper-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Помічник</h1>
-                </div>
-            </div>
-            <h2 style="color: #a1a1a1">Дана сторінка в розробці...</h2>
-            {% for i in 'xxxxxxxxxxxxxxxxxxx' %}
-                <br>
-            {% endfor %}
-
-            <div class="row">
-                    <a class="btn btn btn-primary" href="/trener">До помічника <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="detailer" class="detailer-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1>Детальніше</h1>
-                </div>
-            </div>
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-md-8">
-                    <!-- <h3>Project One</h3>
-                    <h4>Subheading</h4> -->
-                    <p class="text-justify"><b>Дэн Дубравин</b> — эксперт в области продаж и эмоционального интеллекта, который с помощью своих тренингов помог увеличить продажи и повысить качество сервиса многим компаниям в Украине.
-                    <br>
-                    Более 7 лет обучает руководителей ведущих компаний различных отраслей бизнеса. Участвует в формировании и обучении «Кадрового резерва». Проводит коучинг и психологическое консультирование. За 14 лет тренерской практики не было ни одного случая, когда бы Клиент остался разочарован проведенным обучением! Дэн не понаслышке знает о первоклассном сервисе и продажах, так как много лет проработал в торговых и сервисных компаниях, а первые продажи совершил еще в школе.
-                    <br>
-                    Автор книги  «Психология эмоций. Чувства под контролем»
-                    </p>
-                    <p class="text-justify"><b>Эмоциональный интеллект (EQ)</b>- это способность осознавать и управлять своими чувствами. А также способность осознавать и управлять чувствами других людей.
-
-                    Швейцарский ученый Жан Пиаже, доказал что интеллект IQ заканчивает свое формирование до 11 лет и всю оставшуюся жизнь остается неизменным.
-
-                    Хорошей новостью есть то, что уровень EQ, является подвижным и его можно развивать всю жизнь. Исследования  американского эксперта  и ученого Даниэла Гоулмана, описанные в книге «Эмоциональный интеллект» показывают, что люди, которые достигли вершин в бизнесе или имеют счастливые браки не обладают высоким уровнем IQ, тем не менее, общими для них всех есть наличие высокого уровня EQ.
-                    </p>
-                    <p class="text-justify"> <b> Школа Эмоционального Интеллекта </b>—  это уникальный обучающий курс, который за короткое время сможет повысить ваш уровень эмоционального интеллекта.
-
-                    Практика показывает, что наибольшего успеха в жизни добиваются те, кто в состоянии в критический момент взять себя в руки и не поддаться гневу, раздражению или унынию.
-                    </p>
-                </div>
-
-                <div class="col-md-4">
-                    <br>
-                    <img src="{% static 'img/denys.png' %}" class="img-circle" alt="Cinque Terre"> 
-                </div>
-            </div>
-            <div class="row">
-                    <a class="btn btn btn-primary" href="/about">Детальніше про проект <span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-
-        </div>
-    </section>
-    {% block footer%}
-    {% include "template_footer_public.html" %}
-    {% endblock %}
+	<!-- BEGIN modal windows -->
+	<div class="modal" id="modal-registration">
+		<a href="#" class="modal-close"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#close-icon' %}" /></svg></a>
+		<p class="modal-title">Регистрация</p>
+		<form action="">
+			<input type="text" name="name" placeholder="Имя">
+			<input type="text" name="email" placeholder="Email">
+			<input type="password" name="password" placeholder="Пароль">
+			<input type="submit" name="submit" value="Регистрация">
+		</form>
+		<p class="license">Регистрируясь вы принимаете условия <a href="/lawyer_page">лицензионного договора</a></p>
+	</div>
+	<div class="modal" id="modal-video">
+		<a href="#" class="modal-close"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#close-icon' %}" /></svg></a>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/MJJj0BBrWOE?showinfo=0&rel=0" allowfullscreen></iframe>
+	</div>
+	<div class="modal-overlay"></div>
+	<!-- END modal windows -->
 
 
-    <span id="top-link-block" class="hidden">
-        <a href="#top" class="well well-sm"  onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
-            <i class="glyphicon glyphicon-chevron-up"></i> Back to Top
-        </a>
-    </span>
+	<!-- footer scripts -->
 
-    <!-- jQuery -->
-    <script src="{% static 'js/jquery.js' %}"></script>
-    <!-- <script src="js/jquery.js"></script> -->
+	<!-- Slicker -->
+	<script src="http://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('#slider').slick({
+				dots: false,
+				infinite: true,
+				speed: 500,
+				autoplaySpeed: 5000,
+				cssEase: 'ease-out',
+				autoplay: true
+			});
+		});
+	</script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <!-- // <script src="js/bootstrap.min.js"></script> -->
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-
-    <!-- Scrolling Nav JavaScript -->
-    <script src="{% static 'bootstrap/js/jquery.easing.min.js' %}"></script>
-    <!-- // <script src="js/jquery.easing.min.js"></script> -->
-
-    <script src="{% static 'bootstrap/js/scrolling-nav.js' %}"></script>
-    <!-- // <script src="js/scrolling-nav.js"></script> -->
-
-
-    <script type="text/javascript">
-    if ( ($(window).height() + 100) < $(document).height() ) {
-        $('#top-link-block').removeClass('hidden').affix({
-            // how far to scroll down before link "slides" into view
-            offset: {top:100}
-        });
-    }
-    </script>
-
+	<!-- jQuery Parallax -->
+	<script src="{% static 'js/jquery.parallax.js' %}"></script>
 
 
 </body>
-
 </html>
