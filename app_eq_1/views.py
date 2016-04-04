@@ -15,6 +15,28 @@ from django.db.models import Sum
 from constants import USER_EMOTIONS, USER_ACTIVITY, TIME_FORMAT
 
 
+def home_new(request):
+    # course_list = None
+    # try:
+    #     course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+    # except Exception, e:
+    #     print "e:", e
+    # # print "course_list: ", course_list
+    #
+    # article_list = None
+    # try:
+    #     article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+    # except Exception, e:
+    #     print "e:", e
+    # # print "article_list: ", article_list
+
+    context = {
+        # "course_list": course_list,
+        # "article_list": article_list,
+    }
+    return render(request, "index_new.html", context)
+
+
 def home(request):
     if request.user.is_authenticated():
         # return home_private(request)
