@@ -1,7 +1,7 @@
 {% extends "profile.html" %}
 {% load i18n %}
 {% block title %}
-Мої курси
+My courses
 {{ block.super }}
 {% endblock %}
 
@@ -10,89 +10,38 @@
 
 <div class="panel panel-success">
     <div class="panel-heading">My active courses</div>
-{#        <div class="panel-body">12345789</div>#}
-        <ul class="list-group">
-            {% if usercourses_not_ended|length %}
-                {% for usercourse in usercourses_not_ended%}
-                    <a type="button" href="/profile/myusercourse/?id={{ usercourse.id }}" class="list-group-item">
-                        <span class="badge" style="background-color: #dff0d8; color: #3c763d">{{ usercourse.last_lesson }}</span>
-                        {{ usercourse.course }}
-                    </a>
-                {% endfor %}
-            {% else %}
-                <a type="button" href="/profile/mycourses" class="list-group-item">
-                    There will be your courses, please, come later.
+        <!--<div class="panel-body">12345789</div>-->
+    <ul class="list-group">
+        {% if usercourses_not_ended|length %}
+            {% for usercourse in usercourses_not_ended%}
+                <a type="button" href="/profile/myusercourse/?id={{ usercourse.id }}" class="list-group-item">
+                    <span class="badge" style="background-color: #dff0d8; color: #3c763d">{{ usercourse.last_lesson }}</span>
+                    {{ usercourse.course }}
                 </a>
-            {% endif %}
-        </ul>
+            {% endfor %}
+        {% else %}
+            <a type="button" href="/profile/mycourses" class="list-group-item">
+                There will be your courses, please, come later.
+            </a>
+        {% endif %}
+    </ul>
 </div>
-
-
 
 <div class="panel panel-default">
     <div class="panel-heading">My ended courses</div>
-{#        <div class="panel-body">12345789</div>#}
-
-{#    <table class=table>#}
-{#        <thead>#}
-{#            <tr>#}
-{#                <th>#</th>#}
-{#                <th>First Name</th>#}
-{#                <th>Last Name</th>#}
-{#                <th>Username</th>#}
-{#            </tr>#}
-{#        </thead>#}
-{#        <tbody>#}
-{#            <tr>#}
-{#                <th scope=row>1</th>#}
-{#                <td>Mark</td>#}
-{#                <td>Otto</td>#}
-{#                <td>@mdo</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th scope=row>2</th>#}
-{#                <td>Jacob</td>#}
-{#                <td>Thornton</td>#}
-{#                <td>@fat</td>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th scope=row>3</th>#}
-{#                <td>Larry</td>#}
-{#                <td>the Bird</td>#}
-{#                <td>@twitter</td>#}
-{#                <span class="badge" style="background-color: #a9a9a9">22</span>#}
-{#            </tr>#}
-{#        </tbody>#}
-{#    </table>#}
-{#        <ul class="list-group">#}
-{#            {% if usercourses_ended|length %}#}
-{#                {% for usercourse in usercourses_ended%}#}
-{#                    <a type="button" href="/profile/myusercourse/?id={{ usercourse.id }}" class="list-group-item">#}
-{#                        <span class="badge" style="background-color: #a9a9a9">{{ usercourse.last_lesson }}</span>#}
-{#                        {{ usercourse.course }}#}
-{#                    </a>#}
-{#                {% endfor %}#}
-{#            {% else %}#}
-{#                    <a type="button" href="/profile/mycourses" class="list-group-item">#}
-{#                        There will be your finished courses, please, come later.#}
-{#                    </a>#}
-{#            {% endif %}#}
-{#        </ul>#}
-                {% for usercourse in usercourses_ended%}
-                    <div class="row">
-                        <div class="col-xs-1">
-                        </div>
-                        <div class="col-xs-10">
-                            <a type="button" style="border-color: #fff; border-bottom-color: #a9a9a9; border-radius: 0px;" href="/profile/myusercourse/?id={{ usercourse.id }}" class="list-group-item">
-                                <span class="badge" style="background-color: #a9a9a9">{{ usercourse.last_lesson }}</span>
-                                {{ usercourse.course }}
-                            </a>
-                        </div>
-                        <div class="col-xs-1">
-                        </div>
-                    </div>
-                {% endfor %}
+    <ul class="list-group">
+        {% if usercourses_ended|length %}
+            {% for usercourse in usercourses_ended%}
+                <a type="button"  href="/profile/myusercourse/?id={{ usercourse.id }}" class="list-group-item">
+                    <span class="badge" style="background-color: #dff0d8; color: #3c763d">{{ usercourse.last_lesson }}</span>
+                    {{ usercourse.course }}
+                </a>
+            {% endfor %}
+        {% else %}
+            <a type="button" href="/profile/mycourses" class="list-group-item">
+                There will be your ended courses, please, come later.
+            </a>
+        {% endif %}
+    </ul>
 </div>
-
-
 {% endblock %}
