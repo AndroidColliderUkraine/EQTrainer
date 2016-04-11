@@ -15,6 +15,28 @@ from django.db.models import Sum
 from constants import USER_EMOTIONS, USER_ACTIVITY, TIME_FORMAT
 
 
+def home_old(request):
+    course_list = None
+    try:
+        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+    except Exception, e:
+        print "e:", e
+    # print "course_list: ", course_list
+
+    article_list = None
+    try:
+        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+    except Exception, e:
+        print "e:", e
+    # print "article_list: ", article_list
+
+    context = {
+        "course_list": course_list,
+        "article_list": article_list,
+    }
+    return render(request, "index_old.html", context)
+
+
 def home(request):
     if request.user.is_authenticated():
         # return home_private(request)
@@ -61,29 +83,52 @@ def courses(request):
 
 
 def courses_public(request):
-    course_list = None
+    from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     try:
-        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')
+        paginator = Paginator(course_list, 2)
+        page = request.GET.get('page')
+        try:
+            courses = paginator.page(page)
+        except PageNotAnInteger:
+            print 'OOOOOOOOOOOOo 1'
+            courses = paginator.page(1)
+        except EmptyPage:
+            print 'OOOOOOOOOOOOo 2'
+            courses = paginator.page(paginator.num_pages)
     except Exception, e:
         print "e:", e
 
+    # print "article_list: ", article_list
+    print 'ARTICLES', courses
     context = {
-        "course_list": course_list,
+        "course_list": courses,
     }
     return render(request, "courses.html", context)
 
 
 def courses_private(request):
     print "I'm in profile_courses"
-    course_list = None
+    from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     try:
-        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')
+        paginator = Paginator(course_list, 2)
+        page = request.GET.get('page')
+        try:
+            courses = paginator.page(page)
+        except PageNotAnInteger:
+            print 'OOOOOOOOOOOOo 1'
+            courses = paginator.page(1)
+        except EmptyPage:
+            print 'OOOOOOOOOOOOo 2'
+            courses = paginator.page(paginator.num_pages)
     except Exception, e:
         print "e:", e
-    # print "course_list: ", course_list
 
+    # print "article_list: ", article_list
+    print 'ARTICLES', courses
     context = {
-        "course_list": course_list,
+        "course_list": courses,
     }
     return render(request, "profile_courses.html", context)
 
@@ -146,30 +191,53 @@ def articles(request):
 
 
 def articles_public(request):
-    article_list = None
+    from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     try:
-        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')
+        paginator = Paginator(article_list, 2)
+        page = request.GET.get('page')
+        try:
+            articles = paginator.page(page)
+        except PageNotAnInteger:
+            print 'OOOOOOOOOOOOo 1'
+            articles = paginator.page(1)
+        except EmptyPage:
+            print 'OOOOOOOOOOOOo 2'
+            articles = paginator.page(paginator.num_pages)
     except Exception, e:
         print "e:", e
-    # print "article_list: ", article_list
 
+    # print "article_list: ", article_list
+    print 'ARTICLES', articles
     context = {
-        "article_list": article_list,
+        "article_list": articles,
     }
     return render(request, "articles.html", context)
 
 
 def articles_private(request):
+    from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     print "I'm in profile_articles"
-    article_list = None
     try:
-        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
+        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')
+        paginator = Paginator(article_list, 2)
+        page = request.GET.get('page')
+        try:
+            articles = paginator.page(page)
+        except PageNotAnInteger:
+            print 'OOOOOOOOOOOOo 1'
+            articles = paginator.page(1)
+        except EmptyPage:
+            print 'OOOOOOOOOOOOo 2'
+            articles = paginator.page(paginator.num_pages)
+
     except Exception, e:
         print "e:", e
-    # print "article_list: ", article_list
 
+    # print "article_list: ", article_list
+    print 'ARTICLES', articles
     context = {
-        "article_list": article_list,
+        "article_list": articles,
     }
     return render(request, "profile_articles.html", context)
 
@@ -286,9 +354,6 @@ def profile_myusercourse(request):
 
 def profile_mydaybook(request):
     print "I'm in profile_mydaybook"
-    # user_id = request.GET.get('user_id')
-    weekly_reports = None
-    monthly_reports = None
 
     confidence_reports = 0
     confidence_reports_total = 0
@@ -297,43 +362,43 @@ def profile_mydaybook(request):
     emotion_activity = []
 
     try:
-        weekly_reports = request.user.weeklyreport_set.filter(deleted=False).all()
-        monthly_reports = request.user.monthlyreport_set.filter(deleted=False).all()
-
-        preview_week = datetime.datetime.now() - datetime.timedelta(weeks=3)
+        from datetime import timedelta
+        some_day_this_week = datetime.datetime.now().date()
+        monday_of_this_week = some_day_this_week - timedelta(days=(some_day_this_week.isocalendar()[2] - 1))
+        print 'monday_of_this_week', monday_of_this_week, type(monday_of_this_week)
 
         confidence_reports = request.user.emotionalstate_set.\
             filter(deleted=False).\
-            filter(updated__gte=preview_week).\
+            filter(updated__gte=monday_of_this_week).\
             aggregate(Sum('confidence'))['confidence__sum']
         confidence_reports_total = request.user.emotionalstate_set.\
             filter(deleted=False).\
-            filter(updated__gte=preview_week).\
+            filter(updated__gte=monday_of_this_week).\
             count() * 100
         confidence_reports_total = 100 if confidence_reports_total == 0 else confidence_reports_total
         confidence_reports = 0 if confidence_reports is None else confidence_reports
 
         subjectivity_reports = request.user.emotionalstate_set.\
             filter(deleted=False).\
-            filter(updated__gte=preview_week).\
+            filter(updated__gte=monday_of_this_week).\
             aggregate(Sum('subjectivity'))['subjectivity__sum']
         subjectivity_reports_total = request.user.emotionalstate_set.\
             filter(deleted=False).\
-            filter(updated__gte=preview_week).\
+            filter(updated__gte=monday_of_this_week).\
             count() * 100
         subjectivity_reports_total = 100 if subjectivity_reports_total == 0 else subjectivity_reports_total
         subjectivity_reports = 0 if subjectivity_reports is None else subjectivity_reports
 
         print 'Test_ print'
         # print 'USER_EMOTIONS', USER_EMOTIONS
-        for emotion, name_e in USER_EMOTIONS:
+        for activity, name_a in USER_ACTIVITY:
             # print '---', emotion, name_e
             temp = []
             sum = 0
-            for activity, name_a in USER_ACTIVITY:
+            for emotion, name_e in USER_EMOTIONS:
                 a = request.user.emotionalstate_set.\
                     filter(deleted=False).\
-                    filter(updated__gte=preview_week).\
+                    filter(updated__gte=monday_of_this_week).\
                     filter(emotion=emotion).\
                     filter(activity=activity).\
                     count()
@@ -341,7 +406,7 @@ def profile_mydaybook(request):
                 sum += int(a)
                 temp.append(a)
             temp.append(sum)
-            emotion_activity.append([name_e, temp])
+            emotion_activity.append([name_a, temp])
 
         # for a, b in emotion_activity:
         #     print 'AAA', a, '|||', b
@@ -350,8 +415,6 @@ def profile_mydaybook(request):
         print "e:", e
 
     context = {
-        "weekly_reports": weekly_reports,
-        "monthly_reports": monthly_reports,
         "confidence_reports": confidence_reports,
         "confidence_reports_total": confidence_reports_total,
         "subjectivity_reports": subjectivity_reports,
@@ -441,3 +504,42 @@ def report_graph(request):
 def lawyer_page(request):
     context = {}
     return render(request, "lawyer_page.html", context=context)
+
+
+def profile_my_conclusions(request):
+    print "I'm my_conclusion"
+    context = {
+        "trainings": '',
+    }
+
+    return render(request, "profile_myconclusions.html", context)
+
+
+def profile_my_setting(request):
+    from .forms import UserForm, UserProfileForm
+    from .models import UserProfile
+    if request.method == "POST":
+        uform = UserForm(data=request.POST, instance=request.user)
+        pform = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user.profile)
+        if uform.is_valid() and pform.is_valid():
+            print '|||||||||||', 'valid'
+            uform.save()
+            # print 'USER', user
+            # profile = pform.save(commit=False)
+            # profile.user = user
+            # profile.save()
+            pform.save()
+        else:
+            print '|||||||||||', 'failed'
+    print "I'm my_conclusion"
+    uform = UserForm(instance=request.user)
+
+    # userProfile, created = UserProfile.objects.get_or_create(user=request.user, avatar=None)
+    pform = UserProfileForm(instance=request.user.profile)
+    context = {
+        "trainings": '',
+        "uform": uform,
+        "pform": pform,
+    }
+
+    return render(request, "profile_mysettings.html", context)

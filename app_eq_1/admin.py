@@ -10,6 +10,7 @@ from .forms import WeeklyReportForm
 from .forms import MonthlyReportForm
 from .forms import TrainingForm
 from .forms import ConclusionsForm
+from .forms import UserProfileForm
 
 from .models 				import Course
 from .models 				import Lesson
@@ -21,10 +22,14 @@ from .models import WeeklyReport
 from .models import MonthlyReport
 from .models import Training
 from .models import Conclusions
-
+from .models import UserProfile
 from django.contrib.auth.admin import UserAdmin
 
 UserAdmin.list_display = ('username', 'id', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
+
+class UserProfileAdmin(admin.ModelAdmin):
+	list_display = ['id', "user", "avatar"]
+	form = UserProfileForm
 
 
 class CourseAdmin(admin.ModelAdmin):
@@ -58,12 +63,12 @@ class EmotionalStateAdmin(admin.ModelAdmin):
 
 
 class WeeklyReportAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "updated", "deleted"]
+	list_display = ["__unicode__", "id", "user", "date_start", "date_end", "updated", "deleted"]
 	form = WeeklyReportForm
 
 
 class MonthlyReportAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "updated", "deleted"]
+	list_display = ["__unicode__", "id", "user", "date_start", "date_end", "updated", "deleted"]
 	form = MonthlyReportForm
 
 
@@ -76,6 +81,7 @@ class ConclusionsAdmin(admin.ModelAdmin):
 	list_display = ["id", "text", "emotion", "activity", "updated", "deleted"]
 	form = ConclusionsForm
 
+admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
 admin.site.register(Article, ArticleAdmin)

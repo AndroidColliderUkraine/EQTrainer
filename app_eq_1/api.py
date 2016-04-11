@@ -43,7 +43,7 @@ class WeeklyReportResource(ModelResource):
     user = fields.ForeignKey(UserResource, 'user')
 
     class Meta:
-        queryset = WeeklyReport.objects.filter(deleted=False).all()
+        queryset = WeeklyReport.objects.filter(deleted=False).order_by('-updated').all()
         resource_name = 'WeeklyReport'
         filtering = {
             'user': ALL_WITH_RELATIONS,
@@ -59,10 +59,13 @@ class MonthlyReportResource(ModelResource):
         bundle.data['deleted_objects'] = deleted_objects
         return bundle
 
+    user = fields.ForeignKey(UserResource, 'user')
+
     class Meta:
-        queryset = MonthlyReport.objects.filter(deleted=False).all()
+        queryset = MonthlyReport.objects.filter(deleted=False).order_by('-updated').all()
         resource_name = 'MonthlyReport'
         filtering = {
+            'user': ALL_WITH_RELATIONS,
             'updated': ['exact', 'lt', 'lte', 'gte', 'gt'],
         }
         always_return_data = True
@@ -93,7 +96,7 @@ class CourseResource(ModelResource):
         return bundle
 
     class Meta:
-        queryset = Course.objects.filter(deleted=False).all()
+        queryset = Course.objects.filter(deleted=False).order_by('-updated').all()
         resource_name = 'Course'
         # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         # fields = ['username', 'first_name', 'last_name', 'last_login']
@@ -133,7 +136,7 @@ class ArticleResource(ModelResource):
         return bundle
 
     class Meta:
-        queryset = Article.objects.filter(deleted=False).all()
+        queryset = Article.objects.filter(deleted=False).order_by('-updated').all()
         resource_name = 'Article'
         # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
         # fields = ['username', 'first_name', 'last_name', 'last_login']
