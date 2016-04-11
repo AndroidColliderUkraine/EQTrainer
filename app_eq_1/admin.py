@@ -28,7 +28,7 @@ from django.contrib.auth.admin import UserAdmin
 UserAdmin.list_display = ('username', 'id', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
 
 class UserProfileAdmin(admin.ModelAdmin):
-	list_display = ['id', "user", "avatar"]
+	list_display = ['id', "user", "avatar", "subscribe_mailing"]
 	form = UserProfileForm
 
 

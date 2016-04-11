@@ -6,7 +6,7 @@ from app_eq_1.models import UserCourse
 from app_eq_1.models import Lesson
 from app_eq_1.models import Action
 from app_eq_1.models import Conclusions
-from app_eq_1.models import WeeklyReport, MonthlyReport
+from app_eq_1.models import WeeklyReport, MonthlyReport, UserProfile
 from django.contrib.auth.models import User
 from datetime import timedelta, datetime
 from django.utils import timezone
@@ -104,10 +104,12 @@ def every_week():
                     )
 
                     # send email
-                    send_email_report_week(
-                        week_report_id=report.id,
-                        user_id=user.id
-                    )
+                    up, created = UserProfile.objects.get_or_create(user_id=user.id)
+                    if up.subscribe_mailing:
+                        send_email_report_week(
+                            week_report_id=report.id,
+                            user_id=user.id
+                        )
             except Exception, e:
                 print e
     except Exception, e:
@@ -167,10 +169,12 @@ def every_month():
                         date_end=monday_of_this_month
                     )
                     # send email
-                    send_email_report_month(
-                        month_report_id=report.id,
-                        user_id=user.id
-                    )
+                    up, created = UserProfile.objects.get_or_create(user_id=user.id)
+                    if up.subscribe_mailing:
+                        send_email_report_month(
+                            month_report_id=report.id,
+                            user_id=user.id
+                        )
             except Exception, e:
                 print e
     except Exception, e:
@@ -203,7 +207,7 @@ def send_email_report_week(week_report_id, user_id):
     try:
         report = WeeklyReport.objects.get(id=week_report_id)
         user = User.objects.get(id=user_id)
-        EMAIL_SUBJECT = 'Week report [%s   %s]' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
+        EMAIL_SUBJECT = u'Ваш еженедельный график эмоций [%s   %s]' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
         EMAIL_MESSAGE = Engine().from_string(report.html).render(Context({"text": report.text}))
         EMAIL_EMAIL_FROM = 'eq@eq.com'
         EMAIL_EMAIL_TO = user.email
@@ -227,7 +231,7 @@ def send_email_report_month(month_report_id, user_id):
     try:
         report = MonthlyReport.objects.get(id=month_report_id)
         user = User.objects.get(id=user_id)
-        EMAIL_SUBJECT = 'Month report [%s   %s]' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
+        EMAIL_SUBJECT = u'Ваш ежемесячный график эмоций [%s   %s]' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
         EMAIL_MESSAGE = Engine().from_string(report.html).render(Context({"text": report.text}))
         EMAIL_EMAIL_FROM = 'eq@eq.com'
         EMAIL_EMAIL_TO = user.email
@@ -241,7 +245,7 @@ def send_email_report_month(month_report_id, user_id):
             fail_silently=False,
             html_message=EMAIL_MESSAGE)
     except Exception, e:
-        print '[send_email_weekly_report]', e
+        print '[send_email_monthly_report]', e
 
 
 def get_context_for_reports(user_id, date_start, date_end):

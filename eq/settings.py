@@ -163,9 +163,9 @@ CELERYBEAT_SCHEDULE = {
         # 'args': (16, 16),
     },
     # Executes every Tuesday morning at 1:30 A.M
-    'add-every-tuesday-morning': {
+    'add-every-monday-morning': {
         'task': 'app_eq_1.tasks.every_week',
-        'schedule': crontab(hour=1, minute=30, day_of_week=2),
+        'schedule': crontab(hour=1, minute=30, day_of_week=1),
         # 'args': (16, 16),
     },
     # Executes every 2-th day of month morning at 3:30 A.M

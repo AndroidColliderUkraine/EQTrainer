@@ -11,6 +11,7 @@ class UserProfile(models.Model):
     # user = models.OneToOneField(User, related_name='profile', default='avatars/default.png')
     user = models.OneToOneField(User, related_name='profile')
     avatar = models.ImageField(upload_to='avatars', default=None, blank=True, null=True)
+    subscribe_mailing = models.BooleanField(default=True)
 
 
 class Course(models.Model):

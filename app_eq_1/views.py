@@ -2,6 +2,7 @@ from django.shortcuts 			import render
 from .models 					import Course
 from .models 					import Article
 from .models 					import UserCourse
+from .models 					import UserProfile
 from .models 					import Action
 from .models 					import Lesson
 from .models import WeeklyReport
@@ -543,3 +544,12 @@ def profile_my_setting(request):
     }
 
     return render(request, "profile_mysettings.html", context)
+
+
+def unsubscribe_mailing(request):
+    try:
+        up, created = UserProfile.objects.get_or_create(user_id=request.GET.get('user_id'))
+        up.subscribe_mailing = False
+    except Exception, e:
+        print "e:", e
+
