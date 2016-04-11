@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import socket
+import os
 USER_COURSE_STATUS = (
     ('begin', ('Початковий')),  # Subscribed but not payed
     ('active', ('Активоний')),  # Subscribed and payed or it's free course
@@ -60,18 +61,25 @@ USER_ACTIVITY = (
 TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 
-def current_site_url():
-    """Returns fully qualified URL (no trailing slash) for the current site."""
-    from django.contrib.sites.models import Site
-    from eq import settings
-    current_site = Site.objects.get_current()
-    protocol = getattr(settings, 'MY_SITE_PROTOCOL', 'http')
-    port     = getattr(settings, 'MY_SITE_PORT', '')
-    url = '%s://%s' % (protocol, current_site.domain)
-    if port:
-        url += ':%s' % port
-    return url
-try:
-    HOSTNAME = current_site_url()
-except Exception:
+# def current_site_url():
+#     """Returns fully qualified URL (no trailing slash) for the current site."""
+#     from django.contrib.sites.models import Site
+#     from eq import settings
+#     current_site = Site.objects.get_current()
+#     protocol = getattr(settings, 'MY_SITE_PROTOCOL', 'http')
+#     port     = getattr(settings, 'MY_SITE_PORT', '')
+#     url = '%s://%s' % (protocol, current_site.domain)
+#     if port:
+#         url += ':%s' % port
+#     return url
+# try:
+#     HOSTNAME = current_site_url()
+# except Exception:
+#     HOSTNAME = 'localhost'
+
+
+SERVER_ENVIRONMENT = os.getenv('RUN_ENV', '')
+if SERVER_ENVIRONMENT == 'PROD':
+    HOSTNAME = 'http://www.emocontrol.net'
+else:
     HOSTNAME = 'localhost'
