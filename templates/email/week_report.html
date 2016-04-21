@@ -1,4 +1,6 @@
 <html>
+<body style=" font-family: 'Fira Sans';
+  src: url(http://www.emocontrol.net/static/fonts/fira-sans/FiraSans-Regular.otf); font-size:100%; color:#2e2e2e;">
     <center>
         <img src="http://www.emocontrol.net/static/img/index_new/logo.png" alt="Emotion Control">
     </center>
@@ -6,19 +8,17 @@
 Вітаю, {% if user.first_name != ''%} {{ user.first_name }} {% else %} {{ user.email }} {% endif %}:)
 Знову прийшов час підбити підсумки щодо твоєї праці протягом останнього тижня. Ось що ми зауважили стосовно тебе:
 <br>
-<br>
 <div id="id_text">
 {% verbatim %}
-{{ text }}
+{{ text|linebreaks }}
 {% endverbatim %}
 </div>
-
 <br>
 А тут, нажавши на
 <a href="{{ hostname }}/report_graph?user_id={{ user.id }}&date_start={{ date_start }}&date_end={{ date_end }}">посилання</a>
 , ти можеш переглянути графік твого щоденника емоцій протягом останнього тижня.
-<br>
+
 <br>
 <a href="{{ hostname }}/unsubscribe_mailing?user_id={{ user.id }}">Відписатись від розсилки</a>
-
+</body>
 </html>

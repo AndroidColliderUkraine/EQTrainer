@@ -16,6 +16,7 @@ function graph_function() {
             title: {
                 text: 'Emotions'
             },
+            colors: ['#3ba440', '#01a4c7', '#0b72ac', '#614888', '#c52981', '#c5498c', '#e9592d', '#ee8c32', '#ecc83d', '#A47D7C', '#a0c53b'],
             pane: {
                 size: '70%'
             },
@@ -80,9 +81,9 @@ function graph_function() {
             // the value axis
             yAxis: {
                 stops: [
-                    [0.1, '#66BB6A'], // green
-                    [0.5, '#388E3C'], // yellow
-                    [0.9, '#1B5E20'] // red
+                    [0.1, '#ffa000'], // green
+                    [0.5, '#ffa000'], // yellow
+                    [0.9, '#ffa000'] // red
                 ],
                 lineWidth: 0,
                 minorTickInterval: null,
@@ -134,9 +135,9 @@ function graph_function() {
         $('#container_2_2').highcharts(Highcharts.merge(gaugeOptions, {
             yAxis: {
                 stops: [
-                    [0.1, '#5C6BC0'], // green
-                    [0.5, '#3949AB'], // yellow
-                    [0.9, '#1A237E'] // red
+                    [0.1, '#26c6da'], // green
+                    [0.5, '#26c6da'], // yellow
+                    [0.9, '#26c6da'] // red
                 ],
                 min: 0,
                 max: 100,
