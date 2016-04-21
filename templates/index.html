@@ -20,6 +20,32 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 	<!-- main.js -->
 	<script src="{% static 'js/index_new.js' %}"></script>
+	<script type="text/javascript">
+window.onload = function () {
+	$('#registration-form').submit(function(ev) {
+		ev.preventDefault(); // to stop the form from submitting
+		/* Validations go here */
+		console.log('Hi from registration form()');
+		$('#id_username_reg').val($('#id_email_reg').val());
+		$('#id_password2').val($('#id_password1').val());
+
+		console.log('EMAIL', $('#id_email_reg').val());
+		console.log('USER', $('#id_username_reg').val());
+		console.log('PASS1', $('#id_password1').val());
+		console.log('PASS2', $('#id_password2').val());
+		console.log('PASS3', ($('#id_password2').val() == $('#id_password1').val()));
+
+
+		this.submit(); // If all the validations succeeded
+	});
+}
+    <!--function registration(){-->
+        <!--console.log('Hi from registration()')-->
+        <!--&lt;!&ndash;$('#reg_card').css("display", "inline");&ndash;&gt;-->
+        <!--&lt;!&ndash;$('#login_card').css("display", "none");&ndash;&gt;-->
+        <!--&lt;!&ndash;$('#forgot_pass_card').css("display", "none");&ndash;&gt;-->
+    <!--}-->
+    </script>
 </head>
 <body>
 
@@ -45,15 +71,16 @@
 
 					<div class="login-form">
 						<p class="form-title">Войти в <br><strong>личный кабинет</strong></p>
-						<form action="" id="login">
-							<input type="text" name="email" id="email" placeholder="Email">
-							<input type="password" name="psw" id="psw" placeholder="Пароль">
+						<form method="post" id="login" action="/accounts/login/?next=/">
+							{% csrf_token %}
+							<input type="text" name="username" id="id_username" placeholder="Email">
+							<input type="password" name="password" id="id_password" placeholder="Пароль">
 							<input type="submit" name="submit" value="Войти">
 							<div class="form-links">
 								<a href="#" class="forget-psw">Забыли пароль?</a>
 								<a href="#" class="registration modal-open" data-modal="#modal-registration">Регистрация</a>
 							</div>
-
+							<input type="hidden" name="next" value="/" />
 						</form>
 					</div>
 				</div>
@@ -349,11 +376,27 @@
 	<div class="modal" id="modal-registration">
 		<a href="#" class="modal-close"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#close-icon' %}" /></svg></a>
 		<p class="modal-title">Регистрация</p>
-		<form action="">
-			<input type="text" name="name" placeholder="Имя">
-			<input type="text" name="email" placeholder="Email">
-			<input type="password" name="password" placeholder="Пароль">
-			<input type="submit" name="submit" value="Регистрация">
+		<form id="registration-form" method="post" action="/accounts/register/?next=/profile/mysetting">
+			{% csrf_token %}
+				<p class="required">
+                    <!--<label class="required" for="id_username">Username:</label>-->
+                    <input id="id_username_reg" maxlength="30" name="username" value="test_val" type="hidden" />
+                </p>
+                <p class="required">
+                    <label class="required" for="id_email">E-mail:</label>
+                    <input id="id_email_reg" name="email" type="email" />
+                </p>
+                <p class="required"><label class="required" for="id_password1">Password:</label>
+                    <input id="id_password1" name="password1" type="password" />
+                </p>
+                <!--<p class="required"><label class="required" for="id_password2">Password (again):</label>-->
+                    <input id="id_password2" name="password2" type="hidden" />
+				<!--</p>-->
+			<input type="hidden" name="next" value="/profile/mysetting" />
+			<!--<input type="text" name="name" placeholder="Имя">-->
+			<!--<input type="text" name="email" placeholder="Email">-->
+			<!--<input type="password" name="password" placeholder="Пароль">-->
+			<input type="submit" name="submit_reg" value="Регистрация">
 		</form>
 		<p class="license">Регистрируясь вы принимаете условия <a href="/lawyer_page">лицензионного договора</a></p>
 	</div>

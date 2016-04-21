@@ -54,7 +54,7 @@ def every_week():
     try:
         some_day_last_week = datetime.now().date() - timedelta(days=7)
         monday_of_last_week = some_day_last_week - timedelta(days=(some_day_last_week.isocalendar()[2] - 1))
-        monday_of_this_week = monday_of_last_week + timedelta(days=7)
+        monday_of_this_week = monday_of_last_week + timedelta(days=14)
 
         for user in User.objects.all():
             try:
@@ -207,7 +207,7 @@ def send_email_report_week(week_report_id, user_id):
     try:
         report = WeeklyReport.objects.get(id=week_report_id)
         user = User.objects.get(id=user_id)
-        EMAIL_SUBJECT = u'Ваш еженедельный график эмоций [%s   %s]' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
+        EMAIL_SUBJECT = u'Ваш еженедельный график эмоций в период с %s по %s.' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
         EMAIL_MESSAGE = Engine().from_string(report.html).render(Context({"text": report.text}))
         EMAIL_EMAIL_FROM = 'eq@eq.com'
         EMAIL_EMAIL_TO = user.email
@@ -231,7 +231,7 @@ def send_email_report_month(month_report_id, user_id):
     try:
         report = MonthlyReport.objects.get(id=month_report_id)
         user = User.objects.get(id=user_id)
-        EMAIL_SUBJECT = u'Ваш ежемесячный график эмоций [%s   %s]' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
+        EMAIL_SUBJECT = u'Ваш ежемесячный график эмоций в период с %s по %s.' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
         EMAIL_MESSAGE = Engine().from_string(report.html).render(Context({"text": report.text}))
         EMAIL_EMAIL_FROM = 'eq@eq.com'
         EMAIL_EMAIL_TO = user.email

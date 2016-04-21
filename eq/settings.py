@@ -182,6 +182,9 @@ CELERYBEAT_SCHEDULE = {
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 REGISTRATION_AUTO_LOGIN = True
+ABSOLUTE_URL_OVERRIDES = {
+    'auth.user': lambda u: "/profile/mysetting",
+}
 
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_HOST_USER = os.getenv('EQ_SMTP_USER', '')
