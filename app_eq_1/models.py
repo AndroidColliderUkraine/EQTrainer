@@ -41,14 +41,14 @@ class Course(models.Model):
             if not UserCourse.objects.filter(deleted=False).filter(course=course).filter(user=user).exclude(status='ended').exists():
                 if course.price == 0:
                     usercourse_new = UserCourse(course=course, user=user, status='active')
-                    email_message = 'Очікуйте на перший урок в особистому кабінеті, на пошті або в мобільному додатку :)'
+                    email_message = u'Очікуйте на перший урок в особистому кабінеті, на пошті або в мобільному додатку :)'
                 else:
                     usercourse_new = UserCourse(course=course, user=user, status='begin')
-                    email_message = 'Для початку проходження курсів Вам потрібно здійснити оплату за наступною схемою: *** :)'
+                    email_message = u'Для початку проходження курсів Вам потрібно здійснити оплату за наступною схемою: *** :)'
                 # TODO: NEED TO CREATE html TEMPLATEs for this emails
                 from tasks import send_email
                 send_email.delay(
-                    EMAIL_SUBJECT='Вітаємо з підпискою на курс %s.' % course.name,
+                    EMAIL_SUBJECT=u'Вітаємо з підпискою на курс %s.' % course.name,
                     EMAIL_MESSAGE=email_message,
                     EMAIL_EMAIL_FROM='eq@eq.com',
                     EMAIL_EMAIL_TO=user.email
