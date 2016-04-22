@@ -5,7 +5,6 @@ from constants 						import *
 from redactor.fields                import RedactorField
 import os
 from django.conf import settings
-from tasks import send_email
 
 
 class UserProfile(models.Model):
@@ -47,6 +46,7 @@ class Course(models.Model):
                     usercourse_new = UserCourse(course=course, user=user, status='begin')
                     email_message = 'Для початку проходження курсів Вам потрібно здійснити оплату за наступною схемою: *** :)'
                 # TODO: NEED TO CREATE html TEMPLATEs for this emails
+                from tasks import send_email
                 send_email.dalay(
                     EMAIL_SUBJECT='Вітаємо з підпискою на курс %s.' % course.name,
                     EMAIL_MESSAGE=email_message,
