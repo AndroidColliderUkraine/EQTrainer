@@ -182,6 +182,17 @@ def every_month():
 
 
 @task()
+def send_email(EMAIL_SUBJECT, EMAIL_MESSAGE, EMAIL_EMAIL_FROM, EMAIL_EMAIL_TO):
+    print '[ SEND EMAIL ] [ %s ]' % (str(datetime.now().time()))
+
+    try:
+        from django.core.mail import send_mail
+        send_mail(EMAIL_SUBJECT, EMAIL_MESSAGE, EMAIL_EMAIL_FROM, [EMAIL_EMAIL_TO], fail_silently=False)
+    except Exception, e:
+        print '[send_email]', e
+
+
+@task()
 def send_email_lesson(lesson_id, user_id):
     print '[ SEND EMAIL ] [ %s ]' % (str(datetime.now().time()))
 
