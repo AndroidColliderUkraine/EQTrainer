@@ -47,7 +47,7 @@ class Course(models.Model):
                     email_message = 'Для початку проходження курсів Вам потрібно здійснити оплату за наступною схемою: *** :)'
                 # TODO: NEED TO CREATE html TEMPLATEs for this emails
                 from tasks import send_email
-                send_email.dalay(
+                send_email.delay(
                     EMAIL_SUBJECT='Вітаємо з підпискою на курс %s.' % course.name,
                     EMAIL_MESSAGE=email_message,
                     EMAIL_EMAIL_FROM='eq@eq.com',
