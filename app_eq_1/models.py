@@ -3,6 +3,7 @@ from django.db 						import models
 from django.contrib.auth.models 	import User
 from constants 						import *
 from redactor.fields                import RedactorField
+from django.template import loader, Context, Engine
 import os
 from django.conf import settings
 
@@ -42,14 +43,16 @@ class Course(models.Model):
                 if course.price == 0:
                     usercourse_new = UserCourse(course=course, user=user, status='active')
                     email_message = u'Очікуйте на перший урок в особистому кабінеті, на пошті або в мобільному додатку :)'
+                    context = {}
                 else:
                     usercourse_new = UserCourse(course=course, user=user, status='begin')
                     email_message = u'Для початку проходження курсів Вам потрібно здійснити оплату за наступною схемою: *** :)'
+                    context = {}
                 # TODO: NEED TO CREATE html TEMPLATEs for this emails
                 from tasks import send_email
                 send_email.delay(
                     EMAIL_SUBJECT=u'Вітаємо з підпискою на курс %s.' % course.name,
-                    EMAIL_MESSAGE=email_message,
+                    EMAIL_MESSAGE=Engine().from_string(email_message).render(Context(context)),
                     EMAIL_EMAIL_FROM='eq@eq.com',
                     EMAIL_EMAIL_TO=user.email
                 )
