@@ -97,7 +97,7 @@ My settings
         <label class="col-lg-3 control-label">Email subscribe:</label>
         <div class="col-lg-8">
           <div class="checkbox">
-            <input type="checkbox" {% if pform.subscribe_mailing.value %} {{ 'checked' }} {% endif %} data-toggle="toggle" data-onstyle="default" data-on="Hello" data-off="Goodbye" data-size="small">
+            <input type="checkbox" name="subscribe_mailing" {% if pform.subscribe_mailing.value %} {{ 'checked' }} {% endif %} data-toggle="toggle" data-onstyle="default" data-on="Hello" data-off="Goodbye" data-size="small">
           </div>
         </div>
       </div>
