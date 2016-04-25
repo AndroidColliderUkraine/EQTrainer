@@ -19,7 +19,7 @@ from django.core.files.images import get_image_dimensions
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['user', 'avatar']
+        fields = ['avatar', 'subscribe_mailing']
 
     def clean_avatar(self):
         avatar = self.cleaned_data['avatar']

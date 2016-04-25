@@ -522,16 +522,16 @@ def profile_my_setting(request):
     if request.method == "POST":
         uform = UserForm(data=request.POST, instance=request.user)
         pform = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user.profile)
-        if uform.is_valid() and pform.is_valid():
-            print '|||||||||||', 'valid'
+        if uform.is_valid():
+            print '|||||||||||', 'uForm valid'
             uform.save()
-            # print 'USER', user
-            # profile = pform.save(commit=False)
-            # profile.user = user
-            # profile.save()
+        else:
+            print '|||||||||||', 'uForm invalid', uform.errors
+        if pform.is_valid():
+            print '|||||||||||', 'pForm valid'
             pform.save()
         else:
-            print '|||||||||||', 'failed'
+            print '|||||||||||', 'pForm invalid', pform.errors
     print "I'm my_conclusion"
     uform = UserForm(instance=request.user)
 
