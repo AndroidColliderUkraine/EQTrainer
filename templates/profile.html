@@ -6,6 +6,7 @@
 
     <link href="{% static 'css/my_profile.css' %}" rel="stylesheet">
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="{% static 'js/my_profile.js' %}"></script>
@@ -14,7 +15,7 @@
 </head>
     <body>
         <div id="wrapper" >
-            <nav class="navbar navbar navbar-fixed-top" role="navigation" style="border-color: #e1e1e1">
+            <nav class="navbar navbar-fixed-top" role="navigation" style="border-color: #e1e1e1">
 {#            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">#}
                 <div class="container-fluid" style="background-color: #f9f9f9;">
                     <div class="navbar-header" >
@@ -26,7 +27,7 @@
                         </button>
                         <div  class="navbar-brand">
                             <a id="menu-toggle" href="#" class="glyphicon glyphicon-align-justify btn-menu toggle" style="color: #b1b1b1;">
-                                <i class="fa fa-bars"></i>
+                                <!--<i class="fa fa-bars"></i>-->
                             </a>
                             <a href="/">EQ-trainer</a>
                             Hi, {{ user.email }}
@@ -49,36 +50,36 @@
             <div id="sidebar-wrapper" >
                 <nav id="spy" >
                     <ul class="sidebar-nav nav" >
-{#                        <li class="sidebar-brand">#}
-{#                            <a href="/"><span class="fa fa-home solo">Home</span></a>#}
-{#                        </li>#}
+                        <!--<ul class="nav nav-pills nav-stacked well">-->
+                          <!--<li class="active"><a href="#"><i class="fa fa-home"></i> My daybook</a></li>-->
+                          <!--<li><a href="#"><i class="fa fa-flag-checkered" ></i> My conclus</a></li>-->
+                          <!--<li><a href="#"><i class="fa fa-graduation-cap" aria-hidden="true"></i> My course</a></li>-->
+                          <!--<li><a href="#"><i class="fa fa-key"></i> My setting</a></li>-->
+                          <!--<li><a href="#"><i class="fa fa-sign-out"></i> Logout</a></li>-->
+                        <!--</ul>-->
+
+
                         <li style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e1e1e1; ">
                             <a href="/profile/mydaybook">
-                                <span class="fa fa-anchor solo">My daybook</span>
+                                <span class="fa fa-home">My daybook</span>
                             </a>
                         </li>
                         <li style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e1e1e1; ">
                             <a href="/profile/profile_my_conclusions">
-                                <span class="fa fa-anchor solo">My conclusion</span>
+                                <span class="fa fa-flag-checkered">My conclusion</span>
                             </a>
                         </li>
                         <li style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e1e1e1">
                             <a href="/profile/mycourses">
-                                <span class="fa fa-anchor solo">My course</span>
+                                <span class="fa fa-graduation-cap">My course</span>
                             </a>
                         </li>
                         <li style="border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: #e1e1e1">
                             <a href="/profile/mysetting">
-                                <span class="fa fa-anchor solo">My setting</span>
+                                <span class="fa fa-key">My setting</span>
                             </a>
                         </li>
-
-{#                        <li>#}
-{#                            <a href="#anch3">#}
-{#                                <span class="fa fa-anchor solo">Anchor 3</span>#}
-{#                            </a>#}
-{#                        </li>#}
-                    </ul>
+                     </ul>
                 </nav>
             </div>
             <!-- Page content -->
