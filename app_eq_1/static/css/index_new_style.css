@@ -67,19 +67,19 @@ Fonts
 */
 @font-face {
   font-family: 'Fira Sans';
-  src: url(../fonts/fira-sans/FiraSans-Light.otf);
+  src: url(http://www.emocontrol.net/static/fonts/fira-sans/FiraSans-Light.otf);
   font-weight: 200; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url(../fonts/fira-sans/FiraSans-Bold.otf);
+  src: url(http://www.emocontrol.net/static/fonts/fira-sans/FiraSans-Bold.otf);
   font-weight: 700; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url(../fonts/fira-sans/FiraSans-Regular.otf);
+  src: url(http://www.emocontrol.net/static/fonts/fira-sans/FiraSans-Regular.otf);
   font-weight: 400; }
 @font-face {
   font-family: 'Fira Sans';
-  src: url(../fonts/fira-sans/FiraSans-Medium.otf);
+  src: url(http://www.emocontrol.net/static/fonts/fira-sans/FiraSans-Medium.otf);
   font-weight: 600; }
 /*
 --------------------
