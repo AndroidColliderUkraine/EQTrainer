@@ -1,6 +1,7 @@
 <html>
 <body style=" font-family: 'Fira Sans';
-  src: url(http://www.emocontrol.net/static/fonts/fira-sans/FiraSans-Regular.otf); font-size:100%; color:#2e2e2e;">
+  src: url(http://www.emocontrol.net/static/fonts/fira-sans/FiraSans-Regular.otf); font-size:100%; color:#2e2e2e;
+  background-image: url(http://www.emocontrol.net/static/img/index_new/header-bg.png);">
     <center>
         <img src="http://www.emocontrol.net/static/img/index_new/logo.png" alt="Emotion Control">
     </center>
@@ -17,5 +18,11 @@
 А тут, нажавши на
 <a href="{{ hostname }}/report_graph?user_id={{ user.id }}&date_start={{ date_start }}&date_end={{ date_end }}">посилання</a>
 , ти можеш переглянути графік твого щоденника емоцій протягом останнього тижня.
+  <center><a href="{{ hostname }}/report_graph?user_id={{ user.id }}&date_start={{ date_start }}&date_end={{ date_end }}">
+    <img src="http://www.emocontrol.net/static/img/index_new/infograph3.png" alt="You can see your graph." style="width:200px;">
+  </a></center>
+
+<br>
+<a href="{{ hostname }}/unsubscribe_mailing?user_id={{ user.id }}">Відписатись від розсилки</a>
 </body>
 </html>
