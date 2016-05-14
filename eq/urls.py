@@ -36,7 +36,7 @@ urlpatterns = [
     url(r'^report_graph$', 'app_eq_1.views.report_graph', name='report_graph'),
     url(r'^redactor/', include('redactor.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', 'app_eq_1.views.home', name='home'),
+    url(r'^$', 'app_eq_1.views.home', name=''),
     url(r'^index_old$', 'app_eq_1.views.home_old', name='home_old'),
     # url(r'^profile/home$', 'app_eq_1.views.profile_home', name='profile_home'),
     url(r'^profile/mycourses$', 'app_eq_1.views.profile_mycourses', name='profile_mycourses'),
