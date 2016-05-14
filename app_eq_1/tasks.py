@@ -331,5 +331,7 @@ def get_context_for_reports(user_id, date_start, date_end):
         "user_emotions": USER_EMOTIONS,
         "user_activity": USER_ACTIVITY,
         "emotion_activity": emotion_activity,
+        "date_start": date_start,
+        "date_end": date_end,
     }
     return context

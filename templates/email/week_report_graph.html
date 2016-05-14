@@ -1,6 +1,5 @@
 {% load staticfiles %}
 <html>
-<body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -223,7 +222,12 @@
             $('#ModalLesson').modal('show')
         }
     </script>
-    <br>
+    <div class="container-fluid" style="background-color: #f9f9f9;">
+        <div class="navbar-brand">
+            <a href="/">EQ-trainer</a>
+        </div>
+        <center><h3>{{date_start|date:"M d, Y"}} ... {{date_end|date:"M d, Y"}}</h3></center>
+    </div>
     <br>
     <div class="row" >
         <div class="col-xs-7">
@@ -259,5 +263,4 @@
         {% endfor %}
     </table>
 </div>
-</body>
 </html>
