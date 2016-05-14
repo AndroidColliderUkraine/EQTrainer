@@ -227,6 +227,7 @@ class Conclusions(models.Model):
     emotion = models.CharField(choices=USER_EMOTIONS, max_length=50, blank=False, null=True)
     activity = models.CharField(choices=USER_ACTIVITY, max_length=50, blank=False, null=True)
     text = models.TextField(max_length=5000)
+    courses = models.ManyToManyField(Course, blank=False, null=True, help_text='Recommended courses.')
 
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     deleted = models.BooleanField(default=False)

@@ -87,12 +87,30 @@ def every_week():
                     conclusion = Conclusions.objects.\
                         filter(activity__exact=winner_activity).\
                         filter(emotion__exact=winner_emotion)[0]
+                    recommend_course_1 = None
+                    recommend_course_2 = None
+                    recommend_course_3 = None
+                    try:
+                        recommend_courses = conclusion.courses.all()
+                        recommend_course_1 = recommend_courses[0]
+                        recommend_course_2 = recommend_courses[1]
+                        recommend_course_3 = recommend_courses[2]
+                    except Exception, e:
+                        print 'Exception', e
+                    # print 'conclusion', conclusion
+                    # print 'recommend_course_1', recommend_course_1
+                    # print 'recommend_course_2', recommend_course_2
+                    # print 'recommend_course_3', recommend_course_3
+
                     # create report
                     context = {
                         "user": user,
                         "hostname": HOSTNAME,
                         "date_start": monday_of_last_week.strftime(TIME_FORMAT),
-                        "date_end": monday_of_this_week.strftime(TIME_FORMAT)
+                        "date_end": monday_of_this_week.strftime(TIME_FORMAT),
+                        "recommend_course_1": recommend_course_1,
+                        "recommend_course_2": recommend_course_2,
+                        "recommend_course_3": recommend_course_3,
                     }
 
                     report = WeeklyReport.objects.create(
@@ -149,16 +167,33 @@ def every_month():
                             winner_emotion = emotion
 
                 if winner:
-                    print 'Winner:', winner_activity, winner_emotion, winner
                     conclusion = Conclusions.objects.\
                         filter(activity__exact=winner_activity).\
                         filter(emotion__exact=winner_emotion)[0]
+                    recommend_course_1 = None
+                    recommend_course_2 = None
+                    recommend_course_3 = None
+                    try:
+                        recommend_courses = conclusion.courses.all()
+                        recommend_course_1 = recommend_courses[0]
+                        recommend_course_2 = recommend_courses[1]
+                        recommend_course_3 = recommend_courses[2]
+                    except Exception, e:
+                        print 'Exception', e
+                    # print 'conclusion', conclusion
+                    # print 'recommend_course_1', recommend_course_1
+                    # print 'recommend_course_2', recommend_course_2
+                    # print 'recommend_course_3', recommend_course_3
+
                     # create report
                     context = {
                         "user": user,
                         "hostname": HOSTNAME,
                         "date_start": monday_of_last_month.strftime(TIME_FORMAT),
-                        "date_end": monday_of_this_month.strftime(TIME_FORMAT)
+                        "date_end": monday_of_this_month.strftime(TIME_FORMAT),
+                        "recommend_course_1": recommend_course_1,
+                        "recommend_course_2": recommend_course_2,
+                        "recommend_course_3": recommend_course_3,
                     }
 
                     report = MonthlyReport.objects.create(

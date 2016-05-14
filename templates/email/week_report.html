@@ -20,9 +20,23 @@
 , ти можеш переглянути графік твого щоденника емоцій протягом останнього тижня.
   <center><a href="{{ hostname }}/report_graph?user_id={{ user.id }}&date_start={{ date_start }}&date_end={{ date_end }}">
     <img src="http://www.emocontrol.net/static/img/index_new/infograph3.png" alt="You can see your graph." style="width:200px;">
-  </a><center>
-
-
+  </a></center>
+<br>
+    {% if recommend_course_1 %}
+        <hr>
+        <center><h2> Ось рекоменовані для вас Курси: </h2> </center>
+        <ul>
+            {% if recommend_course_1 %}
+                <li><a href="{{ hostname }}/course?id={{ recommend_course_1.id }}">{{ recommend_course_1.name }}</a></li>
+            {% endif %}
+            {% if recommend_course_2 %}
+                <li><a href="{{ hostname }}/course?id={{ recommend_course_2.id }}">{{ recommend_course_2.name }}</a></li>
+            {% endif %}
+            {% if recommend_course_3 %}
+                <li><a href="{{ hostname }}/course?id={{ recommend_course_3.id }}">{{ recommend_course_3.name }}</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
 <br>
 <a href="{{ hostname }}/unsubscribe_mailing?user_id={{ user.id }}">Відписатись від розсилки</a>
 </body>
