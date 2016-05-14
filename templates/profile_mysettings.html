@@ -15,6 +15,44 @@ My settings
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.73/jsrender.js"></script>
 <script>
+<!--FOR RESIZING-->
+    <!--var createImage = function (src) {-->
+        <!--console.log('createImage');-->
+        <!--var deferred = $.Deferred();-->
+        <!--var img = new Image();-->
+
+        <!--img.onload = function() {-->
+            <!--deferred.resolve(img);-->
+        <!--};-->
+        <!--img.src = src;-->
+        <!--return deferred.promise();-->
+    <!--};-->
+    <!--var startResize = function (src) {-->
+        <!--console.log('startResize');-->
+        <!--$.when(-->
+            <!--createImage(src)-->
+        <!--).then(resize, function () {console.log('error')});-->
+    <!--};-->
+    <!--var resize = function (image) {-->
+        <!--mainCanvas = document.createElement("canvas");-->
+        <!--mainCanvas.width = 1024;-->
+        <!--mainCanvas.height = 768;-->
+        <!--var ctx = mainCanvas.getContext("2d");-->
+        <!--ctx.drawImage(image, 0, 0, mainCanvas.width, mainCanvas.height);-->
+        <!--mainCanvas = halfSize(mainCanvas);-->
+
+        <!--$('#avatar').attr('src', mainCanvas.toDataURL("image/jpeg"));-->
+    <!--};-->
+    <!--var halfSize = function (i) {-->
+        <!--var canvas = document.createElement("canvas");-->
+        <!--canvas.width = 111;-->
+        <!--canvas.height = 111;-->
+        <!--var ctx = canvas.getContext("2d");-->
+        <!--ctx.drawImage(i, 0, 0, canvas.width, canvas.height);-->
+        <!--return canvas;-->
+    <!--};-->
+
+
     var default_avatar_url = '';
 
     window.onload = function (){
@@ -31,16 +69,6 @@ My settings
         var src = document.getElementById("file");
         console.log('TYPE');
         console.log(src);
-        <!--maybe there we need insert resizing -->
-
-
-
-
-
-
-
-
-
         var target = document.getElementById("avatar");
         showImage(src,target);
     }
@@ -52,6 +80,8 @@ My settings
         var fr = new FileReader();
         fr.onload = function(){
             preview.src = fr.result;
+            <!--Need to uncomment this and upper block for resizing upload image, BUT this script doesnt change data in input-file-form -->
+            <!--startResize(fr.result);-->
         }
 
         if (files.length) {
@@ -61,7 +91,9 @@ My settings
         }
     }
 </script>
-<h1>Edit Profile</h1>
+<br>
+<br>
+
 <hr>
 <div class="row">
   <!-- left column -->
@@ -72,7 +104,7 @@ My settings
       <div class="circular--portrait">
         <img id="avatar" src="{{ request.user.profile.avatar.url }}" class="avatar" alt="avatar">
       </div>
-      <h6>Upload a different photo...</h6>
+      <h6>Виберіть фото для зміни аватарки...</h6>
       <input id="file" type="file" class="form-control" name="avatar" onchange="showAvatar()">
     </div>
     </div>
@@ -110,7 +142,7 @@ My settings
         <label class="col-lg-3 control-label">Email subscribe:</label>
         <div class="col-lg-8">
           <div class="checkbox">
-            <input type="checkbox" name="subscribe_mailing" {% if pform.subscribe_mailing.value %} {{ 'checked' }} {% endif %} data-toggle="toggle" data-onstyle="default" data-on="Hello" data-off="Goodbye" data-size="small">
+            <input type="checkbox" name="subscribe_mailing" {% if pform.subscribe_mailing.value %} {{ 'checked' }} {% endif %} data-toggle="toggle" data-onstyle="default" data-on="Підписаний" data-off="Відписаний" data-size="small">
           </div>
         </div>
       </div>
@@ -128,12 +160,6 @@ My settings
       </div>
     </div>
   </form>
-
-<p>Original (48x48)</p>
-<div id="original"></div>
-<p>Resampled (32x32)</p>
-<div id="resampled"></div>
-
 </div>
 <hr>
 {% endblock %}

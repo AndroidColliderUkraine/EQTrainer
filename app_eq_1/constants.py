@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 import socket
 import os
+IMAGE_MAX_WIDTH = 256
+IMAGE_MAX_HEIGHT = 256
+
+
 USER_COURSE_STATUS = (
     ('begin', ('Початковий')),  # Subscribed but not payed
     ('active', ('Активоний')),  # Subscribed and payed or it's free course

@@ -30,12 +30,13 @@ class UserProfileForm(forms.ModelForm):
         try:
             w, h = get_image_dimensions(avatar)
 
-            #validate dimensions
-            max_width = max_height = 128
-            if w > max_width or h > max_height:
-                raise forms.ValidationError(
-                    u'Please use an image that is '
-                     '%s x %s pixels or smaller.' % (max_width, max_height))
+            # #validate dimensions
+            # max_width = max_height = 128
+            # if w > max_width or h > max_height:
+            #     avatar = self.autoresize_image(avatar)
+            #     # raise forms.ValidationError(
+            #     #     u'Please use an image that is '
+            #     #      '%s x %s pixels or smaller.' % (max_width, max_height))
 
             #validate content type
             main, sub = avatar.content_type.split('/')
@@ -44,9 +45,9 @@ class UserProfileForm(forms.ModelForm):
                     'GIF or PNG image.')
 
             #validate file size
-            if len(avatar) > (20 * 1024):
+            if len(avatar) > (20000 * 1024):
                 raise forms.ValidationError(
-                    u'Avatar file size may not exceed 20k.')
+                    u'Avatar file size may not exceed 20M.')
 
         except AttributeError:
             """

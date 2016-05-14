@@ -6,6 +6,8 @@ from redactor.fields                import RedactorField
 from django.template import loader, Context, Engine
 import os
 from django.conf import settings
+from PIL import Image
+from constants import IMAGE_MAX_HEIGHT, IMAGE_MAX_WIDTH
 
 
 class UserProfile(models.Model):
@@ -13,6 +15,22 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     avatar = models.ImageField(upload_to='avatars', default='avatars/default.png', blank=True, null=True)
     subscribe_mailing = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        super(UserProfile, self).save(*args, **kwargs)
+        if self.avatar:
+            self.autoresize_image(self.avatar.path)
+
+    def autoresize_image(self, image_path):
+        image = Image.open(image_path)
+        width = image.size[0]
+        if width > IMAGE_MAX_WIDTH:
+            height = image.size[1]
+            reduce_factor = IMAGE_MAX_WIDTH / float(width)
+            reduced_width = int(width * reduce_factor)
+            reduced_height = int(height * reduce_factor)
+            image = image.resize((reduced_width, reduced_height), Image.ANTIALIAS)
+            image.save(image_path)
 
 
 class Course(models.Model):
