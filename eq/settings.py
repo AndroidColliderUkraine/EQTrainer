@@ -150,12 +150,12 @@ REST_FRAMEWORK = {
 
 
 CELERYBEAT_SCHEDULE = {
-    # Executes every 30 second
-    'add-every-30-seconds': {
-        'task': 'app_eq_1.tasks.example',
-        'schedule': timedelta(seconds=30),
-        # 'args': (16, ),
-    },
+    # # Executes every 30 second
+    # 'add-every-30-seconds': {
+    #     'task': 'app_eq_1.tasks.example',
+    #     'schedule': timedelta(seconds=30),
+    #     # 'args': (16, ),
+    # },
     # Executes everyday morning at 6:30 A.M
     'add-every-day-morning': {
         'task': 'app_eq_1.tasks.every_day',

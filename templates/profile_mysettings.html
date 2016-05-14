@@ -29,7 +29,18 @@ My settings
 
     function showAvatar(){
         var src = document.getElementById("file");
+        console.log('TYPE');
+        console.log(src);
         <!--maybe there we need insert resizing -->
+
+
+
+
+
+
+
+
+
         var target = document.getElementById("avatar");
         showImage(src,target);
     }
@@ -58,7 +69,9 @@ My settings
     {% csrf_token %}
     <div class="col-md-3">
     <div class="text-center">
-      <img id="avatar" src="{{ request.user.profile.avatar.url }}" class="avatar img-circle" alt="avatar">
+      <div class="circular--portrait">
+        <img id="avatar" src="{{ request.user.profile.avatar.url }}" class="avatar" alt="avatar">
+      </div>
       <h6>Upload a different photo...</h6>
       <input id="file" type="file" class="form-control" name="avatar" onchange="showAvatar()">
     </div>
@@ -115,6 +128,12 @@ My settings
       </div>
     </div>
   </form>
+
+<p>Original (48x48)</p>
+<div id="original"></div>
+<p>Resampled (32x32)</p>
+<div id="resampled"></div>
+
 </div>
 <hr>
 {% endblock %}
