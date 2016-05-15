@@ -6,7 +6,7 @@ if [ -z "$RUN_ENV" ]; then
 fi
 
 if [ "$RUN_ENV" = "PROD" ]; then
-    sudo git pull
+    git pull
 fi
 
 
