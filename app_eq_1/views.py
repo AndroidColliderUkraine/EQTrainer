@@ -502,9 +502,9 @@ def report_graph(request):
         print "e:", e
 
 
-def lawyer_page(request):
+def term_of_use(request):
     context = {}
-    return render(request, "lawyer_page.html", context=context)
+    return render(request, "term_of_use.html", context=context)
 
 
 def profile_my_conclusions(request):
