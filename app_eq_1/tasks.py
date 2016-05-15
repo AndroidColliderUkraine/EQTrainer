@@ -217,12 +217,28 @@ def every_month():
 
 
 @task()
-def send_email(EMAIL_SUBJECT, EMAIL_MESSAGE, EMAIL_EMAIL_FROM, EMAIL_EMAIL_TO):
+def send_email(EMAIL_SUBJECT, EMAIL_EMAIL_FROM, EMAIL_EMAIL_TO, EMAIL_MESSAGE='', HTML_EMAIL_MESSAGE=None):
     print '[ SEND EMAIL ] [ %s ]' % (str(datetime.now().time()))
 
     try:
         from django.core.mail import send_mail
-        send_mail(EMAIL_SUBJECT, EMAIL_MESSAGE, EMAIL_EMAIL_FROM, [EMAIL_EMAIL_TO], fail_silently=False)
+        if HTML_EMAIL_MESSAGE is None:
+            send_mail(
+                subject=EMAIL_SUBJECT,
+                message=EMAIL_MESSAGE,
+                from_email=EMAIL_EMAIL_FROM,
+                recipient_list=[EMAIL_EMAIL_TO],
+                fail_silently=False,
+            )
+        else:
+            send_mail(
+                subject=EMAIL_SUBJECT,
+                message=EMAIL_MESSAGE,
+                from_email=EMAIL_EMAIL_FROM,
+                recipient_list=[EMAIL_EMAIL_TO],
+                fail_silently=False,
+                html_message=HTML_EMAIL_MESSAGE
+            )
     except Exception, e:
         print '[send_email]', e
 

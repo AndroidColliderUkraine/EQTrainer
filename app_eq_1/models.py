@@ -8,6 +8,7 @@ import os
 from django.conf import settings
 from PIL import Image
 from constants import IMAGE_MAX_HEIGHT, IMAGE_MAX_WIDTH
+from django.template.loader import render_to_string
 
 
 class UserProfile(models.Model):
@@ -60,19 +61,20 @@ class Course(models.Model):
             if not UserCourse.objects.filter(deleted=False).filter(course=course).filter(user=user).exclude(status='ended').exists():
                 if course.price == 0:
                     usercourse_new = UserCourse(course=course, user=user, status='active')
-                    email_message = u'Очікуйте на перший урок в особистому кабінеті, на пошті або в мобільному додатку :)'
-                    context = {}
+                    context = {"course": course}
+                    email_message = render_to_string('email/email_subscribe_course_free.html', context)
+                    # email_message = Engine().from_string('email/email_subscribe_course_free.html').render(context)
                 else:
                     usercourse_new = UserCourse(course=course, user=user, status='begin')
-                    email_message = u'Для початку проходження курсів Вам потрібно здійснити оплату за наступною схемою: *** :)'
-                    context = {}
-                # TODO: NEED TO CREATE html TEMPLATEs for this emails
+                    context = {"course": course}
+                    email_message = render_to_string('email/email_subscribe_course_paid.html', context)
+                    # email_message = Engine().from_string('email/email_subscribe_course_paid.html').render(context)
                 from tasks import send_email
                 send_email.delay(
-                    EMAIL_SUBJECT=u'Вітаємо з підпискою на курс %s.' % course.name,
-                    EMAIL_MESSAGE=Engine().from_string(email_message).render(Context(context)),
+                    EMAIL_SUBJECT=u"Вітаємо з підпискою на курс: '%s'." % course.name,
                     EMAIL_EMAIL_FROM='eq@eq.com',
-                    EMAIL_EMAIL_TO=user.email
+                    EMAIL_EMAIL_TO=user.email,
+                    HTML_EMAIL_MESSAGE=email_message
                 )
                 usercourse_new.save()
                 return True
