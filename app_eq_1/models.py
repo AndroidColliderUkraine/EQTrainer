@@ -117,7 +117,7 @@ class Lesson(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return str(self.number) + ' | ' + str(self.name)
+        return unicode(self.number) + ' | ' + unicode(self.name)
 
     class Meta:
         unique_together = ('number', 'course',)
