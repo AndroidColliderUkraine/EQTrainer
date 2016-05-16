@@ -63,12 +63,14 @@ class CourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = '__all__'
+        exclude = ['tags']
 
 
 class LessonForm(forms.ModelForm):
     class Meta:
         model = Lesson
         fields = '__all__'
+        exclude = ['tags']
 
 
 class ArticleForm(forms.ModelForm):
@@ -81,6 +83,7 @@ class ArticleAdminForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = '__all__'
+        exclude = ['tags']
         widgets = {
            'text': RedactorEditor(),
         }

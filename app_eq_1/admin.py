@@ -33,17 +33,17 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 
 class CourseAdmin(admin.ModelAdmin):
-	list_display = ['id', "__unicode__", "tags", "state", "price", "updated", "deleted"]
+	list_display = ['id', "__unicode__", "state", "price", "updated", "deleted"]
 	form = CourseForm
 
 
 class LessonAdmin(admin.ModelAdmin):
-	list_display = ['id', "__unicode__", "course", "state", "tags", "updated", "deleted"]
+	list_display = ['id', "__unicode__", "course", "state", "updated", "deleted"]
 	form = LessonForm
 
 
 class ArticleAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "state", "tags", "updated", "deleted"]
+	list_display = ["__unicode__", "state", "updated", "deleted"]
 	form = ArticleAdminForm
 
 
