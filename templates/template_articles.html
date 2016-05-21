@@ -16,7 +16,6 @@
     </div>
     <div class="col-xs-8">
         <a href="/article/?id={{ article.id }}"><h3>{{ article.name }}</h3></a>
-        <h4>{{ article.tags }}</h4>
         <p class="text-justify">{{ article.text|truncatechars:800 }}</p>
         <a class="btn btn-primary" href="/article/?id={{ article.id }}">Детальніше <span class="glyphicon glyphicon-chevron-right"></span></a>
     </div>
