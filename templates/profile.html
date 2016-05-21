@@ -30,7 +30,6 @@
                                 <!--<i class="fa fa-bars"></i>-->
                             </a>
                             <a href="/">EQ-trainer</a>
-                            Hi, {{ user.email }}
                         </div>
 
                     </div>
@@ -50,6 +49,25 @@
             <div id="sidebar-wrapper" >
                 <nav id="spy" >
                     <!--<ul class="sidebar-nav nav" >-->
+                    <center>
+                        <br>
+                        <div style="position: relative;  width: 100px;  height: 100px;  overflow: hidden;  border-radius: 50%;">
+                            <img style="width: auto; height: 100%;" src="{{ user.profile.avatar.url }}" class="avatar" alt="avatar">
+                        </div>
+                        <br>
+
+                        {% if user.first_name and user.last_name %}
+                            {{ user.first_name}} {{ user.last_name }}
+                        {% elif user.first_name %}
+                            {{ user.first_name }}
+                        {% elif user.last_name %}
+                            {{ user.last_name }}
+                        {% else %}
+                            {{ user.email }}
+                        {% endif %}
+                        <br>
+                        <br>
+                    </center>
                     <ul class="nav nav-pills nav-stacked ">
                           <!--<li class="active"><a href="#"><i class="fa fa-home"></i> My daybook</a></li>-->
                           <!--<li><a href="#"><i class="fa fa-flag-checkered" ></i> My conclus</a></li>-->

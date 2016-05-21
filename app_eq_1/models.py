@@ -12,9 +12,9 @@ from django.template.loader import render_to_string
 
 
 class UserProfile(models.Model):
-    # user = models.OneToOneField(User, related_name='profile', default='avatars/default.png')
     user = models.OneToOneField(User, related_name='profile')
-    avatar = models.ImageField(upload_to='avatars', default='avatars/default.png', blank=True, null=True)
+    avatar = models.ImageField(upload_to='avatars', default='avatars/default.png', blank=True, null=True,
+                               help_text='Max 256 × 256')
     subscribe_mailing = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
