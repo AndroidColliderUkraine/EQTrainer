@@ -29,16 +29,16 @@ STATE = (
 #     ('emotion_10', (u'Емоція_10')),
 # )
 USER_EMOTIONS = (
-    ('UVERENNOST', u'Впевненість'),
-    ('RADOST_UDOVOLSTVIE', u'Радість Задоволення'),
+    ('UVERENNOST', u'Уверенность'),
+    ('RADOST_UDOVOLSTVIE', u'Радость Удовлетворение'),
     ('INTERES', u'Інтерес'),
-    ('RAZDRAZHENIE_GNEV', u'Роздратованість Гнів'),
-    ('VINA', u'Провина'),
-    ('STID_SMUSHENIE', u'Сором'),
-    ('TREVOGA_STARH', u'Тривога'),
+    ('RAZDRAZHENIE_GNEV', u'Раздражительность Гнев'),
+    ('VINA', u'Вина'),
+    ('STID_SMUSHENIE', u'Стыд'),
+    ('TREVOGA_STARH', u'Тревога'),
     ('PECHAL_STRADANIE', u'Печаль'),
-    ('OTVRASCHENIE_PREZRENIE', u'Відраза'),
-    ('UDIVLENIE', u'Подив'),
+    ('OTVRASCHENIE_PREZRENIE', u'Отвращение'),
+    ('UDIVLENIE', u'Удивление'),
 )
 
 # USER_ACTIVITY = (
@@ -52,14 +52,14 @@ USER_EMOTIONS = (
 #     ('activity_8', (u'Активність_8')),
 # )
 USER_ACTIVITY = (
-    ('ZDOROVIE', u"Здоров'я"),
-    ('SEMIA_LUBOV', u"Сім'я Любов"),
-    ('OTNOSHENIA', u'Відносини'),
-    ('OTDIH_HOBBY', u'Відпочинок Хоббі'),
-    ('DUHOVNOST', u'Духовність'),
-    ('SAMORAZVITIE', u'Заморозвиток'),
-    ('RABOTA_BIZNES', u'Робота Бізнес'),
-    ('FINANCY', u'Фінанси'),
+    ('ZDOROVIE', u"Здоровье"),
+    ('SEMIA_LUBOV', u"Семья Любовь"),
+    ('OTNOSHENIA', u'Отношения'),
+    ('OTDIH_HOBBY', u'Отдых Хобби'),
+    ('DUHOVNOST', u'Духовность'),
+    ('SAMORAZVITIE', u'Саморазвитие'),
+    ('RABOTA_BIZNES', u'Работа Бизнес'),
+    ('FINANCY', u'Финансы'),
 )
 
 TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
