@@ -9,7 +9,7 @@ My courses
 {% block content%}
 
 <div class="panel panel-success">
-    <div class="panel-heading">My active courses</div>
+    <div class="panel-heading">Мои активные курсы</div>
         <!--<div class="panel-body">12345789</div>-->
     <ul class="list-group">
         {% if usercourses_not_ended|length %}
@@ -28,7 +28,7 @@ My courses
 </div>
 
 <div class="panel panel-default">
-    <div class="panel-heading">My ended courses</div>
+    <div class="panel-heading">Мои законченные курсы</div>
     <ul class="list-group">
         {% if usercourses_ended|length %}
             {% for usercourse in usercourses_ended%}
