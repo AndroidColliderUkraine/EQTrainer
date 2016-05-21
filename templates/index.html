@@ -373,7 +373,7 @@ window.onload = function () {
 
 	<!-- BEGIN modal windows -->
 	<div class="modal" id="modal-registration">
-		<a href="#" class="modal-close"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#close-icon' %}" /></svg></a>
+		<a href="#" class="modal-close"><a href="#" class="modal-close"><img height="32" width="32" src="{% static 'img/index_new/close.png' %}"></a></a>
 		<p class="modal-title">Регистрация</p>
 		<form id="registration-form" method="post" action="/accounts/register/?next=/profile/mysetting">
 			{% csrf_token %}
@@ -400,7 +400,7 @@ window.onload = function () {
 		<p class="license">Регистрируясь вы принимаете условия <a href="/term-of-use">лицензионного договора</a></p>
 	</div>
 	<div class="modal" id="modal-video">
-		<a href="#" class="modal-close"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#close-icon' %}" /></svg></a>
+		<a href="#" class="modal-close"><a href="#" class="modal-close"><img height="32" width="32" src="{% static 'img/index_new/close.png' %}"></a></a>
 		<iframe width="560" height="315" src="https://www.youtube.com/embed/MJJj0BBrWOE?showinfo=0&rel=0" allowfullscreen></iframe>
 	</div>
 	<div class="modal-overlay"></div>
