@@ -4,6 +4,7 @@ from django.contrib.auth.models 	import User
 from constants 						import *
 from redactor.fields                import RedactorField
 from django.template import loader, Context, Engine
+from django.utils.safestring import mark_safe
 import os
 from django.conf import settings
 from PIL import Image
@@ -114,7 +115,8 @@ class Course(models.Model):
 class Lesson(models.Model):
     name = models.CharField(max_length=500, blank=True, null=True)
     tags = models.CharField(max_length=5000, blank=True, null=True)
-    text = models.TextField(max_length=120, blank=True, null=True)
+    text = models.TextField(max_length=1024, blank=True, null=True,
+                            help_text='You can use link in text: <a href="URL">...</a>')
     course = models.ForeignKey(Course, blank=False, null=False)
     number = models.IntegerField()
     state = models.CharField(choices=STATE, max_length=20, blank=False, null=True, default='not_active')

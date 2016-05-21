@@ -1,4 +1,5 @@
 from django 				import forms
+from django.utils.safestring import mark_safe
 
 from .models 				import Course
 from .models 				import Lesson
@@ -67,6 +68,11 @@ class CourseForm(forms.ModelForm):
 
 
 class LessonForm(forms.ModelForm):
+    text = forms.CharField(
+        widget=forms.Textarea,
+        help_text=mark_safe("<xmp>You can use link in text: <a href='http://www.emocontrol.net/'>EmoControl</a></xmp>")
+    )
+
     class Meta:
         model = Lesson
         fields = '__all__'
