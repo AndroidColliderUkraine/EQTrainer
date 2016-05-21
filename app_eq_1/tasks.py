@@ -15,6 +15,8 @@ from django.shortcuts 			import render
 from django.template import loader, Context, Engine
 from django.template.loader import render_to_string
 from django.db.models import Sum
+import logging
+logger = logging.getLogger(__name__)
 
 
 @task()
@@ -246,18 +248,29 @@ def send_email(EMAIL_SUBJECT, EMAIL_EMAIL_FROM, EMAIL_EMAIL_TO, EMAIL_MESSAGE=''
 @task()
 def send_email_lesson(lesson_id, user_id):
     print '[ SEND EMAIL ] [ %s ]' % (str(datetime.now().time()))
-
+    # if error 'expected string or buffer' than:
+    #   from django.utils.translation import activate
+    #   activate('en')
     try:
         lesson = Lesson.objects.get(id=lesson_id)
         user = User.objects.get(id=user_id)
+        context = {
+            "lesson": lesson,
+        }
 
-        EMAIL_SUBJECT = 'Course: %s, Lesson[%s]: %s' % (lesson.course.name, str(lesson.number), lesson.name)
-        EMAIL_MESSAGE = lesson.text
+        EMAIL_SUBJECT = u'EmoControl, Ваш курс: %s, урок[%s]: %s' % (lesson.course.name, str(lesson.number), lesson.name)
+        HTML_EMAIL_MESSAGE = render_to_string('email/lesson.html', context)
         EMAIL_EMAIL_FROM = 'eq@eq.com'
         EMAIL_EMAIL_TO = user.email
 
         from django.core.mail import send_mail
-        send_mail(EMAIL_SUBJECT, EMAIL_MESSAGE, EMAIL_EMAIL_FROM, [EMAIL_EMAIL_TO], fail_silently=False)
+        send_mail(
+            subject=EMAIL_SUBJECT,
+            message='',
+            from_email=EMAIL_EMAIL_FROM,
+            recipient_list=[EMAIL_EMAIL_TO],
+            html_message=HTML_EMAIL_MESSAGE,
+            fail_silently=False)
     except Exception, e:
         print '[send_email_lesson]', e
 

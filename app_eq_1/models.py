@@ -9,6 +9,8 @@ from django.conf import settings
 from PIL import Image
 from constants import IMAGE_MAX_HEIGHT, IMAGE_MAX_WIDTH
 from django.template.loader import render_to_string
+import logging
+logger = logging.getLogger(__name__)
 
 
 class UserProfile(models.Model):
@@ -33,6 +35,9 @@ class UserProfile(models.Model):
             image = image.resize((reduced_width, reduced_height), Image.ANTIALIAS)
             image.save(image_path)
 
+    class Meta:
+        app_label = 'app_eq_1'
+
 
 class Course(models.Model):
     name = models.CharField(max_length=500, blank=True, null=True)
@@ -53,7 +58,7 @@ class Course(models.Model):
 
     @staticmethod
     def subscribe(course_id, user_id):
-        print "I'm in subscribe"
+        logger.debug("Logger I'm in subscribe")
         try:
             course = Course.objects.get(id=course_id)
             user = User.objects.get(id=user_id)
@@ -84,7 +89,7 @@ class Course(models.Model):
 
     @staticmethod
     def unsubscribe(course_id, user_id):
-        print "I'm in unsubscribe"
+        logger.debug("Logger I'm in un-subscribe")
         try:
             course = Course.objects.get(id=course_id)
             user = User.objects.get(id=user_id)
@@ -101,6 +106,9 @@ class Course(models.Model):
         except Exception, e:
             print e
             return False
+
+    class Meta:
+        app_label = 'app_eq_1'
 
 
 class Lesson(models.Model):
@@ -120,6 +128,7 @@ class Lesson(models.Model):
 
     class Meta:
         unique_together = ('number', 'course',)
+        app_label = 'app_eq_1'
 
 
 class Article(models.Model):
@@ -139,6 +148,9 @@ class Article(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        app_label = 'app_eq_1'
+
 
 class UserCourse(models.Model):
     user = models.ForeignKey(User, blank=False, null=False)
@@ -154,6 +166,9 @@ class UserCourse(models.Model):
     def __unicode__(self):
         return unicode(self.id)
 
+    class Meta:
+        app_label = 'app_eq_1'
+
 
 class Action(models.Model):
     user_course = models.ForeignKey(UserCourse, blank=False, null=False)
@@ -165,6 +180,9 @@ class Action(models.Model):
 
     def __unicode__(self):
         return unicode(self.id)
+
+    class Meta:
+        app_label = 'app_eq_1'
 
 
 class EmotionalState(models.Model):
@@ -182,6 +200,9 @@ class EmotionalState(models.Model):
     def __unicode__(self):
         return unicode(self.id)
 
+    class Meta:
+        app_label = 'app_eq_1'
+
 
 class WeeklyReport(models.Model):
     user = models.ForeignKey(User, blank=False, null=False)
@@ -195,6 +216,9 @@ class WeeklyReport(models.Model):
 
     def __unicode__(self):
         return unicode(unicode(self.user) + ' | ' + unicode(self.updated))
+
+    class Meta:
+        app_label = 'app_eq_1'
 
 
 class MonthlyReport(models.Model):
@@ -210,6 +234,9 @@ class MonthlyReport(models.Model):
     def __unicode__(self):
         return unicode(unicode(self.user) + ' | ' + unicode(self.updated))
 
+    class Meta:
+        app_label = 'app_eq_1'
+
 
 class Training(models.Model):
     name = models.CharField(max_length=100, blank=False, null=True)
@@ -221,10 +248,14 @@ class Training(models.Model):
     def __unicode__(self):
         return unicode(self.name)
 
+    class Meta:
+        app_label = 'app_eq_1'
+
 
 class Conclusions(models.Model):
     class Meta:
         unique_together = ('emotion', 'activity')
+        app_label = 'app_eq_1'
     emotion = models.CharField(choices=USER_EMOTIONS, max_length=50, blank=False, null=True)
     activity = models.CharField(choices=USER_ACTIVITY, max_length=50, blank=False, null=True)
     text = models.TextField(max_length=5000)

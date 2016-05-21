@@ -14,6 +14,8 @@ import datetime
 import pytz
 from django.db.models import Sum
 from constants import USER_EMOTIONS, USER_ACTIVITY, TIME_FORMAT
+import logging
+logger = logging.getLogger(__name__)
 
 
 def home_old(request):

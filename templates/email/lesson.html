@@ -1,4 +1,16 @@
 <html>
-<h1>This is my lesson.</h1>
-<h1> {{ name }} </h1>
+    <body>
+        <center><h3>Вітаю, черговий урок під номером {{ lesson.number }} з курсу {{ lesson.course }} під назвою: {{ lesson.name }}.</h3></center>
+        <center><h4>Ви повинні ознайомитись та виконати наступне:</h4></center>
+        <br>
+        <p>{{ lesson.text }}</p>
+        <br>
+        <br>
+        <div align="right">Дякуємо, з найкращими побажаннями команда <a href="http://www.emocontrol.net/">EmoControl</a>.</div>
+        <br>
+        <center>
+            <a href="http://www.emocontrol.net/"><img src="http://www.emocontrol.net/static/img/index_new/logo.png" alt="Emotion Control"></a>
+        </center>
+        <br>
+    </body>
 </html>
