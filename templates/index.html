@@ -12,6 +12,10 @@
 		$('#registration-form').submit(function(ev) {
 			ev.preventDefault(); // to stop the form from submitting
 			/* Validations go here */
+			if($('#checkbox').prop('checked') == false) {
+				$('#registration_error').text('Для продолжения регистрации нужно принять лицензионные условия');
+				return;
+			}
 
 			var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
 			jQuery.ajax({
@@ -426,7 +430,14 @@
 				<input type="hidden" name="next" value="/profile/mysetting" />
 				<input type="submit" name="submit_reg" value="Регистрация">
 		</form>
-		<p class="license">Регистрируясь вы принимаете условия <a href="/term-of-use">лицензионного договора</a></p>
+
+		<p class="license">
+			<div class="row">
+				<input id="checkbox" type="checkbox" class="checkbox" checked>Регистрируясь я принимаю условия <br>
+				<a href="/term-of-use">лицензионного договора</a>.
+			</div>
+		</p>
+
 	</div>
 	<div class="modal" id="modal-video">
 		<a href="#" class="modal-close"><img height="32" width="32" src="{% static 'img/index_new/close.png' %}"></a>
