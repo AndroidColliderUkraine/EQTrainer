@@ -62,7 +62,7 @@ urlpatterns = [
     url(r'^api/', include(v1_api.urls)),
     url(r'^accounts/', include('registration.backends.simple.urls')),
     url(r'^auth/', include('djoser.urls.authtoken')),
-    # url(r'^auth/', include('djoser.urls')),
+    url(r'^custom_login/', 'app_eq_1.views.custom_login', name='custom_login'),
 
     url(r'^unsubscribe_mailing/', 'app_eq_1.views.unsubscribe_mailing', name='unsubscribe_mailing'),
     url(r'^subscribe_course/', 'app_eq_1.views.subscribe_course', name='subscribe_course'),

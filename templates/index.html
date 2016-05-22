@@ -28,19 +28,26 @@
 
 		$('#login').submit(function(ev) {
 			ev.preventDefault(); // to stop the form from submitting
-			/* Validations go here */
-			console.log('Hi from login form()');
-			$('#id_username_reg').val($('#id_email_reg').val());
-			$('#id_password2').val($('#id_password1').val());
 
-			console.log('EMAIL', $('#id_email_reg').val());
-			console.log('USER', $('#id_username_reg').val());
-			console.log('PASS1', $('#id_password1').val());
-			console.log('PASS2', $('#id_password2').val());
-			console.log('PASS3', ($('#id_password2').val() == $('#id_password1').val()));
-
-
-
+			var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
+			jQuery.ajax({
+				type: 'POST',
+				url: /custom_login/,
+				data: {
+						'csrfmiddlewaretoken': token,
+						'username': $('#id_username').val(),
+						'password': $('#id_password').val()
+					},
+				dataType: 'json',
+				success: function(data) {
+						if (data['error'] == 'None') {
+							location.reload();
+						}else {
+							$('#login_error').text(data['error']);
+						}
+					}
+			});
+			<!--this.submit(); // If all the validations succeeded-->
 		});
 	}
     </script>
@@ -85,6 +92,7 @@
 						<p class="form-title">Войти в <br><strong>личный кабинет</strong></p>
 						<form method="post" id="login" action="/accounts/login/?next=/">
 							{% csrf_token %}
+							<p id="login_error" style="color: #F3A233"></p>
 							<input type="text" name="username" id="id_username" placeholder="Email">
 							<input type="password" name="password" id="id_password" placeholder="Пароль">
 							<input type="submit" name="submit_log" value="Войти">
@@ -391,11 +399,10 @@
 		<form id="registration-form" method="post" action="/accounts/register/?next=/profile/mysetting">
 			{% csrf_token %}
 				<p class="required">
-                    <!--<label class="required" for="id_username">Username:</label>-->
                     <input id="id_username_reg" maxlength="30" name="username" value="test_val" type="hidden" />
                 </p>
                 <p class="required">
-                    <label class="required" for="id_email">E-mail:</label>
+                    <label class="required" for="id_email_reg">E-mail:</label>
                     <input id="id_email_reg" name="email" type="email" />
                 </p>
                 <p class="required"><label class="required" for="id_password1">Password:</label>

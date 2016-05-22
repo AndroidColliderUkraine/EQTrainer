@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.shortcuts 			import render
@@ -558,11 +559,11 @@ def unsubscribe_mailing(request):
         print "e:", e
 
 
-def login(request):
-    context = {}
+def custom_login(request):
+    context = {'error': 'None'}
     try:
-        username = request.GET['username']
-        password = request.GET['password']
+        username = request.POST['username']
+        password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user is not None:
             if user.is_active:
@@ -570,9 +571,8 @@ def login(request):
             else:
                 context['error'] = 'Non active user'
         else:
-            context['error'] = 'Wrong username or password'
+            context['error'] = u'Неправильная почта или пароль'
     except:
         context['error'] = ''
 
-    # populateContext(request, context)
-    return render(request, "index.html", context)
+    return JsonResponse(context)
