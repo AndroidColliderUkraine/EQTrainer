@@ -12,15 +12,31 @@
 		$('#registration-form').submit(function(ev) {
 			ev.preventDefault(); // to stop the form from submitting
 			/* Validations go here */
-			console.log('Hi from registration form()');
-			$('#id_username_reg').val($('#id_email_reg').val());
-			$('#id_password2').val($('#id_password1').val());
 
-			console.log('EMAIL', $('#id_email_reg').val());
-			console.log('USER', $('#id_username_reg').val());
-			console.log('PASS1', $('#id_password1').val());
-			console.log('PASS2', $('#id_password2').val());
-			console.log('PASS3', ($('#id_password2').val() == $('#id_password1').val()));
+			var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
+			jQuery.ajax({
+				type: 'POST',
+				url: /custom_register/,
+				data: {
+						'csrfmiddlewaretoken': token,
+						'username': $('#id_email_reg').val(),
+						'password1': $('#id_password1').val(),
+						'password2': $('#id_password1').val(),
+						'email': $('#id_email_reg').val()
+					},
+				dataType: 'json',
+				success: function(data) {
+						console.log('REG RETURN');
+						console.log(data.responseText);
+						console.log(data['error']);
+
+						if (data['error'] == 'None') {
+							window.location = '/profile/mysetting'
+						}else {
+							$('#registration_error').text(data['error']);
+						}
+					},
+			});
 
 
 			<!--this.submit(); // If all the validations succeeded-->
@@ -398,6 +414,7 @@
 		<p class="modal-title">Регистрация</p>
 		<form id="registration-form" method="post" action="/accounts/register/?next=/profile/mysetting">
 			{% csrf_token %}
+				<p id="registration_error" style="color: #F3A233"></p>
 				<p class="required">
                     <input id="id_username_reg" maxlength="30" name="username" value="test_val" type="hidden" />
                 </p>

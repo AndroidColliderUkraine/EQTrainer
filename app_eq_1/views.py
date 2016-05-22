@@ -576,3 +576,33 @@ def custom_login(request):
         context['error'] = ''
 
     return JsonResponse(context)
+
+
+def custom_register(request):
+    context = {'error': 'None'}
+    if request.method == 'POST':
+        # from django.contrib.auth.forms import UserCreationForm
+        from app_eq_1.forms import UserRegistrationForm
+        uform = UserRegistrationForm(data=request.POST)
+
+        if uform.is_valid():
+            user = uform.save()
+            user_for_login = authenticate(username=user.username, password=uform.cleaned_data['password1'])
+            if user_for_login is not None:
+                if user_for_login.is_active:
+                    auth_login(request, user_for_login)
+        else:
+            print uform.errors
+            if u'A user with that username already exists.' in str(uform.errors):
+                context['error'] = u'Пользователь с таким именем уже существует.'
+            elif u'This field is required' in str(uform.errors):
+                context['error'] = u'Заполните пустые поля.'
+            elif u'Enter a valid email address' in str(uform.errors):
+                context['error'] = u'Введите действительный адрес электронной почты.'
+            else:
+                # context['error'] = u'Некоторые ошибки происходит.'
+                context['error'] = str(uform.errors)
+    else:
+        context['error'] = 'Not POST request.'
+
+    return JsonResponse(context)
