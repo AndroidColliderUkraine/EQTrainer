@@ -419,20 +419,12 @@
                     <input id="id_username_reg" maxlength="30" name="username" value="test_val" type="hidden" />
                 </p>
                 <p class="required">
-                    <label class="required" for="id_email_reg">E-mail:</label>
-                    <input id="id_email_reg" name="email" type="email" />
+                    <input id="id_email_reg" name="email" type="email" placeholder="Email"/>
                 </p>
-                <p class="required"><label class="required" for="id_password1">Password:</label>
-                    <input id="id_password1" name="password1" type="password" />
-                </p>
-                <!--<p class="required"><label class="required" for="id_password2">Password (again):</label>-->
-                    <input id="id_password2" name="password2" type="hidden" />
-				<!--</p>-->
-			<input type="hidden" name="next" value="/profile/mysetting" />
-			<!--<input type="text" name="name" placeholder="Имя">-->
-			<!--<input type="text" name="email" placeholder="Email">-->
-			<!--<input type="password" name="password" placeholder="Пароль">-->
-			<input type="submit" name="submit_reg" value="Регистрация">
+				<input id="id_password1" name="password1" type="password" placeholder="Пароль"/>
+				<input id="id_password2" name="password2" type="hidden" />
+				<input type="hidden" name="next" value="/profile/mysetting" />
+				<input type="submit" name="submit_reg" value="Регистрация">
 		</form>
 		<p class="license">Регистрируясь вы принимаете условия <a href="/term-of-use">лицензионного договора</a></p>
 	</div>
