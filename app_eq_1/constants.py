@@ -64,6 +64,7 @@ USER_ACTIVITY = (
 
 TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
+COURSE_PER_PAGE = 10
 
 # def current_site_url():
 #     """Returns fully qualified URL (no trailing slash) for the current site."""

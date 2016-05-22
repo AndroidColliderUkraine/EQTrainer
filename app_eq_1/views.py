@@ -1,3 +1,5 @@
+from django.contrib.auth import authenticate
+from django.contrib.auth import login as auth_login
 from django.shortcuts 			import render
 from .models 					import Course
 from .models 					import Article
@@ -555,3 +557,22 @@ def unsubscribe_mailing(request):
     except Exception, e:
         print "e:", e
 
+
+def login(request):
+    context = {}
+    try:
+        username = request.GET['username']
+        password = request.GET['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+            else:
+                context['error'] = 'Non active user'
+        else:
+            context['error'] = 'Wrong username or password'
+    except:
+        context['error'] = ''
+
+    # populateContext(request, context)
+    return render(request, "index.html", context)

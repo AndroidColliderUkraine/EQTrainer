@@ -1,51 +1,63 @@
 {% load staticfiles %}
-<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Emotion Control. Мобильный тренажер управления эмоциями.</title>
-
 	<!-- favicon.png -->
 	<link rel="icon" type="image/png" href="{% static 'img/index_new/favicon.png' %}">
+	<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script type="text/javascript">
+	window.onload = function () {
+		$('#registration-form').submit(function(ev) {
+			ev.preventDefault(); // to stop the form from submitting
+			/* Validations go here */
+			console.log('Hi from registration form()');
+			$('#id_username_reg').val($('#id_email_reg').val());
+			$('#id_password2').val($('#id_password1').val());
 
-	<!-- slicker.css -->
-	<link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.css"/>
-	<link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
+			console.log('EMAIL', $('#id_email_reg').val());
+			console.log('USER', $('#id_username_reg').val());
+			console.log('PASS1', $('#id_password1').val());
+			console.log('PASS2', $('#id_password2').val());
+			console.log('PASS3', ($('#id_password2').val() == $('#id_password1').val()));
+
+
+			<!--this.submit(); // If all the validations succeeded-->
+		});
+
+		$('#login').submit(function(ev) {
+			ev.preventDefault(); // to stop the form from submitting
+			/* Validations go here */
+			console.log('Hi from login form()');
+			$('#id_username_reg').val($('#id_email_reg').val());
+			$('#id_password2').val($('#id_password1').val());
+
+			console.log('EMAIL', $('#id_email_reg').val());
+			console.log('USER', $('#id_username_reg').val());
+			console.log('PASS1', $('#id_password1').val());
+			console.log('PASS2', $('#id_password2').val());
+			console.log('PASS3', ($('#id_password2').val() == $('#id_password1').val()));
+
+
+
+		});
+	}
+    </script>
 
 	<!-- style.css -->
-	<link rel="stylesheet" href="{% static 'css/index_new_style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/index_new_style.css' %}">
+
+	<!-- slicker.css -->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}"/>
+
+
 
 	<!-- jQuery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
 	<!-- main.js -->
 	<script src="{% static 'js/index_new.js' %}"></script>
-	<script type="text/javascript">
-window.onload = function () {
-	$('#registration-form').submit(function(ev) {
-		ev.preventDefault(); // to stop the form from submitting
-		/* Validations go here */
-		console.log('Hi from registration form()');
-		$('#id_username_reg').val($('#id_email_reg').val());
-		$('#id_password2').val($('#id_password1').val());
 
-		console.log('EMAIL', $('#id_email_reg').val());
-		console.log('USER', $('#id_username_reg').val());
-		console.log('PASS1', $('#id_password1').val());
-		console.log('PASS2', $('#id_password2').val());
-		console.log('PASS3', ($('#id_password2').val() == $('#id_password1').val()));
-
-
-		this.submit(); // If all the validations succeeded
-	});
-}
-    <!--function registration(){-->
-        <!--console.log('Hi from registration()')-->
-        <!--&lt;!&ndash;$('#reg_card').css("display", "inline");&ndash;&gt;-->
-        <!--&lt;!&ndash;$('#login_card').css("display", "none");&ndash;&gt;-->
-        <!--&lt;!&ndash;$('#forgot_pass_card').css("display", "none");&ndash;&gt;-->
-    <!--}-->
-    </script>
 </head>
 <body>
 
@@ -57,15 +69,15 @@ window.onload = function () {
 				<div class="top-bar">
 					<div class="logo">
 						<p class="logo-desc">технология развития эмоционального интелекта</p>
-						<a href=""><img src="{% static 'img/index_new/logo.png' %}" alt="Emotion Control"></a>
+						<a href="/"><img src="{% static 'img/index_new/logo.png' %}" alt="Emotion Control"></a>
 					</div>
 
 					<div class="app-desc">
 						<div class="hand-phone"></div>
 						<div class="app-desc-text">
 							<div class="app-desc-subtitle">мобильный тренажер</div>
-							<div class="app-desc-title">Управления эмоциями</div>
-							<a href="#" class="googleplay"><img src="{% static 'img/index_new/googleplay.png' %}" alt="Çàãðóçèòå íà Google Play"></a>
+							<div class="app-desc-title" style="font-weight: normal;">Управления эмоциями</div>
+							<a href="/" class="googleplay"><img src="{% static 'img/index_new/googleplay.png' %}" alt="Çàãðóçèòå íà Google Play"></a>
 						</div>
 					</div>
 
@@ -75,7 +87,7 @@ window.onload = function () {
 							{% csrf_token %}
 							<input type="text" name="username" id="id_username" placeholder="Email">
 							<input type="password" name="password" id="id_password" placeholder="Пароль">
-							<input type="submit" name="submit" value="Войти">
+							<input type="submit" name="submit_log" value="Войти">
 							<div class="form-links">
 								<a href="#" class="forget-psw">Забыли пароль?</a>
 								<a href="#" class="registration modal-open" data-modal="#modal-registration">Регистрация</a>
@@ -87,7 +99,7 @@ window.onload = function () {
 				<div class="more-link">
 					<a href="#" class="scroll-to" data-scroll=".second-screen">Подробнее</a>
 					<div class="more-icon">
-						<svg><use xlink:href="{% static 'img/index_new/sprite.svg#more-icon' %}" /></svg>
+						<!--<svg><use xlink:href="{% static 'img/index_new/sprite.svg#more-icon' %}" /></svg>-->
 
 					</div>
 				</div>
@@ -167,15 +179,15 @@ window.onload = function () {
 					<p class="desc-title">Дневник эмоций</p>
 					<ul class="desc-text">
 						<li>
-							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							<!--<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>-->
 							Скачайте мобильное приложение и контролируйте свои эмоции на протяжении дня
 						</li>
 						<li>
-							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							<!--<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>-->
 							Следите за эмоциональной динамикой и ведите статистику в личном кабинете на сайте
 						</li>
 						<li>
-							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							<!--<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>-->
 							Каждую неделю получайте отчеты про свое эмоциональное состояние и рекомендации от психолога
 						</li>
 					</ul>
@@ -185,7 +197,8 @@ window.onload = function () {
 					<div class="screen second-phone-screen"></div>
 					<div class="screen third-phone-screen"></div>
 				</div>
-				<a href="#" class="button video modal-open" data-modal="#modal-video"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#play-icon' %}"/></svg>Видео</a>
+				<!--<a href="#" class="button video modal-open" data-modal="#modal-video"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#play-icon' %}"/></svg>Видео</a>-->
+				<a href="#" class="button video modal-open" data-modal="#modal-video">Видео</a>
 			</div>
 		</div>
 	</section>
@@ -247,15 +260,15 @@ window.onload = function () {
 					<p class="desc-title">Тренажер эмоционального интелекта</p>
 					<ul class="desc-text">
 						<li>
-							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							<!--<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>-->
 							Каждый день получайте на свой смартфон задания и выполняйте их согласно инструкции.
 						</li>
 						<li>
-							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							<!--<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>-->
 							Повышайте свой эмоциональный интеллект, ежедневно отмечая прогресс в выбранной теме.
 						</li>
 						<li>
-							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							<!--<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>-->
 							Повышайте свой эмоциональный интеллект, ежедневно отмечая прогресс в выбранной теме.
 						</li>
 					</ul>
@@ -312,11 +325,11 @@ window.onload = function () {
 					<p class="desc-title">Карманный психолог</p>
 					<ul class="desc-text">
 						<li>
-							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							<!--<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>-->
 							Получайте полезные советы от своего “карманного психолога” в тот момент, когда Вам это действительно необходимо
 						</li>
 						<li>
-							<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>
+							<!--<div class="mark-icon"><svg><use xlink:href="{% static 'img/index_new/sprite.svg#mark-icon' %}" /></svg></div>-->
 							Действуйте согласно рекомендациям и меняйте свое эмоциональное состояние на желаемое
 						</li>
 					</ul>
@@ -338,7 +351,7 @@ window.onload = function () {
 					<p>Emotion Control. Все права защищены. 2016</p>
 					<ul>
 						<li>
-							<a href="#">Конфиденциальность</a>
+							<a href="/term-of-use">Конфиденциальность</a>
 						</li>
 						<li>
 							<a href="/term-of-use">Правила пользования</a>
@@ -347,7 +360,7 @@ window.onload = function () {
 				</div>
 				<div class="col">
 					<p>Установите приложение уже сегодня</p>
-					<a href="" class="googleplay"><img src="{% static 'img/index_new/googleplay.png' %}" alt="Загрузите на Google Play"></a>
+					<a href="/" class="googleplay"><img src="{% static 'img/index_new/googleplay.png' %}" alt="Загрузите на Google Play"></a>
 				</div>
 				<div class="col">
 					<a href="#" data-scroll="header" class="personal-cabinet scroll-to">Личный кабинет</a>
@@ -373,7 +386,7 @@ window.onload = function () {
 
 	<!-- BEGIN modal windows -->
 	<div class="modal" id="modal-registration">
-		<a href="#" class="modal-close"><a href="#" class="modal-close"><img height="32" width="32" src="{% static 'img/index_new/close.png' %}"></a></a>
+		<a href="#" class="modal-close"><img height="32" width="32" src="{% static 'img/index_new/close.png' %}"></a>
 		<p class="modal-title">Регистрация</p>
 		<form id="registration-form" method="post" action="/accounts/register/?next=/profile/mysetting">
 			{% csrf_token %}
@@ -400,8 +413,8 @@ window.onload = function () {
 		<p class="license">Регистрируясь вы принимаете условия <a href="/term-of-use">лицензионного договора</a></p>
 	</div>
 	<div class="modal" id="modal-video">
-		<a href="#" class="modal-close"><a href="#" class="modal-close"><img height="32" width="32" src="{% static 'img/index_new/close.png' %}"></a></a>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/MJJj0BBrWOE?showinfo=0&rel=0" allowfullscreen></iframe>
+		<a href="#" class="modal-close"><img height="32" width="32" src="{% static 'img/index_new/close.png' %}"></a>
+		<iframe width="560" height="315" src="https://www.youtube.com/v/MJJj0BBrWOE?showinfo=0&rel=0" allowfullscreen></iframe>
 	</div>
 	<div class="modal-overlay"></div>
 	<!-- END modal windows -->
@@ -410,7 +423,7 @@ window.onload = function () {
 	<!-- footer scripts -->
 
 	<!-- Slicker -->
-	<script src="http://cdn.jsdelivr.net/jquery.slick/1.5.9/slick.min.js"></script>
+	<script src="{% static 'js/slick.min.js' %}"></script>
 	<script>
 		$(document).ready(function() {
 			$('#slider').slick({
@@ -423,10 +436,5 @@ window.onload = function () {
 			});
 		});
 	</script>
-
-	<!-- jQuery Parallax -->
-	<script src="{% static 'js/jquery.parallax.js' %}"></script>
-
-
 </body>
 </html>
