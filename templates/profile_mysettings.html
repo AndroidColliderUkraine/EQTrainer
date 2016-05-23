@@ -114,7 +114,7 @@ My settings
       <div class="circular--portrait">
         <img id="avatar" src="{{ request.user.profile.avatar.url }}" class="avatar" alt="avatar">
       </div>
-      <h6>Виберіть фото для зміни аватарки...</h6>
+      <h6>Выберите фото для замены аватарки...</h6>
       <input id="file" type="file" class="form-control" name="avatar" onchange="showAvatar()">
     </div>
     </div>
@@ -126,17 +126,17 @@ My settings
         <!--<i class="fa fa-coffee"></i>-->
         <!--This is an <strong>.alert</strong>. Use this to show important messages to the user.-->
       <!--</div>-->
-      <center> <h3>Personal info</h3> </center>
+      <center> <h3>Личная информация</h3> </center>
 
 
       <div class="form-group">
-        <label id="first_name" class="col-lg-3 control-label">First name:</label>
+        <label id="first_name" class="col-lg-3 control-label">Имя:</label>
         <div class="col-lg-8">
           <input class="form-control" type="text" name="first_name" value="{{ uform.first_name.value }}">
         </div>
       </div>
       <div class="form-group">
-        <label id="last_name" class="col-lg-3 control-label">Last name:</label>
+        <label id="last_name" class="col-lg-3 control-label">Фамилия:</label>
         <div class="col-lg-8">
           <input class="form-control" type="text" name="last_name" value="{{ uform.last_name.value }}">
         </div>
@@ -149,10 +149,10 @@ My settings
       </div>
 
       <div class="form-group">
-        <label class="col-lg-3 control-label">Email subscribe:</label>
+        <label class="col-lg-3 control-label">Email рассылка:</label>
         <div class="col-lg-8">
           <div class="checkbox">
-            <input type="checkbox" name="subscribe_mailing" {% if pform.subscribe_mailing.value %} {{ 'checked' }} {% endif %} data-toggle="toggle" data-onstyle="default" data-on="Підписаний" data-off="Відписаний" data-size="small">
+            <input type="checkbox" name="subscribe_mailing" {% if pform.subscribe_mailing.value %} {{ 'checked' }} {% endif %} data-toggle="toggle" data-onstyle="default" data-on="Подписан" data-off="Отписан" data-size="small">
           </div>
         </div>
       </div>
@@ -162,10 +162,10 @@ My settings
       <div class="form-group">
         <label class="col-md-3 control-label"></label>
         <div class="col-md-8">
-          <input id="sbmit" type="button" class="btn btn-primary" value="Save Changes" onclick="this.form.submit();">
+          <input id="sbmit" type="button" class="btn btn-primary" value="Сохранить изменения" onclick="this.form.submit();">
           <!--<input id="sbmit" type="button" class="btn btn-primary" value="Save Changes" onclick="saveForm(this.form);>-->
           <span></span>
-          <input id="rset" type="button" class="btn btn-default" value="Cancel" onclick="resetForm(this.form);">
+          <input id="rset" type="button" class="btn btn-default" value="Отмена" onclick="resetForm(this.form);">
         </div>
       </div>
     </div>
