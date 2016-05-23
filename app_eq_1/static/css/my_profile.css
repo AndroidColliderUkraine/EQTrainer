@@ -1,16 +1,16 @@
 
 #wrapper {
   /*ширина відступу*/
-  padding-left: 100px;
+  padding-left: 201px;
   transition: all 0.4s ease 0s;
 }
 
 #sidebar-wrapper {
-  margin-left: -170px;
+  margin-left: -201px;
   top: 51px;
-  left: 170px;
+  left: 201px;
   /*ширина лівого меню*/
-  width: 170px;
+  width: 201px;
   background: #e0e0e0;
 
   position: fixed;
@@ -42,7 +42,7 @@
 .sidebar-nav {
   position: absolute;
   top: 0;
-  width: 170px;
+  width: 201px;
   list-style: none;
 
 }
@@ -115,12 +115,12 @@
 
 #wrapper.active {
   position: relative;
-  left: 170px;
+  left: 201px;
 }
 
 #wrapper.active #sidebar-wrapper {
-  left: 170px;
-  width: 170px;
+  left: 201px;
+  width: 201px;
   transition: all 0.4s ease 0s;
 }
 
