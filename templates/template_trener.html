@@ -2,7 +2,7 @@
 
     <script type="text/javascript">
         function myFunction(name, number, id) {
-            $.get('http://127.0.0.1/api/v1/Training/' + id  +'/',
+            $.get('/api/v1/Training/' + id  +'/',
                 {},
                 function(data) {
                     $('#ModelLessonText').html(data['text']);
