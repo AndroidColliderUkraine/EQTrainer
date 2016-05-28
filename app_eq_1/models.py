@@ -50,7 +50,7 @@ class Course(models.Model):
     price = models.IntegerField(default=0)
     video = models.URLField(blank=True, null=True)
 
-    # date = models.DateTimeField(auto_now_add=True, auto_now=False)
+    created = models.DateField(blank=True, null=True, help_text='Set date when does course created.')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     deleted = models.BooleanField(default=False)
 

@@ -2,6 +2,7 @@
     {% for course in course_list%}
     <div class="row" >
         <div class="col-xs-4">
+            <br>
             <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
@@ -12,9 +13,12 @@
             </a> -->
         </div>
         <div class="col-xs-8">
-            <h3>{{ course.name }}</h3>
+            <a style="color:#333333" href="/course/?id={{ course.id }}"><h3>{{ course.name }}</h3></a>
             <p class="text-justify">{{ course.text|truncatechars:800 }}</p>
-            <a class="btn btn-primary" href="/course/?id={{ course.id }}">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a>
+            <div>
+                <a class="btn btn-primary" href="/course/?id={{ course.id }}">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a>
+                <span class="pull-right"><h4>{{ course.created|date:"m-d-Y" }}</h4></span>
+            </div>
         </div>
     </div>
     <hr>

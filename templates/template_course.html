@@ -80,14 +80,20 @@
     <div class="row" >
         <div class="col-xs-7">
             <h1 class="text-center">{{ course.name }}</h1>
-            <h5 class="text-center">{{ course.tags }}</h5>
             <br>
-            {% if subscribe %}
-            <a class="btn btn-primary center-block" id='btn_unsubscribe'>Відписатись від курсу</a>
-            <!--  href="/unsubscribe_course/?id={{ course.id }}" -->
-            {% else %}
-            <a class="btn btn-primary center-block" id='btn_subscribe'>Пройти курс</a>
-            {% endif %}
+            <div class="row" >
+                <div class="col-xs-6">
+                {% if subscribe %}
+                <a class="btn btn-primary center-block" id='btn_unsubscribe'>Відписатись від курсу</a>
+                <!--  href="/unsubscribe_course/?id={{ course.id }}" -->
+                {% else %}
+                <a class="btn btn-primary center-block" id='btn_subscribe'>Пройти курс</a>
+                {% endif %}
+                </div>
+                <div class="col-xs-6">
+                    <span class="pull-right"><h4>{{ course.created|date:"m-d-Y" }}</h4></span>
+                </div>
+            </div>
         </div>
         <div class="col-xs-5">
             <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
@@ -99,6 +105,7 @@
     </div>
     <br>
     <br>
+    <hr>
 
     <p class="text-justify">{{ course.text }}</p>
 
