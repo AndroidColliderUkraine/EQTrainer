@@ -79,10 +79,15 @@
                     var total_count = parseInt(data['meta']['total_count']);
                     if (data['objects'].length){
                         data['objects'].forEach(function(element, index, array) {
+                            var today = new Date(element['updated']).toLocaleDateString('en-GB', {
+                                day : 'numeric',
+                                month : 'numeric', //'short'
+                                year : 'numeric'
+                            }).split(' ').join('-');
                             context.push({
                                 counter: total_count - offset - index,
                                 url: element['resource_uri'],
-                                updated: element['updated'],
+                                updated: today,
                                 date_start: element['date_start'],
                                 date_end: element['date_end']
                             });
@@ -123,10 +128,15 @@
                     var total_count = parseInt(data['meta']['total_count']);
                     if (data['objects'].length){
                         data['objects'].forEach(function(element, index, array) {
+                            var today = new Date(element['updated']).toLocaleDateString('en-GB', {
+                                day : 'numeric',
+                                month : 'numeric', //'short'
+                                year : 'numeric'
+                            }).split(' ').join('-');
                             context.push({
                                 counter: total_count - offset - index,
                                 url: element['resource_uri'],
-                                updated: element['updated'],
+                                updated: today,
                                 date_start: element['date_start'],
                                 date_end: element['date_end']
                                 });
