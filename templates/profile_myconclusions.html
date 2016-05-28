@@ -94,7 +94,8 @@
                         });
                         var html = tmpl.render(context);                            // Render template using context - as HTML string
                         $("#weekly_report_content").html(html);                     // Insert HTML string into DOM
-                        $('#w_h').text('Еженедельные отчеты [' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');
+                        <!--$('#w_h').text('Еженедельные отчеты [' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');-->
+                        $('#w_h_paginator').text('[' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');
                         $('#w_b_l').attr('onclick', 'weekly_reports_l(' + limit + ',' + Math.max(0, offset - limit) +')');
                         if (total_count <= offset + limit ) {
                             offset -= limit;
@@ -102,7 +103,8 @@
                         $('#w_b_r').attr('onclick', 'weekly_reports_r(' + limit + ',' + Math.min(total_count, offset + limit) +')');
                     }else{
                         $("#weekly_report_content").html('Здесь скоро появятся недельные отчеты.');                     // Insert HTML string into DOM
-                        $('#w_h').text('Еженедельные отчеты [0 .. 0]');
+                        $('#w_h').text('Еженедельные отчеты');
+                        $('#w_h_paginator').text('[0 .. 0]');
                     }
                 }
             );
@@ -143,7 +145,8 @@
                         });
                         var html = tmpl.render(context);                            // Render template using context - as HTML string
                         $("#monthly_report_content").html(html);                     // Insert HTML string into DOM
-                        $('#m_h').text('Ежемесячные отчеты [' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');
+                        <!--$('#m_h').text('Ежемесячные отчеты [' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');-->
+                        $('#m_h_paginator').text('[' + (total_count - offset) + ' .. ' + (total_count - Math.min(total_count, offset + limit) + 1) + ']');
                         $('#m_b_l').attr('onclick', 'monthly_reports_l(' + limit + ',' + Math.max(0, offset - limit) +')');
                         if (total_count <= offset + limit ) {
                             offset -= limit;
@@ -151,7 +154,7 @@
                         $('#m_b_r').attr('onclick', 'monthly_reports_r(' + limit + ',' + Math.min(total_count, offset + limit) +')');
                     }else{
                         $("#monthly_report_content").html('Здесь скоро появятся месячные отчеты.');                     // Insert HTML string into DOM
-                        $('#m_h').text('Ежемесячные отчеты [0 .. 0]');
+                        $('#m_h_paginator').text('[0 .. 0]');
                     }
                 }
             );
@@ -162,11 +165,12 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
-        <span id="w_h">Еженедельные отчеты []</span>
+        <span id="w_h">Еженедельные отчеты</span>
         <span class="pull-right">
             <button type="button" class="btn btn-default btn-xs" id="w_b_l" onclick="weekly_reports_l()">
                 <span aria-hidden="true">&laquo;</span>
             </button>
+            <span id="w_h_paginator"></span>
             <button type="button" class="btn btn-default btn-xs" id="w_b_r" onclick="weekly_reports_r()">
                 <span aria-hidden="true">&raquo;</span>
             </button>
@@ -181,11 +185,12 @@
 
 <div class="panel panel-info">
     <div class="panel-heading">
-        <span id="m_h">Ежемесячные отчеты []</span>
+        <span id="m_h">Ежемесячные отчеты</span>
         <span class="pull-right">
             <button type="button" class="btn btn-default btn-xs" id="m_b_l" onclick="monthly_reports_l()">
                 <span aria-hidden="true">&laquo;</span>
             </button>
+            <span id="m_h_paginator"></span>
             <button type="button" class="btn btn-default btn-xs" id="m_b_r" onclick="monthly_reports_r()">
                 <span aria-hidden="true">&raquo;</span>
             </button>
