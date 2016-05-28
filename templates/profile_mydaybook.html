@@ -1,5 +1,6 @@
 {% extends "profile.html" %}
 {% load i18n %}
+{% load staticfiles %}
 {% block title %}
 Дневник эмоций
 {{ block.super }}
@@ -250,7 +251,7 @@
         });
 
     </script>
-
+{% if emotion_activity.count %}
     <div class="row" >
         <div class="col-xs-7">
             <div id="container_1" style="min-width: 420px; max-width: 600px; height: 400px; margin: 0 auto"></div>
@@ -260,6 +261,13 @@
             <div id="container_2_2" style="height: 200px"></div>
         </div>
     </div>
+{% else %}
+    <center>
+        <br>
+        <img src="{% static 'img/graph.png' %}" alt="Mountain View" style="height: 50%;">
+        <h3 style="color: #a1a1a1">После указания эмоции в мобильном приложении здесь появится график.</h3>
+    </center>
+{% endif %}
 
 <div style="display:none">
     <!-- Source: http://or.water.usgs.gov/cgi-bin/grapher/graph_windrose.pl -->
