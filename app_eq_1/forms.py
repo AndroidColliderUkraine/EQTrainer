@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django 				import forms
 from django.utils.safestring import mark_safe
 
@@ -159,6 +160,17 @@ class MonthlyReportForm(forms.ModelForm):
 
 
 class TrainingForm(forms.ModelForm):
+    text = forms.CharField(
+        widget=forms.Textarea,
+        help_text=mark_safe("<xmp>Використовувати наступне:\n"
+                            "&nbsp; - пробіл\n"
+                            "<br> - перехід на наступний рядок\n"
+                            "<b>текст</> - жирний шрифт\n"
+                            "<i>текст</i> - курсив шрифт\n"
+                            "<u>текст</u> - підкреслений шрифт\n"
+                            "</xmp>")
+    )
+
     class Meta:
         model = Training
         fields = '__all__'
