@@ -1,37 +1,115 @@
-{% block footer%}
-    <footer class="footer">
-        <div class="container">
-            <br>
-            <div class="row text-left">
-                <div class="col-md-offset-10 col-md-2">
-                    <div class="my-navbar-text" >
-                        <a href="https://www.facebook.com/EQschool/?ref=br_rs" title="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a>
-                        <a href="#" title="Twitter"><i class="fa fa-twitter fa-2x"></i></a>
-                        <a href="#" title="Google Plus"><i class="fa fa-google-plus-square fa-2x"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="row text-left" >
-                <div class="col-md-offset-10 col-md-2">
-                    <div class="my-navbar-text">
-                        <a href="mailto:denyseq@ua.fm?Subject=Hello%20again" title="Mail"><i class="fa fa-envelope-square fa-2x"></i></a>
-                        <a href="mailto:denyseq@ua.fm?Subject=Hello%20again" target="_top">denyseq@ua.fm</a>
-                    </div>
-                </div>
-            </div>
-            <br>
-            <div class="row" >
-                <h1 class="text-muted">+38 063-356-13-57</h1>
-            </div>
-            <br>
-            <br>
-            <br>
-            <div class="row" >
-                <div class="col-md-offset-1 col-md-10">
-                    <p class="text-muted">Copyright © EQ-helper 2015</p>
-                </div>
-            </div>
+{% load staticfiles %}
 
-        </div>
-    </footer>
+{% block footer%}
+<!-- BEGIN footer -->
+<style>
+
+footer {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+
+
+
+  height: 200px;
+  background-color: #2d2d2d;
+  padding: 40px 0;
+  text-align: center; }
+  footer p {
+    color: #b3b3b3;
+    font-size: 14px;
+    font-weight: 200; }
+  footer ul a {
+    display: block;
+    color: #7f7f7f;
+    text-decoration: none;
+    margin-top: 10px;
+    -webkit-padding-start:0px;
+    font-size: 14px;
+    -webkit-transition: .3s ease-out;
+            transition: .3s ease-out; }
+    footer ul a:hover {
+      color: #fff; }
+  footer .col {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: -4px; }
+    footer .col:first-of-type {
+      margin-right: 50px;
+      text-align: left; }
+    footer .col:nth-of-type(2) {
+      padding-left: 50px;
+      padding-right: 50px;
+      border-left: 1px solid #4b4b4b;
+      border-right: 1px solid #4b4b4b; }
+    footer .col:last-of-type {
+      padding-left: 10px;
+      text-align: left; }
+      footer .col:last-of-type .personal-cabinet {
+        display: inline-block;
+        color: #fff;
+        margin-top: 0; }
+      footer .col:last-of-type .registration-footer {
+        display: inline-block;
+        margin-left: 10px;
+        margin-top: 0;
+        color: #f3a233; }
+      footer .col:last-of-type .personal-cabinet, footer .col:last-of-type .registration-footer {
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 200; }
+        footer .col:last-of-type .personal-cabinet:hover, footer .col:last-of-type .registration-footer:hover {
+          text-decoration: underline; }
+      footer .col:last-of-type ul {
+        margin-top: 0px; }
+
+</style>
+	<footer>
+		<div class="container">
+			<div class="row">
+                <div class="col">
+					<ul>
+                        <li style="text-align: left;">
+                            <p>Emotion Control. Все права защищены. 2016</p>
+                        </li>
+
+						<li style="text-align: left;">
+							<a href="/term-of-use">Конфиденциальность</a>
+						</li>
+						<li style="text-align: left;">
+							<a href="/term-of-use">Правила пользования</a>
+						</li>
+					</ul>
+				</div>
+				<div class="col ">
+					<p>Установите приложение уже сегодня</p>
+					<a href="/" class="googleplay"><img src="{% static 'img/index_new/googleplay.png' %}" alt="Загрузите на Google Play"></a>
+				</div>
+				<div class="col ">
+                    <ul>
+                        <li>
+                            <a href="/" class="personal-cabinet ">Личный кабинет</a>
+                            <a href="/" class="registration-footer">Регистрация</a>
+                        </li>
+						<li>
+							<a href="#">Дневник эмоций</a>
+						</li>
+						<li style="text-align: left;">
+							<a href="#" class="scroll-to" data-scroll=".sixth-screen">Тренажер эмоционального интелекта</a>
+						</li>
+						<li style="text-align: left;">
+							<a href="/trener" class="scroll-to" data-scroll=".eighth-screen">Карманный психолог</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+		</div>
+	</footer>
+<!-- END footer -->
 {% endblock %}
