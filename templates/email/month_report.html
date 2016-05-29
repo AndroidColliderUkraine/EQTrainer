@@ -24,7 +24,7 @@
 <br>
     {% if recommend_course_1 %}
         <hr>
-        <center><h2> Ось рекоменовані для вас Курси: </h2> </center>
+        <center><h2> Вот рекомендованы для вас Курсы: </h2> </center>
         <ul>
             {% if recommend_course_1 %}
                 <li><a href="{{ hostname }}/course?id={{ recommend_course_1.id }}">{{ recommend_course_1.name }}</a></li>
@@ -38,6 +38,6 @@
         </ul>
     {% endif %}
 <br>
-<a href="{{ hostname }}/unsubscribe_mailing?user_id={{ user.id }}">Відписатись від розсилки</a>
+<a href="{{ hostname }}/unsubscribe_mailing?user_id={{ user.id }}">Отписаться от рассылки</a>
 </body>
 </html>
