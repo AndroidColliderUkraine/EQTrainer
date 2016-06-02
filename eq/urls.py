@@ -12,6 +12,7 @@ from app_eq_1.api 				import UserResource
 from app_eq_1.api import WeeklyReportResource
 from app_eq_1.api import MonthlyReportResource
 from app_eq_1.api import TrainingResource
+from app_eq_1.api import UserProfileResource
 import settings
 
 v1_api = Api(api_name='v1')
@@ -25,6 +26,7 @@ v1_api.register(UserResource())
 v1_api.register(WeeklyReportResource())
 v1_api.register(MonthlyReportResource())
 v1_api.register(TrainingResource())
+v1_api.register(UserProfileResource())
 
 urlpatterns = [
     # Examples:

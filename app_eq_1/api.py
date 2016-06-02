@@ -8,6 +8,7 @@ from .models 					import EmotionalState
 from .models import WeeklyReport
 from .models import MonthlyReport
 from .models import Training
+from .models import UserProfile
 from tastypie.authorization 	import Authorization
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie.validation 		import FormValidation
@@ -29,6 +30,22 @@ class UserResource(ModelResource):
             'id': ALL,
             'username': ALL,
             'updated': ['exact', 'lt', 'lte', 'gte', 'gt'],
+        }
+        always_return_data = True
+        authorization = Authorization()
+
+
+class UserProfileResource(ModelResource):
+    user = fields.ForeignKey(UserResource, 'user')
+
+    class Meta:
+        queryset = UserProfile.objects.all()
+        resource_name = 'UserProfile'
+        # excludes = ['email', 'password', 'is_active', 'is_staff', 'is_superuser']
+        # fields = ['id', 'last_login']
+        # allowed_methods = ['get']
+        filtering = {
+            'user': ALL_WITH_RELATIONS,
         }
         always_return_data = True
         authorization = Authorization()
