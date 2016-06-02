@@ -103,6 +103,7 @@ class CourseResource(ModelResource):
         # allowed_methods = ['get']
         filtering = {
             'updated': ['exact', 'lt', 'lte', 'gte', 'gt'],
+            'id': ALL,
         }
         always_return_data = True
         authorization = Authorization()
@@ -114,6 +115,8 @@ class LessonResource(ModelResource):
         bundle.data['deleted_objects'] = deleted_objects
         return bundle
 
+    course = fields.ForeignKey(CourseResource, 'course', null=True, blank=True)
+
     class Meta:
         queryset = Lesson.objects.filter(deleted=False).all()
         resource_name = 'Lesson'
@@ -122,6 +125,7 @@ class LessonResource(ModelResource):
         # allowed_methods = ['get']
         filtering = {
             'user': ALL_WITH_RELATIONS,
+            'course': ALL_WITH_RELATIONS,
             'id': ALL,
             'updated': ['exact', 'lt', 'lte', 'gte', 'gt'],
         }
