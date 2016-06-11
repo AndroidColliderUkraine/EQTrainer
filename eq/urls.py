@@ -14,6 +14,7 @@ from app_eq_1.api import MonthlyReportResource
 from app_eq_1.api import TrainingResource
 from app_eq_1.api import UserProfileResource
 import settings
+from app_eq_1.views import ResetPasswordRequestView, PasswordResetConfirmView
 
 v1_api = Api(api_name='v1')
 v1_api.register(CourseResource())
@@ -71,5 +72,9 @@ urlpatterns = [
     url(r'^subscribe_course/', 'app_eq_1.views.subscribe_course', name='subscribe_course'),
     url(r'^unsubscribe_course/', 'app_eq_1.views.unsubscribe_course', name='unsubscribe_course'),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT})
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
+
+    url(r'^account/reset_password_confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView.as_view(), name='reset_password_confirm'),
+    url(r'^account/reset_password', ResetPasswordRequestView.as_view(), name="reset_password"),
+
 ]

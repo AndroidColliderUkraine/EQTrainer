@@ -9,6 +9,50 @@
 	<script src="{% static 'js/jquery.min.js' %}"></script>
 	<script type="text/javascript">
 	window.onload = function () {
+
+		$('#reset-pass-form').submit(function(ev) {
+
+
+			ev.preventDefault(); // to stop the form from submitting
+
+			var token = $('input[name="csrfmiddlewaretoken"]').prop('value');
+			jQuery.ajax({
+				type: 'POST',
+				url: '/account/reset_password',
+				data: {
+						'csrfmiddlewaretoken': token,
+						'email_or_username': $('#id_email_res').val()
+					},
+				dataType: 'json',
+				success: function(data) {
+						console.log('REG RETURN');
+						console.log(data.responseText);
+						console.log(data['error']);
+
+						if (data['error'] == 'None') {
+							if (data['success'] != 'None') {
+								$('#reset_pass_success').text(data['success']);
+							}else{
+								window.location = '/profile/mysetting'
+							}
+						}else {
+							$('#reset_pass_error').text(data['error']);
+						}
+					},
+				error: function(xhr, textStatus, error){
+					console.log('RESET ERROR');
+					console.log(xhr.statusText);
+					console.log(textStatus);
+					console.log(error);
+				}
+			});
+
+
+			<!--this.submit(); // If all the validations succeeded-->
+		});
+
+
+
 		$('#registration-form').submit(function(ev) {
 			ev.preventDefault(); // to stop the form from submitting
 			/* Validations go here */
@@ -117,7 +161,7 @@
 							<input type="password" name="password" id="id_password" placeholder="Пароль">
 							<input type="submit" name="submit_log" value="Войти">
 							<div class="form-links">
-								<a href="#" class="forget-psw">Забыли пароль?</a>
+								<a href="#" class="forget-psw modal-open" data-modal="#modal-reset-pass">Забыли пароль?</a>
 								<a href="#" class="registration modal-open" data-modal="#modal-registration">Регистрация</a>
 							</div>
 							<input type="hidden" name="next" value="/" />
@@ -439,6 +483,25 @@
 		</p>
 
 	</div>
+	<!--modal-reset-pass-->
+	<div class="modal" id="modal-reset-pass">
+		<a href="#" class="modal-close"><img height="32" width="32" src="{% static 'img/index_new/close.png' %}"></a>
+		<p class="modal-title">Забыли пароль</p>
+		<form id="reset-pass-form" method="post" style="margin-top: 20px">
+			{% csrf_token %}
+				<p id="reset_pass_error" style="color: #F3A233"></p>
+				<p id="reset_pass_success" style="color: #33f3a2"></p>
+                <p class="required">
+                    <input id="id_email_res" name="email_or_username" type="email" placeholder="Email"/>
+                </p>
+				<!--<input id="id_password1" name="password1" type="password" placeholder="Пароль"/>-->
+				<!--<input id="id_password2" name="password2" type="hidden" />-->
+				<!--<input type="hidden" name="next" value="/profile/mysetting" />-->
+				<input type="submit" name="submit_reset_pass" value="Забыли пароль">
+		</form>
+	</div>
+	<!--modal-reset-pass-->
+
 	<div class="modal" id="modal-video">
 		<a href="#" class="modal-close"><img height="32" width="32" src="{% static 'img/index_new/close.png' %}"></a>
 		<iframe width="560" height="315" src="https://www.youtube.com/v/MJJj0BBrWOE?showinfo=0&rel=0" allowfullscreen></iframe>

@@ -995,7 +995,7 @@ Modal windows
     font-size: 28px;
     font-weight: 700; }
   .modal form {
-    margin-top: 40px;
+    margin-top: 20px;
     width: 410px;
     display: inline-block; }
   .modal input {
@@ -1037,6 +1037,9 @@ Modal windows
       color: #7a7a7a; }
 
 #modal-registration {
+  padding: 30px 20px; }
+
+#modal-reset-pass {
   padding: 30px 20px; }
 
 .modal-close {

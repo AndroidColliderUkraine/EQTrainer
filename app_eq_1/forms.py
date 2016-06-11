@@ -16,6 +16,7 @@ from .models import UserProfile
 from redactor.widgets import RedactorEditor
 from django.contrib.auth.models 	import User
 from django.core.files.images import get_image_dimensions
+from django import forms
 
 
 class UserRegistrationForm(forms.ModelForm):
@@ -188,3 +189,30 @@ class UserForm(forms.ModelForm):
         fields = ["email", "first_name", "last_name"]
 
 
+class PasswordResetRequestForm(forms.Form):
+    email_or_username = forms.CharField(label="Email", max_length=254)
+
+
+class SetPasswordForm(forms.Form):
+    """
+    A form that lets a user change set their password without entering the old
+    password
+    """
+    error_messages = {
+        'password_mismatch': (u"Два поля пароля не совпадают."),
+        }
+    new_password1 = forms.CharField(label=("New password"),
+                                    widget=forms.PasswordInput)
+    new_password2 = forms.CharField(label=("New password confirmation"),
+                                    widget=forms.PasswordInput)
+
+    def clean_new_password2(self):
+        password1 = self.cleaned_data.get('new_password1')
+        password2 = self.cleaned_data.get('new_password2')
+        if password1 and password2:
+            if password1 != password2:
+                raise forms.ValidationError(
+                    self.error_messages['password_mismatch'],
+                    code='password_mismatch',
+                    )
+        return password2
