@@ -1,5 +1,5 @@
 from django.contrib 		import admin
-
+from django.contrib.auth.models import User
 from .forms 				import CourseForm
 from .forms 				import LessonForm
 from .forms 				import ArticleAdminForm
@@ -24,62 +24,95 @@ from .models import Training
 from .models import Conclusions
 from .models import UserProfile
 from django.contrib.auth.admin import UserAdmin
+from helps import forced_login
+from django.shortcuts import redirect
 
-UserAdmin.list_display = ('username', 'id', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
+
+# UserAdmin.list_display = ('username', 'id', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
+
+
+class EqUserAdmin(UserAdmin):
+    actions = [
+        'impersonate_user',
+    ]
+    list_display = ('username', 'id', 'email', 'first_name', 'last_name', 'is_active', 'date_joined', 'is_staff')
+
+    def impersonate_user(self, request, queryset):
+        if queryset.count() != 1:
+            # messages.error(request, "Can impersonate only one user")
+            self.message_user(request, "Can impersonate only one user")
+            return
+        person = queryset.all()[0]
+        forced_login(request, person, False)
+        return redirect('/')
+
+    impersonate_user.short_description = "Impersonate user"
+
+    def get_actions(self, request):
+        actions = super(EqUserAdmin, self).get_actions(request)
+        return actions
+
+    def __init__(self, *args, **kwargs):
+        super(EqUserAdmin, self).__init__(*args, **kwargs)
+
 
 class UserProfileAdmin(admin.ModelAdmin):
-	list_display = ['id', "user", "avatar", "subscribe_mailing"]
-	form = UserProfileForm
+    list_display = ['id', "user", "avatar", "subscribe_mailing"]
+    form = UserProfileForm
 
 
 class CourseAdmin(admin.ModelAdmin):
-	list_display = ['id', "__unicode__", "state", "price", "updated", "deleted"]
-	form = CourseForm
+    list_display = ['id', "__unicode__", "state", "price", "updated", "deleted"]
+    form = CourseForm
 
 
 class LessonAdmin(admin.ModelAdmin):
-	list_display = ['id', "__unicode__", "course", "state", "updated", "deleted"]
-	form = LessonForm
+    list_display = ['id', "__unicode__", "course", "state", "updated", "deleted"]
+    form = LessonForm
 
 
 class ArticleAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "state", "updated", "deleted"]
-	form = ArticleAdminForm
+    list_display = ["__unicode__", "state", "updated", "deleted"]
+    form = ArticleAdminForm
 
 
 class UserCourseAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "course", "status",  "updated", "deleted"]
-	form = UserCourseForm
+    list_display = ["__unicode__", "user", "course", "status",  "updated", "deleted"]
+    form = UserCourseForm
 
 
 class ActionAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user_course", "lesson", "updated", "deleted"]
-	form = ActionForm
+    list_display = ["__unicode__", "user_course", "lesson", "updated", "deleted"]
+    form = ActionForm
 
 
 class EmotionalStateAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "user", "emotion", "activity", "subjectivity", "confidence", "updated", "deleted"]
-	form = EmotionalStateForm
+    list_display = ["__unicode__", "user", "emotion", "activity", "subjectivity", "confidence", "updated", "deleted"]
+    form = EmotionalStateForm
 
 
 class WeeklyReportAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "id", "user", "date_start", "date_end", "updated", "deleted"]
-	form = WeeklyReportForm
+    list_display = ["__unicode__", "id", "user", "date_start", "date_end", "updated", "deleted"]
+    form = WeeklyReportForm
 
 
 class MonthlyReportAdmin(admin.ModelAdmin):
-	list_display = ["__unicode__", "id", "user", "date_start", "date_end", "updated", "deleted"]
-	form = MonthlyReportForm
+    list_display = ["__unicode__", "id", "user", "date_start", "date_end", "updated", "deleted"]
+    form = MonthlyReportForm
 
 
 class TrainingAdmin(admin.ModelAdmin):
-	list_display = ["id", "name", "updated", "deleted"]
-	form = TrainingForm
+    list_display = ["id", "name", "updated", "deleted"]
+    form = TrainingForm
 
 
 class ConclusionsAdmin(admin.ModelAdmin):
-	list_display = ["id", "text", "emotion", "activity", "updated", "deleted"]
-	form = ConclusionsForm
+    list_display = ["id", "text", "emotion", "activity", "updated", "deleted"]
+    form = ConclusionsForm
+
+
+admin.site.unregister(User)
+admin.site.register(User, EqUserAdmin)
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Course, CourseAdmin)
