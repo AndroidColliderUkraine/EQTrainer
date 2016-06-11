@@ -76,7 +76,7 @@ class Course(models.Model):
                     # email_message = Engine().from_string('email/email_subscribe_course_paid.html').render(context)
                 from tasks import send_email
                 send_email.delay(
-                    EMAIL_SUBJECT=u"Вітаємо з підпискою на курс: '%s'." % course.name,
+                    EMAIL_SUBJECT=u"Поздравляем с подпиской на курс: '%s'." % course.name,
                     EMAIL_EMAIL_FROM='eq@eq.com',
                     EMAIL_EMAIL_TO=user.email,
                     HTML_EMAIL_MESSAGE=email_message
