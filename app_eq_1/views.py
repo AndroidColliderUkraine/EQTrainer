@@ -543,6 +543,9 @@ def profile_my_setting(request):
     # userProfile, created = UserProfile.objects.get_or_create(user=request.user, avatar=None)
     pform = UserProfileForm(instance=request.user.profile)
     context = {
+        'domain': request.META['HTTP_HOST'],
+        'uid': urlsafe_base64_encode(force_bytes(request.user.pk)),
+        'token': default_token_generator.make_token(request.user),
         "trainings": '',
         "uform": uform,
         "pform": pform,
@@ -656,7 +659,7 @@ class ResetPasswordRequestView(FormView):
                         c = {
                             'email': user.email,
                             'domain': request.META['HTTP_HOST'],
-                            'site_name': 'your site',
+                            'site_name': 'EQ',
                             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                             'user': user,
                             'token': default_token_generator.make_token(user),

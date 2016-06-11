@@ -177,6 +177,12 @@
     </div>
   </form>
 </div>
+
+
+
+{% block reset_link %}
+  <a href="http://{{ domain }}{% url 'reset_password_confirm' uidb64=uid token=token %}"><button class="btn btn-default">Изменить пароль</button></a>
+{% endblock %}
 <hr>
 <input id="temp_page" type="hidden" value="settings">
 {% endblock %}
