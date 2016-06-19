@@ -109,7 +109,9 @@ class TrainingResource(ModelResource):
 class CourseResource(ModelResource):
     def dehydrate(self, bundle):
         deleted_objects = Course.objects.filter(deleted=True).all().values('id')
+        lessons_quantity = Lesson.objects.filter(course__id=int(bundle.data['id'])).count()
         bundle.data['deleted_objects'] = deleted_objects
+        bundle.data['lessonsQuantity'] = lessons_quantity
         return bundle
 
     class Meta:
