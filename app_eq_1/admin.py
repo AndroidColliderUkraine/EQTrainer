@@ -62,12 +62,15 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ['id', "__unicode__", "state", "price", "updated", "deleted"]
+    list_display = ['id', "__unicode__", "state", "price", "price_rub", "price_dol", "updated", "deleted"]
     form = CourseForm
 
 
 class LessonAdmin(admin.ModelAdmin):
     list_display = ['id', "__unicode__", "course", "state", "updated", "deleted"]
+    list_filter = (
+        ('course', admin.RelatedOnlyFieldListFilter),
+    )
     form = LessonForm
 
 

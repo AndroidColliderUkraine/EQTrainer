@@ -47,7 +47,9 @@ class Course(models.Model):
     photo = models.URLField(blank=True, null=True, help_text='Recommended size: 1024 × 768.')
     icon = models.URLField(blank=True, null=True, help_text='PNG, 192 × 192.')
     state = models.CharField(choices=STATE, max_length=20, blank=False, null=True, default='not_active')
-    price = models.IntegerField(default=0)
+    price = models.IntegerField(default=0, help_text='Price of Ukrainian hryvnia.')
+    price_rub = models.IntegerField(default=0, help_text='Price in rubles.')
+    price_dol = models.IntegerField(default=0, help_text='Price in US dollars.')
     video = models.URLField(blank=True, null=True)
 
     created = models.DateField(blank=True, null=True, help_text='Set date when does course created.')

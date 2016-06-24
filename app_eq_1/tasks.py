@@ -258,7 +258,7 @@ def send_email_lesson(lesson_id, user_id):
             "lesson": lesson,
         }
 
-        EMAIL_SUBJECT = u'EmoControl, Ваш курс: %s, урок[%s]: %s' % (lesson.course.name, str(lesson.number), lesson.name)
+        EMAIL_SUBJECT = u'Ваш курс: %s, урок (%s): %s' % (lesson.course.name, str(lesson.number), lesson.name)
         HTML_EMAIL_MESSAGE = render_to_string('email/lesson.html', context)
         EMAIL_EMAIL_FROM = 'eq@eq.com'
         EMAIL_EMAIL_TO = user.email
