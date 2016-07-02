@@ -41,7 +41,7 @@ class UserProfile(models.Model):
 
 
 class Course(models.Model):
-    name = models.CharField(max_length=500, blank=True, null=True)
+    name = models.CharField(max_length=500, blank=True, null=True, unique=True)
     tags = models.CharField(max_length=500, blank=True, null=True)
     text = models.TextField(max_length=5000, blank=True, null=True)
     photo = models.URLField(blank=True, null=True, help_text='Recommended size: 1024 × 768.')
@@ -57,7 +57,7 @@ class Course(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return unicode(self.name)
+        return unicode(self.name) + u'|' + ('DELETED' if self.deleted else 'ACTIVE')
 
     @staticmethod
     def subscribe(course_id, user_id):
