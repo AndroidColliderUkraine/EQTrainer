@@ -75,6 +75,11 @@ class LessonAdmin(admin.ModelAdmin):
     )
     form = LessonForm
 
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields + ('course',)
+        return self.readonly_fields
+
 
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ["__unicode__", "state", "updated", "deleted"]
@@ -84,6 +89,11 @@ class ArticleAdmin(admin.ModelAdmin):
 class UserCourseAdmin(admin.ModelAdmin):
     list_display = ["__unicode__", "user", "course", "status",  "updated", "deleted"]
     form = UserCourseForm
+
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields + ('user', 'course', 'last_lesson')
+        return self.readonly_fields
 
 
 class ActionAdmin(admin.ModelAdmin):
@@ -115,6 +125,10 @@ class ConclusionsAdmin(admin.ModelAdmin):
     list_display = ["id", "text", "emotion", "activity", "updated", "deleted"]
     form = ConclusionsForm
 
+    def get_readonly_fields(self, request, obj=None):
+        if obj:
+            return self.readonly_fields + ('emotion', 'activity')
+        return self.readonly_fields
 
 admin.site.unregister(User)
 admin.site.register(User, EqUserAdmin)
