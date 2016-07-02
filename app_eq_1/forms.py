@@ -96,6 +96,17 @@ class UserProfileForm(forms.ModelForm):
 
 
 class CourseForm(forms.ModelForm):
+    text = forms.CharField(
+        widget=forms.Textarea(attrs={'cols': 120, 'rows': 25}),
+        help_text=mark_safe("<xmp>Використовувати наступне:\n"
+                            "&nbsp; - пробіл\n"
+                            "<br> - перехід на наступний рядок\n"
+                            "<b>текст</> - жирний шрифт\n"
+                            "<i>текст</i> - курсив шрифт\n"
+                            "<u>текст</u> - підкреслений шрифт\n"
+                            "</xmp>")
+    )
+
     class Meta:
         model = Course
         fields = '__all__'
@@ -104,8 +115,15 @@ class CourseForm(forms.ModelForm):
 
 class LessonForm(forms.ModelForm):
     text = forms.CharField(
-        widget=forms.Textarea,
-        help_text=mark_safe("<xmp>You can use link in text: <a href='http://www.emocontrol.net/'>EmoControl</a></xmp>")
+        widget=forms.Textarea(attrs={'cols': 120, 'rows': 25}),
+        help_text=mark_safe("<xmp>Використовувати наступне:\n"
+                            "&nbsp; - пробіл\n"
+                            "<br> - перехід на наступний рядок\n"
+                            "<b>текст</> - жирний шрифт\n"
+                            "<i>текст</i> - курсив шрифт\n"
+                            "<u>текст</u> - підкреслений шрифт\n"
+                            "<a href='http://www.emocontrol.net/'>EmoControl</a> - посилання\n"
+                            "</xmp>")
     )
 
     class Meta:
@@ -162,7 +180,7 @@ class MonthlyReportForm(forms.ModelForm):
 
 class TrainingForm(forms.ModelForm):
     text = forms.CharField(
-        widget=forms.Textarea,
+        widget=forms.Textarea(attrs={'cols': 120, 'rows': 25}),
         help_text=mark_safe("<xmp>Використовувати наступне:\n"
                             "&nbsp; - пробіл\n"
                             "<br> - перехід на наступний рядок\n"
@@ -178,6 +196,17 @@ class TrainingForm(forms.ModelForm):
 
 
 class ConclusionsForm(forms.ModelForm):
+    text = forms.CharField(
+        widget=forms.Textarea(attrs={'cols': 120, 'rows': 25}),
+        help_text=mark_safe("<xmp>Використовувати наступне:\n"
+                            "&nbsp; - пробіл\n"
+                            "<br> - перехід на наступний рядок\n"
+                            "<b>текст</> - жирний шрифт\n"
+                            "<i>текст</i> - курсив шрифт\n"
+                            "<u>текст</u> - підкреслений шрифт\n"
+                            "</xmp>")
+    )
+
     class Meta:
         model = Conclusions
         fields = '__all__'
