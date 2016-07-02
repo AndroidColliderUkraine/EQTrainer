@@ -57,7 +57,7 @@ class Course(models.Model):
     deleted = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return unicode(self.name) + u'|' + ('DELETED' if self.deleted else 'ACTIVE')
+        return unicode(self.name)
 
     @staticmethod
     def subscribe(course_id, user_id):
