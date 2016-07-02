@@ -248,10 +248,10 @@
 
         <tr nowrap bgcolor="#CCCCFF">
             <th class="freq">Direction</th>
-            {% for key, name in user_activity %}
-                <th class="freq">{{ name }}</th>
+            {% for key, name in user_emotions %}
+                <th class="freq">{{ name }} </th>
             {% endfor %}
-{#            <th class="freq">Всего</th>#}
+
         </tr>
         {% for name, value in emotion_activity %}
             <tr nowrap>
