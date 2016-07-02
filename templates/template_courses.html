@@ -27,27 +27,39 @@
         <div class="col-lg-12">
             <ul class="pagination">
                 {% if course_list.has_previous %}
-                <li>
-                    <a href="?page={{ course_list.previous_page_number }}">&laquo;</a>
-                </li>
+                    <li>
+                        <a href="?page={{ course_list.previous_page_number }}">&laquo;</a>
+                    </li>
                 {% else %}
-                <li class="disabled">
-                    <a href="" style="pointer-events: none; cursor: default;" >&laquo;</a>
-                </li>
+                    <li class="disabled">
+                        <a href="" style="pointer-events: none; cursor: default;" >&laquo;</a>
+                    </li>
                 {% endif %}
-
+                {% if course_list.number != 1 %}
+                    <li>
+                        <a href="?page=1">1</a>
+                    </li>
+                {% endif %}
+                {% if course_list.number > 2 %}
+                    <li><a>...</a></li>
+                {% endif %}
                 <li class="active">
                      <a href="?page={{ course_list.number }}">{{ course_list.number }}</a>
                 </li>
-
-                {% if course_list.has_next %}
-                <li>
-                    <a href="?page={{ course_list.next_page_number }}">&raquo;</a>
-                </li>
+                {% if course_list.number < course_list.paginator.num_pages %}
+                    <li><a>...</a></li>
+                {% endif %}
+                {% if course_list.paginator.num_pages  !=  course_list.number %}
+                    <li>
+                        <a href="?page={{ course_list.paginator.num_pages }}">{{ course_list.paginator.num_pages }}</a>
+                    </li>
+                    <li>
+                        <a href="?page={{ course_list.next_page_number }}">&raquo;</a>
+                    </li>
                 {% else %}
-                <li class="disabled">
-                    <a href="" style="pointer-events: none; cursor: default;">&raquo;</a>
-                </li>
+                    <li class="disabled">
+                        <a href="" style="pointer-events: none; cursor: default;">&raquo;</a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

@@ -16,7 +16,7 @@ from django.http import JsonResponse
 import datetime
 import pytz
 from django.db.models import Sum
-from constants import USER_EMOTIONS, USER_ACTIVITY, TIME_FORMAT
+from constants import USER_EMOTIONS, USER_ACTIVITY, TIME_FORMAT, COURSE_PER_PAGE
 import logging
 logger = logging.getLogger(__name__)
 
@@ -92,7 +92,7 @@ def courses_public(request):
     from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     try:
         course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')
-        paginator = Paginator(course_list, 2)
+        paginator = Paginator(course_list, COURSE_PER_PAGE)
         page = request.GET.get('page')
         try:
             courses = paginator.page(page)
@@ -118,15 +118,13 @@ def courses_private(request):
     from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     try:
         course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')
-        paginator = Paginator(course_list, 2)
+        paginator = Paginator(course_list, COURSE_PER_PAGE)
         page = request.GET.get('page')
         try:
             courses = paginator.page(page)
         except PageNotAnInteger:
-            print 'OOOOOOOOOOOOo 1'
             courses = paginator.page(1)
         except EmptyPage:
-            print 'OOOOOOOOOOOOo 2'
             courses = paginator.page(paginator.num_pages)
     except Exception, e:
         print "e:", e
