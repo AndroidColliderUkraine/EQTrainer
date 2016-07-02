@@ -359,76 +359,19 @@ def profile_myusercourse(request):
 
 
 def profile_mydaybook(request):
-    print "I'm in profile_mydaybook"
+    from datetime import timedelta
+    some_day_this_week = datetime.datetime.now().date()
 
-    confidence_reports = 0
-    confidence_reports_total = 0
-    subjectivity_reports = 0
-    subjectivity_reports_total = 0
-    emotion_activity = []
+    date_start = some_day_this_week - timedelta(days=(some_day_this_week.isocalendar()[2] - 1))
+    date_end = date_start + timedelta(days=7)
+    user_id = int(request.user.id)
 
-    try:
-        from datetime import timedelta
-        some_day_this_week = datetime.datetime.now().date()
-        monday_of_this_week = some_day_this_week - timedelta(days=(some_day_this_week.isocalendar()[2] - 1))
-        print 'monday_of_this_week', monday_of_this_week, type(monday_of_this_week)
+    context = get_context_for_reports(
+        user_id=user_id,
+        date_start=date_start,
+        date_end=date_end
+    )
 
-        confidence_reports = request.user.emotionalstate_set.\
-            filter(deleted=False).\
-            filter(updated__gte=monday_of_this_week).\
-            aggregate(Sum('confidence'))['confidence__sum']
-        confidence_reports_total = request.user.emotionalstate_set.\
-            filter(deleted=False).\
-            filter(updated__gte=monday_of_this_week).\
-            count() * 100
-        confidence_reports_total = 100 if confidence_reports_total == 0 else confidence_reports_total
-        confidence_reports = 0 if confidence_reports is None else confidence_reports
-
-        subjectivity_reports = request.user.emotionalstate_set.\
-            filter(deleted=False).\
-            filter(updated__gte=monday_of_this_week).\
-            aggregate(Sum('subjectivity'))['subjectivity__sum']
-        subjectivity_reports_total = request.user.emotionalstate_set.\
-            filter(deleted=False).\
-            filter(updated__gte=monday_of_this_week).\
-            count() * 100
-        subjectivity_reports_total = 100 if subjectivity_reports_total == 0 else subjectivity_reports_total
-        subjectivity_reports = 0 if subjectivity_reports is None else subjectivity_reports
-
-        print 'Test_ print'
-        # print 'USER_EMOTIONS', USER_EMOTIONS
-        for activity, name_a in USER_ACTIVITY:
-            # print '---', emotion, name_e
-            temp = []
-            sum = 0
-            for emotion, name_e in USER_EMOTIONS:
-                a = request.user.emotionalstate_set.\
-                    filter(deleted=False).\
-                    filter(updated__gte=monday_of_this_week).\
-                    filter(emotion=emotion).\
-                    filter(activity=activity).\
-                    count()
-                # print 'EM:', name_a,
-                sum += int(a)
-                temp.append(a)
-            temp.append(sum)
-            emotion_activity.append([name_a, temp])
-
-        # for a, b in emotion_activity:
-        #     print 'AAA', a, '|||', b
-
-    except Exception, e:
-        print "e:", e
-
-    context = {
-        "confidence_reports": confidence_reports,
-        "confidence_reports_total": confidence_reports_total,
-        "subjectivity_reports": subjectivity_reports,
-        "subjectivity_reports_total": subjectivity_reports_total,
-        "user_emotions": USER_EMOTIONS,
-        "user_activity": USER_ACTIVITY,
-        "emotion_activity": emotion_activity,
-    }
     return render(request, "profile_mydaybook.html", context)
 
 
@@ -617,7 +560,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template import loader
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from tasks import send_email
+from tasks import send_email, get_context_for_reports
 from django.views.generic import *
 from forms import PasswordResetRequestForm, SetPasswordForm
 from django.contrib import messages
