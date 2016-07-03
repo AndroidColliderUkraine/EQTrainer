@@ -118,14 +118,15 @@ DATABASES = {
     },
 }
 
+# python manage.py syncdb
 # python manage.py dumpdata app_eq_1.Course app_eq_1.Lesson app_eq_1.Article app_eq_1.Training app_eq_1.Conclusions > app_eq_1.json
 # python manage.py loaddata app_eq_1.json
 
-# python manage.py dumpdata app_eq_1.UserCourse app_eq_1.Action app_eq_1.EmotionalState app_eq_1.WeeklyReport app_eq_1.MonthlyReport > app_eq_1_f.json
-# python manage.py loaddata app_eq_1_f.json
-
 # python manage.py dumpdata auth.User auth.Group > usersandgroups.json
 # python manage.py loaddata usersandgroups.json
+
+# python manage.py dumpdata app_eq_1.UserCourse app_eq_1.Action app_eq_1.EmotionalState app_eq_1.WeeklyReport app_eq_1.MonthlyReport > app_eq_1_f.json
+# python manage.py loaddata app_eq_1_f.json
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
