@@ -54,7 +54,8 @@ INSTALLED_APPS = (
     'djoser',
     'djcelery',
     # 'tinymce',
-     'redactor',
+    'redactor',
+    'dbbackup',
 
     # 'django.contrib.sites',
     # 'registration',
@@ -91,17 +92,40 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'eq.wsgi.application'
 
+DBBACKUP_STORAGE = 'dbbackup.storage.filesystem_storage'
+DBBACKUP_STORAGE_OPTIONS = {'location': './backups'}
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'eq_database',
+        'USER': 'eq_database',
+        'PASSWORD': 'eq_database',
+        'HOST': 'postgres',
+        'PORT': '5432',
+        'unicode_results': True,
+    },
 }
 
+# python manage.py dumpdata app_eq_1.Course app_eq_1.Lesson app_eq_1.Article app_eq_1.Training app_eq_1.Conclusions > app_eq_1.json
+# python manage.py loaddata app_eq_1.json
+
+# python manage.py dumpdata app_eq_1.UserCourse app_eq_1.Action app_eq_1.EmotionalState app_eq_1.WeeklyReport app_eq_1.MonthlyReport > app_eq_1_f.json
+# python manage.py loaddata app_eq_1_f.json
+
+# python manage.py dumpdata auth.User auth.Group > usersandgroups.json
+# python manage.py loaddata usersandgroups.json
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

@@ -13,6 +13,15 @@ django:
    - .:/project
   links:
    - redis
+   - postgres
 redis:
   image: redis:latest
   command: redis-server --appendonly yes
+
+postgres:
+  image: postgres:9.4
+  volumes:
+    - eq_postgres:/var/lib/postgresql/data
+  environment:
+    POSTGRES_PASSWORD: "eq_database"
+    POSTGRES_USER: "eq_database"

@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app_eq_1', '0031_auto_20160326_1506'),
+        ('app_eq_1', '0050_auto_20160702_1456'),
     ]
 
     operations = [
-        migrations.AlterField(
+        migrations.AddField(
             model_name='userprofile',
-            name='avatar',
-            field=models.ImageField(default=b'avatars/default.png', upload_to=b'avatars'),
+            name='subscribe_mailing',
+            field=models.BooleanField(default=True),
         ),
     ]
