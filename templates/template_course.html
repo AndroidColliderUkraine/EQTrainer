@@ -2,7 +2,6 @@
     <script type="text/javascript">
         $(function() {
             $("#btn_unsubscribe").click(function(){
-                console.log('Clicked')
                 $(document).ready(function(){
                     $("#myModalBox").modal('show');
                 });
@@ -11,7 +10,6 @@
 
         $(function() {
             $("#btn_unsubscribe_2").click(function(){
-                console.log('Clicked btn_unsubscribe_2')
                 $("#myModalBox").modal('hide');
                 $.ajax({
                     url : "/unsubscribe_course/",
@@ -32,7 +30,6 @@
                         console.log("Unsuccess"); // another sanity check
                     }
                 });
-{#                location.loca='//courses/'#}
                 window.location = '/courses/'
             });
         });
@@ -46,31 +43,23 @@
                         course_id: '{{ course.id }}',
                         user_id: '{{ user.id }}',
                     },
-
                     // handle a successful response
                     success : function(json) {
-                        console.log(json); // log the returned json to the console
-                        console.log("Success"); // another sanity check
-
-
                         $(document).ready(function(){
                             $("#myModalBox_subscribe").modal('show');
                         });
 
                     },
-
                     // handle a non-successful response
                     error : function(xhr,errmsg,err) {
                         console.log("Unsuccess"); // another sanity check
                     }
                 });
-                //window.location = '/profile/mycourses'
             });
         });
 
         $(function() {
             $("#btn_subscribe_2").click(function(){
-                console.log('Clicked btn_subscribe_2')
                 window.location = '/profile/mycourses'
             });
         });
@@ -80,16 +69,14 @@
     .b111 {
         background-color: #F9FAFA;
         border: 1px solid #edeff0;
-{#        position: relative;#}
+        position: relative;
         padding: 5px 20px 20px 20px;
         height: inherit;
-
     }
-
     </style>
-    <div class="row" >
-        <div class="col-xs-7" style="padding-right: 9px;">
-            <div class="b111">
+    <div class="b111">
+        <div class="row" >
+            <div class="col-xs-7" style="padding-right: 9px;">
                 <h3 class="text-center">{{ course.name }}</h3>
                 <br>
                 <div class="row" >
@@ -112,14 +99,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-5">
-{#                <div class="b111">#}
-                <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
+            <div class="col-xs-5">
+                <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube" style="padding-top: 15px;">
                     <div class="embed-responsive embed-responsive-16by9">
                         <iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
                     </div>
-{#                    </div>#}
+                </div>
             </div>
         </div>
     </div>
