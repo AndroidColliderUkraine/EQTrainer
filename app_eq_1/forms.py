@@ -100,7 +100,7 @@ class CourseForm(forms.ModelForm):
         widget=forms.Textarea(attrs={'cols': 120, 'rows': 25}),
         help_text=mark_safe("<xmp>Використовувати наступне:\n"
                             "&nbsp; - пробіл\n"
-                            "<br> - перехід на наступний рядок\n"
+                            "<br> - перехід на наступний рядок aбо просто enter\n"
                             "<b>текст</> - жирний шрифт\n"
                             "<i>текст</i> - курсив шрифт\n"
                             "<u>текст</u> - підкреслений шрифт\n"

@@ -114,8 +114,9 @@
     <br>
     <hr>
 
-    <p class="text-justify">{{ course.text }}</p>
-
+    <p class="text-justify">
+        {{ course.text|safe|linebreaks }}
+    </p>
 
 {#    --------------------------------------------------------------------------------------------------------------#}
     <div id="myModalBox" class="modal fade">

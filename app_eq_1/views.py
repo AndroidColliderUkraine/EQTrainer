@@ -91,7 +91,7 @@ def courses(request):
 def courses_public(request):
     from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     try:
-        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')
+        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-created')
         paginator = Paginator(course_list, COURSE_PER_PAGE)
         page = request.GET.get('page')
         try:
@@ -117,7 +117,7 @@ def courses_private(request):
     print "I'm in profile_courses"
     from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
     try:
-        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')
+        course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-created')
         paginator = Paginator(course_list, COURSE_PER_PAGE)
         page = request.GET.get('page')
         try:

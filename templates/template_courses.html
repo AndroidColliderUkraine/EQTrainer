@@ -1,28 +1,61 @@
 {% block courses %}
-    {% for course in course_list%}
-    <div class="row" >
-        <div class="col-xs-4">
-            <br>
-            <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
+    <style>
+    .coursesListBl > li {
+        list-style-type: none;
+      background-color: #F9FAFA;
+      border-bottom: 1px solid #edeff0;
+    }
+    .coursesListBl > li:last-child {
+      padding-bottom: 35px;
+      border: none;
+    }
+    .coursesListBl > li:hover {
+      background-color: #edeff0;
+    }
+    .coursesBl {
+      position: relative;
+      padding: 5px 20px 20px 20px;
+    }
+    </style>
+    <ul class="coursesListBl">
+        {% for course in course_list%}
+        <li class="coursesBl">
+            <div class="row" >
+                <div class="col-xs-4">
+                    <br>
+                    <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <!-- <a href="article/?id={{ article.id }}">
+                        <img class="img-responsive" src="{{ article.photo }}" alt="">
+                    </a> -->
+                    <div style="margin-top: 15px" >
+                        <span class="pull-left">
+                            {% if course.price %}
+                                <h4>{{ course.price }} ₴</h4>
+                            {% else %}
+                                <h4 style="color: #0fd1a8">Бесплатний</h4>
+                            {% endif %}
+                        </span>
+                        <span class="pull-right"><h4>{{ course.created|date:"m-d-Y" }}</h4></span>
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <a style="color:#333333" href="/course/?id={{ course.id }}"><h3 style="margin-top: 0">{{ course.name }}</h3></a>
+                    <p class="text-justify">
+                        {{ course.text|safe|truncatechars:500|linebreaks }}
+                    </p>
+                    <div>
+                        <center><a class="btn btn-primary" style="border-radius: 0px" href="/course/?id={{ course.id }}">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a></center>
+                    </div>
                 </div>
             </div>
-            <!-- <a href="article/?id={{ article.id }}">
-                <img class="img-responsive" src="{{ article.photo }}" alt="">
-            </a> -->
-        </div>
-        <div class="col-xs-8">
-            <a style="color:#333333" href="/course/?id={{ course.id }}"><h3>{{ course.name }}</h3></a>
-            <p class="text-justify">{{ course.text|truncatechars:800 }}</p>
-            <div>
-                <a class="btn btn-primary" href="/course/?id={{ course.id }}">Подробнее <span class="glyphicon glyphicon-chevron-right"></span></a>
-                <span class="pull-right"><h4>{{ course.created|date:"m-d-Y" }}</h4></span>
-            </div>
-        </div>
-    </div>
-    <hr>
-    {% endfor %}
+{#            <hr>#}
+        </li>
+        {% endfor %}
+    </ul>
     <div class="row text-center">
         <div class="col-lg-12">
             <ul class="pagination">
