@@ -1,4 +1,4 @@
-Django==1.8
+Django==1.8.13
 Pillow==3.0.0
 PyYAML==3.11
 amqp==1.4.7
