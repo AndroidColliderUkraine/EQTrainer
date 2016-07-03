@@ -76,47 +76,60 @@
         });
 
     </script>
-    <br>
+    <style>
+    .b111 {
+        background-color: #F9FAFA;
+        border: 1px solid #edeff0;
+{#        position: relative;#}
+        padding: 5px 20px 20px 20px;
+        height: inherit;
+
+    }
+
+    </style>
     <div class="row" >
-        <div class="col-xs-7">
-            <h1 class="text-center">{{ course.name }}</h1>
-            <br>
-            <div class="row" >
-                <div class="col-xs-6">
-                {% if subscribe %}
-                <a class="btn btn-primary center-block" id='btn_unsubscribe'>Відписатись від курсу</a>
-                <!--  href="/unsubscribe_course/?id={{ course.id }}" -->
-                {% else %}
-                <a class="btn btn-primary center-block" id='btn_subscribe'>Пройти курс</a>
-                {% endif %}
-                </div>
-                <div class="col-xs-6">
-                    <span class="pull-right"><h4>{{ course.created|date:"m-d-Y" }}</h4></span>
-                </div>
-                <div class="col-xs-12">
-                    {% if course.price %}
-                        <span class="pull-right"><p>Стоимость курса: {{ course.price }} грн.</p></span>
+        <div class="col-xs-7" style="padding-right: 9px;">
+            <div class="b111">
+                <h3 class="text-center">{{ course.name }}</h3>
+                <br>
+                <div class="row" >
+                    <div class="col-xs-6">
+                    {% if subscribe %}
+                        <a class="btn btn-primary center-block" id='btn_unsubscribe' style="border-radius: 0px">Отписаться от курса</a>
                     {% else %}
-                        <span class="pull-right"><p>Курс бесплатный.</p></span>
+                        <a class="btn btn-primary center-block" id='btn_subscribe' style="border-radius: 0px">Пройти курс</a>
                     {% endif %}
+                    </div>
+                    <div class="col-xs-6">
+                        <span class="pull-right"><h4>{{ course.created|date:"m-d-Y" }}</h4></span>
+                    </div>
+                    <div class="col-xs-12">
+                        {% if course.price %}
+                            <span class="pull-right"><p>Стоимость курса: {{ course.price }} ₴</p></span>
+                        {% else %}
+                            <span class="pull-right"><p style="color: #0fd1a8">Курс бесплатный.</p></span>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-xs-5">
-            <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
-                </div>
+{#                <div class="b111">#}
+                <div class="bs-example" data-example-id="responsive-embed-16by9-iframe-youtube">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="{{ course.video }}" allowfullscreen></iframe>
+                    </div>
+{#                    </div>#}
             </div>
         </div>
     </div>
     <br>
-    <br>
-    <hr>
 
-    <p class="text-justify">
-        {{ course.text|safe|linebreaks }}
-    </p>
+    <div class="b111">
+        <p class="text-justify">
+            {{ course.text|safe|linebreaks }}
+        </p>
+    </div>
 
 {#    --------------------------------------------------------------------------------------------------------------#}
     <div id="myModalBox" class="modal fade">
