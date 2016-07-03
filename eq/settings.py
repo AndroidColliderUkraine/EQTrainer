@@ -92,9 +92,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'eq.wsgi.application'
 
-DBBACKUP_STORAGE = 'dbbackup.storage.filesystem_storage'
-DBBACKUP_STORAGE_OPTIONS = {'location': './backups'}
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
@@ -216,6 +213,11 @@ EMAIL_HOST_USER = os.getenv('EQ_SMTP_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EQ_SMTP_PASS', '')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+DBBACKUP_STORAGE = 'dbbackup.storage.dropbox_storage'
+DBBACKUP_TOKENS_FILEPATH = os.getenv('DBBACKUP_TOKENS_FILEPATH', '')  # '<local_tokens_filepath>'
+DBBACKUP_DROPBOX_APP_KEY = os.getenv('DBBACKUP_DROPBOX_APP_KEY', '')  # '<dropbox_app_key>'
+DBBACKUP_DROPBOX_APP_SECRET = os.getenv('DBBACKUP_DROPBOX_APP_SECRET', '')  # '<dropbox_app_secret>'
 
 
 REDACTOR_OPTIONS = {'lang': 'en'}
