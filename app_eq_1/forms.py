@@ -106,6 +106,16 @@ class CourseForm(forms.ModelForm):
                             "<u>текст</u> - підкреслений шрифт\n"
                             "</xmp>")
     )
+    video = forms.URLField(
+        widget=forms.URLInput(attrs={'size': 120}),
+        help_text=mark_safe("<xmp>Для інтеграції ведіо з ютуба потрібно виконати наступну маніпуляцію:\n\n"
+                            "* так виглядає скопійоване з ютуба посилання:\n"
+                            "* https://www.youtube.com/watch?v=zhD6hDCiiEw\n"
+                            "* його потрібно перетворити на наступне:\n"
+                            "* https://www.youtube.com/v/57vTOdawe5w\n"
+                            "* вставити в це поле та зберегти\n"
+                            "</xmp>")
+    )
 
     class Meta:
         model = Course

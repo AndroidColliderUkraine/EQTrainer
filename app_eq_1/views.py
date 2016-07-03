@@ -610,7 +610,7 @@ class ResetPasswordRequestView(FormView):
                         email = loader.render_to_string(email_template_name, c)
                         send_email.delay(
                             EMAIL_SUBJECT=u'EQ: восстановление пароля',
-                            EMAIL_EMAIL_FROM='eq@eq.com',
+                            EMAIL_EMAIL_FROM='denyseq@ua.fm',
                             EMAIL_EMAIL_TO=user.email,
                             EMAIL_MESSAGE=email
                         )
