@@ -499,8 +499,14 @@ def unsubscribe_mailing(request):
     try:
         up, created = UserProfile.objects.get_or_create(user_id=request.GET.get('user_id'))
         up.subscribe_mailing = False
+        up.save()
+        context = {
+            'user': up.user
+        }
+        return render(request, "email/unsubscribe_mailing.html", context)
     except Exception, e:
         print "e:", e
+    return render(request, "email/unsubscribe_mailing.html", {})
 
 
 def custom_login(request):
@@ -610,7 +616,7 @@ class ResetPasswordRequestView(FormView):
                         email = loader.render_to_string(email_template_name, c)
                         send_email.delay(
                             EMAIL_SUBJECT=u'EQ: восстановление пароля',
-                            EMAIL_EMAIL_FROM='denyseq@ua.fm',
+                            EMAIL_EMAIL_FROM=u'Карманный Психолог <denyseq@ua.fm>',
                             EMAIL_EMAIL_TO=user.email,
                             EMAIL_MESSAGE=email
                         )

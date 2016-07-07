@@ -51,8 +51,11 @@ class Course(models.Model):
     price_rub = models.IntegerField(default=0, help_text='Price in rubles.')
     price_dol = models.IntegerField(default=0, help_text='Price in US dollars.')
     video = models.URLField(blank=True, null=True)
+    author = models.CharField(blank=False, null=False, max_length=64, help_text='Author of course (Denys Dubravin)')
+    duration = models.CharField(blank=False, null=False, max_length=64, help_text='Duration of course( 30 days)')
+    time = models.CharField(blank=False, null=False, max_length=64, help_text='How many time user need to pass this course per day?(5 min/day)')
 
-    created = models.DateField(blank=True, null=True, help_text='Set date when does course created.')
+    created = models.DateField(blank=False, null=False, help_text='Set date when does course created.')
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     deleted = models.BooleanField(default=False)
 
@@ -79,7 +82,7 @@ class Course(models.Model):
                 from tasks import send_email
                 send_email.delay(
                     EMAIL_SUBJECT=u"Поздравляем с подпиской на курс: '%s'." % course.name,
-                    EMAIL_EMAIL_FROM='denyseq@ua.fm',
+                    EMAIL_EMAIL_FROM=u'Карманный Психолог <denyseq@ua.fm>',
                     EMAIL_EMAIL_TO=user.email,
                     HTML_EMAIL_MESSAGE=email_message
                 )
@@ -263,7 +266,7 @@ class Conclusions(models.Model):
     emotion = models.CharField(choices=USER_EMOTIONS, max_length=50, blank=False, null=True)
     activity = models.CharField(choices=USER_ACTIVITY, max_length=50, blank=False, null=True)
     text = models.TextField(max_length=5000)
-    courses = models.ManyToManyField(Course, blank=False, null=True, help_text='Recommended courses.')
+    courses = models.ManyToManyField(Course, blank=True, help_text='Recommended courses.')
 
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     deleted = models.BooleanField(default=False)
