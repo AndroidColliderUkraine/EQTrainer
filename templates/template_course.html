@@ -82,6 +82,18 @@
         <div class="row" >
             <div class="col-xs-7" style="padding-right: 9px;">
                 <h3 class="text-center">{{ course.name }}</h3>
+                <div class="row" >
+                    <div class="col-xs-6">
+                        <b>Автор:</b> Ден Дубравин <br>
+                        <b>Длительность:</b> {{ course.duration }} дней <br>
+                        <b>Время:</b> {{ course.time }} мин/день <br>
+                        <b>Стоимость:</b>{% if course.price %}{{ course.price }} ₴ {% else %} Бесплатно{% endif %} <br>
+                        <b>Создан:</b> {{ course.created|date:"d-m-Y" }} <br>
+                    </div>
+                    <div class="col-xs-6">
+
+                    </div>
+                </div>
                 <br>
                 <div class="row" >
                     <div class="col-xs-6">
@@ -90,16 +102,6 @@
                     {% else %}
                         <a class="btn btn-primary center-block" id='btn_subscribe' style="border-radius: 0px">Пройти курс</a>
                     {% endif %}
-                    </div>
-                    <div class="col-xs-6">
-                        <span class="pull-right"><h4>{{ course.created|date:"m-d-Y" }}</h4></span>
-                    </div>
-                    <div class="col-xs-12">
-                        {% if course.price %}
-                            <span class="pull-right"><p>Стоимость курса: {{ course.price }} ₴</p></span>
-                        {% else %}
-                            <span class="pull-right"><p style="color: #0fd1a8">Курс бесплатный.</p></span>
-                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -116,6 +118,7 @@
 
     <div class="b111">
         <p class="text-justify">
+            <img src="{{ course.photo }}" style="width:400px; float:left; margin: 7px 7px 7px 0;">
             {{ course.text|safe|linebreaks }}
         </p>
     </div>
