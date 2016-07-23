@@ -36,6 +36,7 @@
         $(function() {
             $("#btn_subscribe").click(function(){
                 console.log('Clicked btn_subscribe')
+                {% if user.is_authenticated %}
                 $.ajax({
                     url : "/subscribe_course/",
                     type : "GET",
@@ -55,12 +56,15 @@
                         console.log("Unsuccess"); // another sanity check
                     }
                 });
+                {% else %}
+                    window.location = '/?next=/course/?id={{ course.id }}';
+                {% endif %}
             });
         });
 
         $(function() {
             $("#btn_subscribe_2").click(function(){
-                window.location = '/profile/mycourses'
+                window.location = '/profile/mycourses';
             });
         });
 

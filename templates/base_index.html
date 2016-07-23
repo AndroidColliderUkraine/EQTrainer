@@ -11,6 +11,21 @@
 
     <title>{% block title %}{% endblock %}</title>
 
+    <!-- jQuery -->
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <!-- <script src="js/jquery.js"></script> -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <!-- // <script src="js/bootstrap.min.js"></script> -->
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- Scrolling Nav JavaScript -->
+    <script src="{% static 'bootstrap/js/jquery.easing.min.js' %}"></script>
+    <!-- // <script src="js/jquery.easing.min.js"></script> -->
+
+    <script src="{% static 'bootstrap/js/scrolling-nav.js' %}"></script>
+    <!-- // <script src="js/scrolling-nav.js"></script> -->
+
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'bootstrap/css/scrolling-nav.css' %}" rel="stylesheet">
     <link href="{% static 'bootstrap/css/footer_try.css' %}" rel="stylesheet">
@@ -68,21 +83,6 @@
     {% block footer%}
     {% include "template_footer_public.html" %}
     {% endblock %}
-
-    <!-- jQuery -->
-    <script src="{% static 'js/jquery.js' %}"></script>
-    <!-- <script src="js/jquery.js"></script> -->
-
-    <!-- Bootstrap Core JavaScript -->
-    <!-- // <script src="js/bootstrap.min.js"></script> -->
-    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
-
-    <!-- Scrolling Nav JavaScript -->
-    <script src="{% static 'bootstrap/js/jquery.easing.min.js' %}"></script>
-    <!-- // <script src="js/jquery.easing.min.js"></script> -->
-
-    <script src="{% static 'bootstrap/js/scrolling-nav.js' %}"></script>
-    <!-- // <script src="js/scrolling-nav.js"></script> -->
 
 </body>
 
