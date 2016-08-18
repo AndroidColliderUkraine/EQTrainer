@@ -31,7 +31,7 @@ STATE = (
 USER_EMOTIONS = (
     ('UVERENNOST', u'Уверенность'),
     ('RADOST_UDOVOLSTVIE', u'Радость Удовлетворение'),
-    ('INTERES', u'Інтерес'),
+    ('INTERES', u'Интерес'),
     ('RAZDRAZHENIE_GNEV', u'Раздражительность Гнев'),
     ('VINA', u'Вина'),
     ('STID_SMUSHENIE', u'Стыд'),

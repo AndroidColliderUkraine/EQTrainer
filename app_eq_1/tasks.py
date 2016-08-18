@@ -260,7 +260,7 @@ def send_email_lesson(lesson_id, user_id):
 
         EMAIL_SUBJECT = u'Ваш курс: %s, урок (%s): %s' % (lesson.course.name, str(lesson.number), lesson.name)
         HTML_EMAIL_MESSAGE = render_to_string('email/lesson.html', context)
-        EMAIL_EMAIL_FROM = u'Карманный Психолог <denyseq@ua.fm>'
+        EMAIL_EMAIL_FROM = u'Карманный Психолог <psyhologist@ua.fm>'
         EMAIL_EMAIL_TO = user.email
 
         from django.core.mail import send_mail
@@ -284,7 +284,7 @@ def send_email_report_week(week_report_id, user_id):
         user = User.objects.get(id=user_id)
         EMAIL_SUBJECT = u'Ваш еженедельный график эмоций в период с %s по %s.' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
         EMAIL_MESSAGE = Engine().from_string(report.html).render(Context({"text": report.text}))
-        EMAIL_EMAIL_FROM = u'Карманный Психолог <denyseq@ua.fm>'
+        EMAIL_EMAIL_FROM = u'Карманный Психолог <psyhologist@ua.fm>'
         EMAIL_EMAIL_TO = user.email
 
         from django.core.mail import send_mail
@@ -308,7 +308,7 @@ def send_email_report_month(month_report_id, user_id):
         user = User.objects.get(id=user_id)
         EMAIL_SUBJECT = u'Ваш ежемесячный график эмоций в период с %s по %s.' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
         EMAIL_MESSAGE = Engine().from_string(report.html).render(Context({"text": report.text}))
-        EMAIL_EMAIL_FROM = u'Карманный Психолог <denyseq@ua.fm>'
+        EMAIL_EMAIL_FROM = u'Карманный Психолог <psyhologist@ua.fm>'
         EMAIL_EMAIL_TO = user.email
 
         from django.core.mail import send_mail

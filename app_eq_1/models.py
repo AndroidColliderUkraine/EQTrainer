@@ -76,13 +76,13 @@ class Course(models.Model):
                     # email_message = Engine().from_string('email/email_subscribe_course_free.html').render(context)
                 else:
                     usercourse_new = UserCourse(course=course, user=user, status='begin')
-                    context = {"course": course}
+                    context = {"course": course, "user": user}
                     email_message = render_to_string('email/email_subscribe_course_paid.html', context)
                     # email_message = Engine().from_string('email/email_subscribe_course_paid.html').render(context)
                 from tasks import send_email
                 send_email.delay(
                     EMAIL_SUBJECT=u"Поздравляем с подпиской на курс: '%s'." % course.name,
-                    EMAIL_EMAIL_FROM=u'Карманный Психолог <denyseq@ua.fm>',
+                    EMAIL_EMAIL_FROM=u'Карманный Психолог <psyhologist@ua.fm>',
                     EMAIL_EMAIL_TO=user.email,
                     HTML_EMAIL_MESSAGE=email_message
                 )
