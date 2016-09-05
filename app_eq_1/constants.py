@@ -54,7 +54,7 @@ USER_EMOTIONS = (
 USER_ACTIVITY = (
     ('ZDOROVIE', u"Здоровье"),
     ('SEMIA_LUBOV', u"Семья Любовь"),
-    ('OTNOSHENIA', u'Отношения'),
+    ('OTNOSHENIA', u'Отношения с людьми'),
     ('OTDIH_HOBBY', u'Отдых Хобби'),
     ('DUHOVNOST', u'Духовность'),
     ('SAMORAZVITIE', u'Саморазвитие'),
