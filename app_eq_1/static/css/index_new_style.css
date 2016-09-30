@@ -781,6 +781,7 @@ Seventh screen
   .seventh-screen .courses {
     margin-top: 60px; }
   .seventh-screen .course-item {
+    vertical-align: top;
     width: 33.33333%;
     display: inline-block;
     margin-left: -4px;
