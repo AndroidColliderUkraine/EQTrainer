@@ -30,14 +30,14 @@ STATE = (
 # )
 USER_EMOTIONS = (
     ('UVERENNOST', u'Уверенность'),
-    ('RADOST_UDOVOLSTVIE', u'Радость Удовлетворение'),
+    ('RADOST_UDOVOLSTVIE', u'Радость / Удовлетворение'),
     ('INTERES', u'Интерес'),
-    ('RAZDRAZHENIE_GNEV', u'Раздражительность Гнев'),
+    ('RAZDRAZHENIE_GNEV', u'Раздражительность / Гнев'),
     ('VINA', u'Вина'),
-    ('STID_SMUSHENIE', u'Стыд'),
-    ('TREVOGA_STARH', u'Тревога'),
-    ('PECHAL_STRADANIE', u'Печаль'),
-    ('OTVRASCHENIE_PREZRENIE', u'Отвращение'),
+    ('STID_SMUSHENIE', u'Стыд / Смущение'),
+    ('TREVOGA_STARH', u'Тревога / Страх'),
+    ('PECHAL_STRADANIE', u'Печаль / Страдание'),
+    ('OTVRASCHENIE_PREZRENIE', u'Отвращение / Презрение'),
     ('UDIVLENIE', u'Удивление'),
 )
 
