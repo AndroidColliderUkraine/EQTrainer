@@ -373,7 +373,7 @@
 							<!--</div>-->
 							<a href="/course?id={{ course.id }}" class="course-title">{{ course.name }}</a>
 							<p class="course-desc ">
-								{{ course.text|truncatechars:250 }}
+								{{ course.text|safe|linebreaks|truncatechars:250 }}
 							</p>
 						</div>
 					{% endfor %}
