@@ -8,7 +8,7 @@ sheet_ranges = wb['list1']
 USER_ACTIVITY = {
     u'Здоровье': u"ZDOROVIE",
     u'Семья/Любовь': u"SEMIA_LUBOV",
-    u'Отношения с людьми': u'OTNOSHENIA',
+    u'Отношения': u'OTNOSHENIA',
     u'Отдых / Хобби': u'OTDIH_HOBBY',
     u'Духовность / Смыслы': u'DUHOVNOST',
     u'Саморазвитие': u'SAMORAZVITIE',
