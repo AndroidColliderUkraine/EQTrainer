@@ -653,6 +653,17 @@ class PasswordResetConfirmView(FormView):
                 user.set_password(new_password)
                 user.save()
                 messages.success(request, u'Пароль был сброшен.')
+                email_template_name = 'email/password_changed.html'
+                c = {
+                    'user': user
+                }
+                email = loader.render_to_string(email_template_name, c)
+                send_email.delay(
+                    EMAIL_SUBJECT=u'EQ: изменение пароля',
+                    EMAIL_EMAIL_FROM=u'Карманный Психолог <psyhologist@ua.fm>',
+                    EMAIL_EMAIL_TO=user.email,
+                    HTML_EMAIL_MESSAGE=email
+                )
                 return self.form_valid(form)
             else:
                 messages.error(request, u'Восстановление пароля не увенчались успехом.')
