@@ -8,16 +8,21 @@
 
 {% block content%}
     <script>
-        function myFunction(name, number, tags, text) {
-{#            console.log("------------");#}
-{#            console.log(name);#}
-{#            console.log(number);#}
-{#            console.log(tags);#}
-{#            console.log(text);#}
-
-            $('#ModelLessonHeader').text(number + '. ' + name);
-            $('#ModelLessonText').text(text);
-            $('#ModalLesson').modal('show')
+        function myFunction(lessonId) {
+            if (lessonId == '') {
+                $('#ModelLessonHeader').text('0' + '. ' + 'Введение');
+                $('#ModelLessonText').text('Тут будут ваши уроки, пожалуйста, приходите позже.');
+                $('#ModalLesson').modal('show');
+            } else {
+                $.get('/api/v1/Lesson/' + lessonId + '/', {},
+                    function(data) {
+                        console.log('data', data);
+                        $('#ModelLessonHeader').text(data['number'] + '. ' + data['name']);
+                        $('#ModelLessonText').text(data['text']);
+                        $('#ModalLesson').modal('show')
+                    }
+                );
+            }
         }
     </script>
     <br>
@@ -28,7 +33,7 @@
         {% if lessons|length %}
             <ul class="list-group">
                 {% for lesson in lessons%}
-                    <a type="button" onclick='myFunction("{{ lesson.name }}", "{{ forloop.counter }}", "{{ lesson.tags }}", "{{ lesson.text }}")' class="list-group-item">
+                    <a type="button" onclick="myFunction({{ lesson.id }})" class="list-group-item">
                         {{ forloop.counter }}. {{ lesson.name }}
                         <span class="pull-right">Дата: {{ lesson.updated }}</span>
                     </a>
@@ -36,7 +41,7 @@
             </ul>
         {% else %}
             <ul class="list-group">
-                <a type="button" onclick="myFunction('Введение', '0', '', 'Тут будут ваши уроки, пожалуйста, приходите позже.')" class="list-group-item">
+                <a type="button" onclick="myFunction('')" class="list-group-item">
                     Тут будут ваши уроки, пожалуйста, приходите позже.
                     <span class="pull-right">Дата: {% now 'jS F Y H:i'%} </span>
                 </a>
