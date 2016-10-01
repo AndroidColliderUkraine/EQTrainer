@@ -16,7 +16,6 @@
             } else {
                 $.get('/api/v1/Lesson/' + lessonId + '/', {},
                     function(data) {
-                        console.log('data', data);
                         $('#ModelLessonHeader').text(data['number'] + '. ' + data['name']);
                         $('#ModelLessonText').text(data['text']);
                         $('#ModalLesson').modal('show')
