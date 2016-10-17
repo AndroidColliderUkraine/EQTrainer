@@ -7,7 +7,7 @@
     <link href="{% static 'css/my_profile.css' %}" rel="stylesheet">
     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/0.9.73/jsrender.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="{% static 'js/my_profile.js' %}"></script>
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
@@ -120,6 +120,13 @@
                                 </div>
                             </a>
                         </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <center><button onclick="$('#ModalHelp').modal('show');" class="btn btn-primary">Помощь</button></center>
+                                </div>
+                            </div>
+                        </li>
                         <!--<li>-->
                             <!--<a href="/accounts/logout/?next=/">-->
                                 <!--<div class="row">-->
@@ -189,5 +196,23 @@
                 </div>
             </div>
         </div>
+    <div class="modal fade" id="ModalHelp" role="dialog">
+        <div class="modal-dialog" style="width: 80%;">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Помощь</h4>
+                </div>
+
+                <div id="ModelLessonText" class="modal-body" style="margin-left: 20px; margin-right: 20px;">
+                    <p>При возникновении технических проблем с использованием «Карманного Психолога», обращайтесь в службу поддержки (psypocket@gmail.com)</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
     </body>
 </html>
