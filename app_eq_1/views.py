@@ -616,7 +616,7 @@ class ResetPasswordRequestView(FormView):
                         email = loader.render_to_string(email_template_name, c)
                         send_email.delay(
                             EMAIL_SUBJECT=u'EQ: восстановление пароля',
-                            EMAIL_EMAIL_FROM=u'Карманный Психолог <psyhologist@gmail.com>',
+                            EMAIL_EMAIL_FROM=u'Карманный Психолог <psypocket@gmail.com>',
                             EMAIL_EMAIL_TO=user.email,
                             EMAIL_MESSAGE=email
                         )
@@ -660,7 +660,7 @@ class PasswordResetConfirmView(FormView):
                 email = loader.render_to_string(email_template_name, c)
                 send_email.delay(
                     EMAIL_SUBJECT=u'EQ: изменение пароля',
-                    EMAIL_EMAIL_FROM=u'Карманный Психолог <psyhologist@gmail.com>',
+                    EMAIL_EMAIL_FROM=u'Карманный Психолог <psypocket@gmail.com>',
                     EMAIL_EMAIL_TO=user.email,
                     HTML_EMAIL_MESSAGE=email
                 )

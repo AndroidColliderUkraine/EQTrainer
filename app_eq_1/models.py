@@ -82,7 +82,7 @@ class Course(models.Model):
                 from tasks import send_email
                 send_email.delay(
                     EMAIL_SUBJECT=u"Поздравляем с подпиской на курс: '%s'." % course.name,
-                    EMAIL_EMAIL_FROM=u'Карманный Психолог <psyhologist@gmail.com>',
+                    EMAIL_EMAIL_FROM=u'Карманный Психолог <psypocket@gmail.com>',
                     EMAIL_EMAIL_TO=user.email,
                     HTML_EMAIL_MESSAGE=email_message
                 )
