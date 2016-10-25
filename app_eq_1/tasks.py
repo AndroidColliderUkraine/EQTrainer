@@ -56,7 +56,7 @@ def every_week():
     try:
         some_day_last_week = datetime.now().date() - timedelta(days=7)
         monday_of_last_week = some_day_last_week - timedelta(days=(some_day_last_week.isocalendar()[2] - 1))
-        monday_of_this_week = monday_of_last_week + timedelta(days=14)
+        monday_of_this_week = monday_of_last_week + timedelta(days=7)
 
         for user in User.objects.all():
             try:
