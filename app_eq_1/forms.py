@@ -112,7 +112,7 @@ class CourseForm(forms.ModelForm):
                             "* так виглядає скопійоване з ютуба посилання:\n"
                             "* https://www.youtube.com/watch?v=zhD6hDCiiEw\n"
                             "* його потрібно перетворити на наступне:\n"
-                            "* https://www.youtube.com/v/57vTOdawe5w\n"
+                            "* https://www.youtube.com/embed/57vTOdawe5w\n"
                             "* вставити в це поле та зберегти\n"
                             "</xmp>")
     )
