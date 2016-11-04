@@ -85,6 +85,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app_eq_1.context_processors.google_analytics',
             ],
         },
     },
@@ -267,7 +268,7 @@ LOGGING = {
         },
     }
 }
-
+GOOGLE_ANALYTICS_ID = ''
 
 SERVER_ENVIRONMENT = os.getenv('RUN_ENV', '')
 if SERVER_ENVIRONMENT == 'PROD':
