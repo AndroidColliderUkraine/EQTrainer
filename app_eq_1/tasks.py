@@ -110,6 +110,7 @@ def every_week():
                         "hostname": HOSTNAME,
                         "date_start": monday_of_last_week.strftime(TIME_FORMAT),
                         "date_end": monday_of_this_week.strftime(TIME_FORMAT),
+                        "text": conclusion.text,
                         "recommend_course_1": recommend_course_1,
                         "recommend_course_2": recommend_course_2,
                         "recommend_course_3": recommend_course_3,
@@ -193,6 +194,7 @@ def every_month():
                         "hostname": HOSTNAME,
                         "date_start": monday_of_last_month.strftime(TIME_FORMAT),
                         "date_end": monday_of_this_month.strftime(TIME_FORMAT),
+                        "text": conclusion.text,
                         "recommend_course_1": recommend_course_1,
                         "recommend_course_2": recommend_course_2,
                         "recommend_course_3": recommend_course_3,
@@ -283,7 +285,7 @@ def send_email_report_week(week_report_id, user_id):
         report = WeeklyReport.objects.get(id=week_report_id)
         user = User.objects.get(id=user_id)
         EMAIL_SUBJECT = u'Ваш еженедельный график эмоций в период с %s по %s.' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
-        EMAIL_MESSAGE = Engine().from_string(report.html).render(Context({"text": report.text}))
+        EMAIL_MESSAGE = report.html
         EMAIL_EMAIL_FROM = u'Карманный Психолог <psypocket@gmail.com>'
         EMAIL_EMAIL_TO = user.email
 
@@ -307,7 +309,7 @@ def send_email_report_month(month_report_id, user_id):
         report = MonthlyReport.objects.get(id=month_report_id)
         user = User.objects.get(id=user_id)
         EMAIL_SUBJECT = u'Ваш ежемесячный график эмоций в период с %s по %s.' % (str(report.date_start.strftime('%Y-%m-%d')), str(report.date_end.strftime('%Y-%m-%d')))
-        EMAIL_MESSAGE = Engine().from_string(report.html).render(Context({"text": report.text}))
+        EMAIL_MESSAGE = report.html
         EMAIL_EMAIL_FROM = u'Карманный Психолог <psypocket@gmail.com>'
         EMAIL_EMAIL_TO = user.email
 
