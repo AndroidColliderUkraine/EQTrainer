@@ -63,12 +63,14 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 class CourseAdmin(admin.ModelAdmin):
     list_display = ['id', "__unicode__", "state", "price", "price_rub", "price_dol", "updated", "deleted"]
-    list_filter = ('deleted',)
+    list_filter = ('deleted', 'price', 'state', )
+    search_fields = ["id", "name", "text"]
     form = CourseForm
 
 
 class LessonAdmin(admin.ModelAdmin):
     list_display = ['id', "__unicode__", "course", "state", "updated", "deleted"]
+    search_fields = ["id", "name", "text"]
     list_filter = (
         ('course', admin.RelatedOnlyFieldListFilter),
         'deleted',
@@ -87,7 +89,9 @@ class ArticleAdmin(admin.ModelAdmin):
 
 
 class UserCourseAdmin(admin.ModelAdmin):
-    list_display = ["__unicode__", "user", "course", "status",  "updated", "deleted"]
+    list_display = ["__unicode__", "user", "course", "status", "created", "updated", "deleted"]
+    search_fields = ["id", "user__email", "course__name"]
+    list_filter = ("status", "created")
     form = UserCourseForm
 
     def get_readonly_fields(self, request, obj=None):
@@ -103,26 +107,32 @@ class ActionAdmin(admin.ModelAdmin):
 
 class EmotionalStateAdmin(admin.ModelAdmin):
     list_display = ["__unicode__", "user", "emotion", "activity", "subjectivity", "confidence", "updated", "deleted"]
+    search_fields = ["user__email", "emotion", "activity"]
+    list_filter = ("updated", "emotion", "activity")
     form = EmotionalStateForm
 
 
 class WeeklyReportAdmin(admin.ModelAdmin):
     list_display = ["__unicode__", "id", "user", "date_start", "date_end", "updated", "deleted"]
+    search_fields = ["user__email"]
     form = WeeklyReportForm
 
 
 class MonthlyReportAdmin(admin.ModelAdmin):
     list_display = ["__unicode__", "id", "user", "date_start", "date_end", "updated", "deleted"]
+    search_fields = ["user__email"]
     form = MonthlyReportForm
 
 
 class TrainingAdmin(admin.ModelAdmin):
     list_display = ["id", "name", "updated", "deleted"]
+    search_fields = ["name", "text"]
     form = TrainingForm
 
 
 class ConclusionsAdmin(admin.ModelAdmin):
     list_display = ["id", "text", "emotion", "activity", "updated", "deleted"]
+    search_fields = ["id", "text", "emotion", "activity"]
     form = ConclusionsForm
 
     def get_readonly_fields(self, request, obj=None):

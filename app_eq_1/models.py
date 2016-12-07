@@ -169,6 +169,7 @@ class UserCourse(models.Model):
     # date = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     deleted = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
         return unicode(self.id)
