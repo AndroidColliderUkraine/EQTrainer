@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.views.decorators.cache import cache_page
 from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.shortcuts 			import render
@@ -51,6 +52,7 @@ def home(request):
         return home_public(request)
 
 
+@cache_page(60 * 60 * 24)
 def home_public(request):
     course_list = None
     try:

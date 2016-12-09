@@ -116,6 +116,14 @@ DATABASES = {
     },
 }
 
+
+CACHES = {
+   'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'memcached'
+   }
+}
+
 # python manage.py syncdb
 # python manage.py dumpdata app_eq_1.Course app_eq_1.Lesson app_eq_1.Article app_eq_1.Training app_eq_1.Conclusions > app_eq_1.json
 # python manage.py loaddata app_eq_1.json

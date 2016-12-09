@@ -18,6 +18,7 @@ django:
   links:
    - redis
    - postgres
+   - memcached
 redis:
   image: redis:latest
   command: redis-server --appendonly yes
@@ -29,3 +30,7 @@ postgres:
   environment:
     POSTGRES_PASSWORD: "eq_database"
     POSTGRES_USER: "eq_database"
+
+memcached:
+  image: memcached
+  command: memcached -I 15m
