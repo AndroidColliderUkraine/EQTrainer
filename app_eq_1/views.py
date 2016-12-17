@@ -53,24 +53,18 @@ def home(request):
 
 
 @cache_page(60 * 60 * 24)
-def home_public(request):
+def get_courses_for_public_page(request):
     course_list = None
     try:
         course_list = Course.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
     except Exception, e:
         print "e:", e
-    # print "course_list: ", course_list
+    return course_list
 
-    article_list = None
-    try:
-        article_list = Article.objects.filter(deleted=False).filter(state='active').order_by('-updated')[:3]
-    except Exception, e:
-        print "e:", e
-    # print "article_list: ", article_list
 
+def home_public(request):
     context = {
-        "course_list": course_list,
-        "article_list": article_list,
+        "course_list": get_courses_for_public_page(request)
     }
     return render(request, "index.html", context)
 

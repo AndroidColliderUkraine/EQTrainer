@@ -1,5 +1,7 @@
 {% load staticfiles %}
+{% load cache %}
 <html>
+{% cache 86400 cache_head %}
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -133,6 +135,7 @@
 
     {% include "template_ga.html" %}
 </head>
+{% endcache %}
 <body>
 
 	<!-- BEGIN header -->
@@ -141,6 +144,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="top-bar">
+                    {% cache 86400 cache_h_1 %}
 					<div class="logo">
 						<!--<p class="logo-desc">технология развития эмоционального интелекта</p>-->
 						<a href="/"><img src="{% static 'img/index_new/logo.png' %}" alt="Emotion Control" ></a>
@@ -154,6 +158,7 @@
 							<a href="https://play.google.com/store/apps/details?id=com.androidcollider.eqtrainer" class="googleplay" style="z-index: 99"><img src="{% static 'img/index_new/googleplay.png' %}" alt="Çàãðóçèòå íà Google Play"></a>
 						</div>
 					</div>
+                    {% endcache %}
 
 					<div class="login-form">
 						<p class="form-title">Войти в <br><strong>личный кабинет</strong></p>
@@ -182,7 +187,7 @@
 		</div>
 	</header>
 	<!-- END header -->
-
+    {% cache 86400 cache_b_1 %}
 	<!-- BEGIN second screen -->
 	<section class="second-screen">
 		<div class="container">
@@ -454,6 +459,7 @@
 		</div>
 	</footer>
 	<!-- END footer -->
+    {% endcache %}
 
 	<!-- BEGIN modal windows -->
 	<div class="modal" id="modal-registration">
@@ -512,7 +518,9 @@
 	<!-- footer scripts -->
 
 	<!-- Slicker -->
+    {% cache 86400 cache_js_1 %}
 	<script src="{% static 'js/slick.min.js' %}"></script>
+    {% endcache %}
 	<script>
 		$(document).ready(function() {
 			$('#slider').slick({
