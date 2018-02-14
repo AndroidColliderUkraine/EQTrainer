@@ -59,6 +59,7 @@ INSTALLED_APPS = (
 
     # 'django.contrib.sites',
     # 'registration',
+    'raven.contrib.django.raven_compat',
 )
 
 MIDDLEWARE_CLASSES = (
