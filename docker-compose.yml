@@ -3,7 +3,7 @@ django:
   command: "sh deploy.sh"
   environment:
     RUN_ENV: "$RUN_ENV"
-    SCHEDUL_SENTRY_URL: "$EQ_SENTRY_URL"
+    EQ_SENTRY_DNS: "$EQ_SENTRY_DNS"
     EQ_SMTP_USER: "$EQ_SMTP_USER"
     EQ_SMTP_PASS: "$EQ_SMTP_PASS"
     DBBACKUP_TOKENS_FILEPATH: "$DBBACKUP_TOKENS_FILEPATH"
