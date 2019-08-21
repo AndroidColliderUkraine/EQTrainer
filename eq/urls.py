@@ -35,18 +35,18 @@ urlpatterns = [
     # url(r'^blog/', include('blog.urls')),
 
     # url(r'^tinymce/', include('tinymce.urls')),
-    url(r'^term-of-use$', 'app_eq_1.views.term_of_use', name='term_of_use'),
-    url(r'^report_graph$', 'app_eq_1.views.report_graph', name='report_graph'),
+    url(r'^term-of-use/$', 'app_eq_1.views.term_of_use', name='term_of_use'),
+    url(r'^report_graph/$', 'app_eq_1.views.report_graph', name='report_graph'),
     url(r'^redactor/', include('redactor.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'app_eq_1.views.home', name=''),
-    url(r'^index_old$', 'app_eq_1.views.home_old', name='home_old'),
+    url(r'^index_old/$', 'app_eq_1.views.home_old', name='home_old'),
     # url(r'^profile/home$', 'app_eq_1.views.profile_home', name='profile_home'),
-    url(r'^profile/mycourses$', 'app_eq_1.views.profile_mycourses', name='profile_mycourses'),
-    url(r'^profile/myusercourse', 'app_eq_1.views.profile_myusercourse', name='profile_myusercourse'),
-    url(r'^profile/mydaybook', 'app_eq_1.views.profile_mydaybook', name='profile_mydaybook'),
-    url(r'^profile/profile_my_conclusions', 'app_eq_1.views.profile_my_conclusions', name='profile_my_conclusions'),
-    url(r'^profile/mysetting', 'app_eq_1.views.profile_my_setting', name='profile_my_setting'),
+    url(r'^profile/mycourses/', 'app_eq_1.views.profile_mycourses', name='profile_mycourses'),
+    url(r'^profile/myusercourse/', 'app_eq_1.views.profile_myusercourse', name='profile_myusercourse'),
+    url(r'^profile/mydaybook/', 'app_eq_1.views.profile_mydaybook', name='profile_mydaybook'),
+    url(r'^profile/profile_my_conclusions/', 'app_eq_1.views.profile_my_conclusions', name='profile_my_conclusions'),
+    url(r'^profile/mysetting/', 'app_eq_1.views.profile_my_setting', name='profile_my_setting'),
 
     # url(r'^profile/courses$', 'app_eq_1.views.profile_courses', name='profile_courses'),
     # url(r'^profile/articles$', 'app_eq_1.views.profile_articles', name='profile_articles'),
@@ -75,6 +75,6 @@ urlpatterns = [
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
 
     url(r'^account/reset_password_confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView.as_view(), name='reset_password_confirm'),
-    url(r'^account/reset_password', ResetPasswordRequestView.as_view(), name="reset_password"),
+    url(r'^account/reset_password/', ResetPasswordRequestView.as_view(), name="reset_password"),
 
 ]

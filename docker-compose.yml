@@ -11,7 +11,7 @@ django:
     DBBACKUP_DROPBOX_APP_SECRET: "$DBBACKUP_DROPBOX_APP_SECRET"
     GOOGLE_ANALYTICS_ID: "$GOOGLE_ANALYTICS_ID"
   ports:
-   - "80:8000"
+   - "8080:8000"
    - "5555:5555"
   volumes:
    - .:/project
